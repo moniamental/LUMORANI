@@ -60,8 +60,6 @@ export function AgbView({ lang }: { lang: Locale }) {
 
         <h2>§ 8 Dispute resolution</h2>
         <p>
-          The European Commission provides a platform for online dispute resolution:{" "}
-          <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noreferrer">ec.europa.eu/consumers/odr</a>.
           We are neither obliged nor willing to take part in dispute resolution proceedings before a
           consumer arbitration board.
         </p>
@@ -122,8 +120,6 @@ export function AgbView({ lang }: { lang: Locale }) {
 
       <h2>§ 8 Streitbeilegung</h2>
       <p>
-        Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit:{" "}
-        <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noreferrer">ec.europa.eu/consumers/odr</a>.
         Wir sind nicht verpflichtet und nicht bereit, an einem Streitbeilegungsverfahren vor einer
         Verbraucherschlichtungsstelle teilzunehmen.
       </p>

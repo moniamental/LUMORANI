@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { SectionHeading } from "@/components/ds/core/SectionHeading.jsx";
 import { Button } from "@/components/ds/core/Button.jsx";
 import { ProductTile } from "@/components/site/ProductTile";
@@ -55,9 +54,7 @@ export function GeschenksetsView({ lang }: { lang: Locale }) {
         <Reveal>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "var(--space-8)", flexWrap: "wrap" }}>
             <SectionHeading align="left" size="md" eyebrow={t.recEyebrow} title={t.recTitle} rule={false} />
-            <Link href={lp("/shop?anlass=geschenk")} style={{ textDecoration: "none", flexShrink: 0 }}>
-              <Button variant="ghost" size="sm">{t.allGifts}</Button>
-            </Link>
+            <Button href={lp("/shop?anlass=geschenk")} variant="ghost" size="sm" style={{ flexShrink: 0 }}>{t.allGifts}</Button>
           </div>
         </Reveal>
         <RevealGroup className="lum-shop-grid" style={{ marginTop: "var(--space-16)" }} stagger={0.06}>
@@ -80,15 +77,9 @@ export function GeschenksetsView({ lang }: { lang: Locale }) {
               {t.undecidedTitle}
             </h2>
             <div style={{ marginTop: "var(--space-10)", display: "flex", gap: "var(--space-4)", justifyContent: "center", flexWrap: "wrap" }}>
-              <Link href={lp("/shop?anlass=anfang")} style={{ textDecoration: "none" }}>
-                <Button variant="inverse">{t.ctaMilestone}</Button>
-              </Link>
-              <Link href={lp("/shop?anlass=alltag")} style={{ textDecoration: "none" }}>
-                <Button variant="inverse">{t.ctaEveryday}</Button>
-              </Link>
-              <Link href={lp("/edelsteine")} style={{ textDecoration: "none" }}>
-                <Button variant="inverse">{t.ctaByStone}</Button>
-              </Link>
+              <Button href={lp("/shop?anlass=anfang")} variant="inverse">{t.ctaMilestone}</Button>
+              <Button href={lp("/shop?anlass=alltag")} variant="inverse">{t.ctaEveryday}</Button>
+              <Button href={lp("/edelsteine")} variant="inverse">{t.ctaByStone}</Button>
             </div>
           </Reveal>
         </div>

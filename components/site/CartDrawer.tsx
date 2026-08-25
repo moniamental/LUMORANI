@@ -15,6 +15,7 @@ const SILK = [0.16, 1, 0.3, 1] as const;
 
 export function CartDrawer() {
   const cart = useCart();
+  const { open: cartOpen, closeCart } = cart;
   const locale = useLocale();
   const t = getDict(locale).cart;
   const [gift, setGift] = React.useState(false);
@@ -22,6 +23,9 @@ export function CartDrawer() {
   const [promo, setPromo] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const dialogRef = React.useRef<HTMLElement>(null);
+  const closeRef = React.useRef<HTMLButtonElement>(null);
+  const returnFocusRef = React.useRef<HTMLElement | null>(null);
 
   async function checkout() {
     if (!cart.items.length) return;
@@ -51,32 +55,52 @@ export function CartDrawer() {
     }
   }
 
-  // Body-Scroll sperren, wenn offen
+  // Fokus in den modalen Warenkorb führen, dort halten und danach zurückgeben.
   React.useEffect(() => {
-    if (cart.open) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = prev;
-      };
-    }
-  }, [cart.open]);
+    if (!cartOpen) return;
+    returnFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const focusFrame = requestAnimationFrame(() => closeRef.current?.focus());
 
-  // ESC schließt
-  React.useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") cart.closeCart();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeCart();
+        return;
+      }
+      if (event.key !== "Tab" || !dialogRef.current) return;
+      const focusable = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [cart]);
+    return () => {
+      cancelAnimationFrame(focusFrame);
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = previousOverflow;
+      returnFocusRef.current?.focus();
+    };
+  }, [cartOpen, closeCart]);
 
   return (
     <AnimatePresence>
-      {cart.open ? (
+      {cartOpen ? (
         <React.Fragment key="cart">
           <motion.div
-            onClick={cart.closeCart}
+            onClick={closeCart}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -91,12 +115,13 @@ export function CartDrawer() {
             }}
           />
           <motion.aside
+            ref={dialogRef}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.42, ease: SILK }}
             role="dialog"
-            aria-label={t.title}
+            aria-labelledby="cart-title"
             aria-modal="true"
             style={{
               position: "fixed",
@@ -115,13 +140,15 @@ export function CartDrawer() {
             }}
           >
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <div style={{ fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-wide)", color: "var(--text-gold)" }}>
+              <div id="cart-title" style={{ fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-wide)", color: "var(--text-gold)" }}>
                 {t.title} ({cart.count})
               </div>
               <button
+                ref={closeRef}
+                type="button"
                 aria-label={t.close}
-                onClick={cart.closeCart}
-                style={{ background: "none", border: "none", color: "var(--text-muted)", fontSize: 20, cursor: "pointer", lineHeight: 1 }}
+                onClick={closeCart}
+                style={{ width: 44, height: 44, background: "none", border: "none", color: "var(--text-muted)", fontSize: 24, cursor: "pointer", lineHeight: 1 }}
               >
                 ×
               </button>
@@ -231,7 +258,7 @@ export function CartDrawer() {
                 {loading ? t.checkoutLoading : t.checkout}
               </Button>
               {error ? (
-                <div style={{ marginTop: "var(--space-4)", textAlign: "center", fontSize: "var(--text-micro)", color: "var(--status-error)" }}>
+                <div role="alert" aria-live="polite" style={{ marginTop: "var(--space-4)", textAlign: "center", fontSize: "var(--text-micro)", color: "var(--status-error)" }}>
                   {error}
                 </div>
               ) : null}

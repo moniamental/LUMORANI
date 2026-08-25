@@ -12,6 +12,7 @@ import {
   CATEGORIES,
   STONES,
   getOccasion,
+  productName,
   categoryLabel,
   gemName,
   occasionLabel,
@@ -62,14 +63,7 @@ export function ShopClient() {
   const [occasion, setOccasion] = React.useState<OccasionSlug | null>(urlOccasion);
   const [price, setPrice] = React.useState<string>("Alle Preise");
   const [sort, setSort] = React.useState<(typeof SORTS)[number]>("Empfohlen");
-
-  React.useEffect(() => setOccasion(urlOccasion), [urlOccasion]);
-  React.useEffect(() => {
-    setCategory(urlKategorie && (CATEGORIES as string[]).includes(urlKategorie) ? (urlKategorie as Category) : null);
-  }, [urlKategorie]);
-  React.useEffect(() => {
-    setGem(urlStein && STONES.includes(urlStein) ? urlStein : null);
-  }, [urlStein]);
+  const [query, setQuery] = React.useState("");
 
   const activeOccasion = occasion ? getOccasion(occasion) : undefined;
 
@@ -78,6 +72,7 @@ export function ShopClient() {
       (!category || p.category === category) &&
       (!gem || p.gem === gem) &&
       (!occasion || p.occasion === occasion) &&
+      (!query || `${productName(p, locale)} ${p.name} ${p.gem} ${categoryLabel(p.category, locale)} ${p.description}`.toLocaleLowerCase(locale).includes(query.toLocaleLowerCase(locale).trim())) &&
       inBracket(p.price, price),
   );
   if (sort === "Preis aufsteigend") list = list.slice().sort((a, b) => a.price - b.price);
@@ -110,8 +105,22 @@ export function ShopClient() {
         ) : null}
       </div>
 
+      <div style={{ marginTop: "var(--space-12)", maxWidth: 520 }}>
+        <label htmlFor="produktsuche" style={{ display: "block", marginBottom: 8, fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-tight)", color: "var(--text-muted)" }}>
+          {t.searchLabel}
+        </label>
+        <input
+          id="produktsuche"
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder={t.searchPlaceholder}
+          style={{ width: "100%", minHeight: 48, padding: "12px 14px", background: "var(--ink-800)", border: "1px solid var(--border-hairline-strong)", color: "var(--text-primary)", font: "inherit" }}
+        />
+      </div>
+
       {/* Filterleiste */}
-      <div style={{ marginTop: "var(--space-16)", display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "var(--space-8)", flexWrap: "wrap" }}>
+      <div style={{ marginTop: "var(--space-10)", display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "var(--space-8)", flexWrap: "wrap" }}>
         {/* Art-Chips */}
         <div style={{ display: "flex", gap: "var(--space-2)", flexWrap: "wrap" }}>
           <Tag selected={!category} onClick={() => setCategory(null)}>{t.filterAll}</Tag>
@@ -161,11 +170,9 @@ export function ShopClient() {
             {t.emptyBody}
           </p>
           <div style={{ marginTop: "var(--space-8)", display: "flex", gap: "var(--space-4)", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href={lp("/kontakt")} style={{ textDecoration: "none" }}>
-              <Button size="lg">{t.emptyCta}</Button>
-            </Link>
+            <Button href={lp("/kontakt")} size="lg">{t.emptyCta}</Button>
             <button
-              onClick={() => { setCategory(null); setGem(null); setOccasion(null); setPrice("Alle Preise"); }}
+              onClick={() => { setCategory(null); setGem(null); setOccasion(null); setPrice("Alle Preise"); setQuery(""); }}
               style={{ background: "none", border: "1px solid var(--border-hairline-strong)", borderRadius: "var(--radius-button)", color: "var(--text-primary)", padding: "15px 32px", fontFamily: "var(--font-sans)", fontSize: 11, textTransform: "uppercase", letterSpacing: "var(--tracking-caps)", cursor: "pointer" }}
             >
               {t.resetFilters}

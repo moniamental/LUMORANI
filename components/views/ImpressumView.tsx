@@ -5,7 +5,7 @@ export function ImpressumView({ lang }: { lang: Locale }) {
   if (lang === "en") {
     return (
       <LegalShell eyebrow="Legal" title="Imprint">
-        <p>Information pursuant to § 5 TMG (German Telemedia Act).</p>
+        <p>Information pursuant to § 5 DDG (German Digital Services Act).</p>
 
         <h2>Provider</h2>
         <p>
@@ -18,22 +18,11 @@ export function ImpressumView({ lang }: { lang: Locale }) {
 
         <h2>Contact</h2>
         <p>
-          Phone: <strong>[phone number to follow]</strong>
-          <br />
           Email: <a href="mailto:info@lumorani.com">info@lumorani.com</a>
         </p>
 
         <h2>Responsible for content</h2>
         <p>Samir Sobhani, address as above.</p>
-
-        <h2>EU online dispute resolution</h2>
-        <p>
-          The European Commission provides a platform for online dispute resolution (ODR):{" "}
-          <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noreferrer">
-            https://ec.europa.eu/consumers/odr/
-          </a>
-          . You can find our email address above.
-        </p>
 
         <h2>Consumer dispute resolution</h2>
         <p>
@@ -46,7 +35,7 @@ export function ImpressumView({ lang }: { lang: Locale }) {
 
   return (
     <LegalShell title="Impressum">
-      <p>Angaben gemäß § 5 TMG</p>
+      <p>Angaben gemäß § 5 DDG</p>
 
       <h2>Anbieter</h2>
       <p>
@@ -59,22 +48,11 @@ export function ImpressumView({ lang }: { lang: Locale }) {
 
       <h2>Kontakt</h2>
       <p>
-        Telefon: <strong>[Telefonnummer wird ergänzt]</strong>
-        <br />
         E-Mail: <a href="mailto:info@lumorani.com">info@lumorani.com</a>
       </p>
 
       <h2>Redaktionell verantwortlich</h2>
       <p>Samir Sobhani, Anschrift wie oben.</p>
-
-      <h2>EU-Streitschlichtung</h2>
-      <p>
-        Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:{" "}
-        <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noreferrer">
-          https://ec.europa.eu/consumers/odr/
-        </a>
-        . Unsere E-Mail-Adresse findest du oben im Impressum.
-      </p>
 
       <h2>Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
       <p>

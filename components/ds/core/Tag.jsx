@@ -9,7 +9,7 @@ export function Tag({ children, selected = false, onClick, disabled, style }) {
       type="button" onClick={onClick} disabled={disabled} aria-pressed={interactive ? selected : undefined}
       onMouseEnter={function () { setHover(true); }} onMouseLeave={function () { setHover(false); }}
       style={{
-        display: "inline-flex", alignItems: "center", gap: "8px", padding: "9px 16px",
+        display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: 44, gap: "8px", padding: "9px 16px",
         fontFamily: "var(--font-sans)", fontSize: "var(--text-micro)", fontWeight: "var(--weight-medium)",
         textTransform: "uppercase", letterSpacing: "var(--tracking-caps-tight)",
         borderRadius: "var(--radius-pill)", cursor: interactive && !disabled ? "pointer" : "default",

@@ -88,7 +88,7 @@ export function ProductDetail({
         </div>
 
         {/* Kaufspalte */}
-        <div>
+        <div className="lum-product-buybox">
           <div style={{ fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-wide)", color: "var(--text-gold)" }}>
             {gem}
           </div>

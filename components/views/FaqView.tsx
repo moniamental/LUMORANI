@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { SectionHeading } from "@/components/ds/core/SectionHeading.jsx";
 import { Button } from "@/components/ds/core/Button.jsx";
 import { Accordion, type QA } from "@/components/site/Accordion";
@@ -73,9 +72,7 @@ export function FaqView({ lang }: { lang: Locale }) {
 
           <div style={{ marginTop: "var(--space-16)", textAlign: "center" }}>
             <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-body)" }}>{t.moreQ}</p>
-            <Link href={localePath(lang, "/kontakt")} style={{ textDecoration: "none" }}>
-              <Button size="lg" style={{ marginTop: "var(--space-6)" }}>{t.writeUs}</Button>
-            </Link>
+            <Button href={localePath(lang, "/kontakt")} size="lg" style={{ marginTop: "var(--space-6)" }}>{t.writeUs}</Button>
           </div>
         </div>
       </section>

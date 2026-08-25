@@ -76,7 +76,7 @@ export function ContactForm() {
 
   if (sent) {
     return (
-      <div style={{ border: "1px solid var(--border-gold)", borderRadius: "var(--radius-card)", padding: "var(--space-10)", background: "rgba(201,162,74,.06)" }}>
+      <div role="status" aria-live="polite" style={{ border: "1px solid var(--border-gold)", borderRadius: "var(--radius-card)", padding: "var(--space-10)", background: "rgba(201,162,74,.06)" }}>
         <div style={{ fontFamily: "var(--font-display)", fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-light)" }}>
           {t.sentTitle(name.split(" ")[0])}
         </div>
@@ -128,7 +128,7 @@ export function ContactForm() {
       </div>
 
       {error ? (
-        <div style={{ fontSize: "var(--text-caption)", color: "var(--status-error)" }}>{error}</div>
+        <div role="alert" style={{ fontSize: "var(--text-caption)", color: "var(--status-error)" }}>{error}</div>
       ) : null}
 
       <div>

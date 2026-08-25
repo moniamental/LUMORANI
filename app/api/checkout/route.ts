@@ -1,8 +1,17 @@
 import { getStripe } from "@/lib/stripe";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { PRODUCTS } from "@/lib/catalog";
 import type Stripe from "stripe";
 
 export async function POST(req: Request) {
+  const limit = rateLimit(`checkout:${clientIp(req)}`, 12, 10 * 60 * 1000);
+  if (!limit.allowed) {
+    return Response.json(
+      { error: "Zu viele Checkout-Versuche. Bitte warte einen Moment." },
+      { status: 429, headers: { "Retry-After": String(limit.retryAfter) } },
+    );
+  }
+
   const stripe = getStripe();
   if (!stripe) {
     return Response.json(
@@ -54,8 +63,15 @@ export async function POST(req: Request) {
     return Response.json({ error: "Dein Warenkorb ist leer." }, { status: 400 });
   }
 
-  const origin =
-    req.headers.get("origin") || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  let origin: string;
+  try {
+    const parsed = new URL(configuredSiteUrl || "http://localhost:3000");
+    if (parsed.protocol !== "https:" && parsed.hostname !== "localhost") throw new Error("invalid protocol");
+    origin = parsed.origin;
+  } catch {
+    return Response.json({ error: "Der Shop ist noch nicht vollständig konfiguriert." }, { status: 503 });
+  }
 
   // Gutscheincode: als Stripe-Promotion-Code auflösen (falls gesetzt)
   let discounts: Stripe.Checkout.SessionCreateParams.Discount[] | undefined;
@@ -95,7 +111,7 @@ export async function POST(req: Request) {
     });
     return Response.json({ url: session.url });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unbekannter Fehler beim Checkout.";
-    return Response.json({ error: message }, { status: 500 });
+    console.error("[checkout] Stripe session creation failed", err);
+    return Response.json({ error: "Der Checkout ist gerade nicht verfügbar. Bitte versuch es erneut." }, { status: 502 });
   }
 }

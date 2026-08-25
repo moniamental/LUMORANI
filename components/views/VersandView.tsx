@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { SectionHeading } from "@/components/ds/core/SectionHeading.jsx";
 import { Button } from "@/components/ds/core/Button.jsx";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
@@ -87,9 +86,7 @@ export function VersandView({ lang }: { lang: Locale }) {
           </div>
         </Reveal>
         <div style={{ textAlign: "center", marginTop: "var(--space-12)" }}>
-          <Link href={localePath(lang, "/shop")} style={{ textDecoration: "none" }}>
-            <Button size="lg">{t.cta}</Button>
-          </Link>
+          <Button href={localePath(lang, "/shop")} size="lg">{t.cta}</Button>
         </div>
       </section>
     </main>

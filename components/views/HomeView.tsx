@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Hero } from "@/components/home/Hero";
 import { Newsletter } from "@/components/home/Newsletter";
 import { CategoryTile } from "@/components/site/CategoryTile";
@@ -76,11 +75,9 @@ export function HomeView({ lang }: { lang: Locale }) {
               <p style={{ marginTop: "var(--space-5)", fontSize: "var(--text-body-sm)", fontWeight: "var(--weight-light)", lineHeight: "var(--leading-body)", color: "var(--text-muted)" }}>
                 {t.storyBody}
               </p>
-              <Link href={lp("/ueber-uns")} style={{ textDecoration: "none" }}>
-                <Button variant="ghost" style={{ marginTop: "var(--space-8)" }}>
-                  {t.storyCta}
-                </Button>
-              </Link>
+              <Button href={lp("/ueber-uns")} variant="ghost" style={{ marginTop: "var(--space-8)" }}>
+                {t.storyCta}
+              </Button>
             </div>
           </Reveal>
         </div>
@@ -91,11 +88,9 @@ export function HomeView({ lang }: { lang: Locale }) {
         <Reveal>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "var(--space-8)" }}>
             <SectionHeading align="left" size="md" eyebrow={t.newsEyebrow} title={t.newsTitle} rule={false} />
-            <Link href={lp("/shop")} style={{ textDecoration: "none", flexShrink: 0 }}>
-              <Button variant="ghost" size="sm">
-                {getDict(lang).common.shopAll}
-              </Button>
-            </Link>
+            <Button href={lp("/shop")} variant="ghost" size="sm" style={{ flexShrink: 0 }}>
+              {getDict(lang).common.shopAll}
+            </Button>
           </div>
         </Reveal>
         <RevealGroup className="lum-grid-4" style={{ marginTop: "var(--space-12)" }}>
@@ -116,11 +111,9 @@ export function HomeView({ lang }: { lang: Locale }) {
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: "var(--weight-light)", fontSize: "var(--text-display-3)", lineHeight: "var(--leading-display)" }}>
             {t.quote}
           </h2>
-          <Link href={lp("/edelsteine")} style={{ textDecoration: "none" }}>
-            <Button variant="secondary" style={{ marginTop: "var(--space-10)" }}>
-              {getDict(lang).common.viewGemstones}
-            </Button>
-          </Link>
+          <Button href={lp("/edelsteine")} variant="secondary" style={{ marginTop: "var(--space-10)" }}>
+            {getDict(lang).common.viewGemstones}
+          </Button>
         </Reveal>
       </section>
 

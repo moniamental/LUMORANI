@@ -12,6 +12,22 @@ body {
   overflow-x: hidden;
 }
 
+.lum-skip-link {
+  position: fixed;
+  left: var(--space-4);
+  top: var(--space-4);
+  z-index: 1000;
+  padding: 12px 18px;
+  background: var(--gold-300);
+  color: var(--ink-1000);
+  font-weight: var(--weight-medium);
+  transform: translateY(-180%);
+  transition: transform 160ms ease;
+}
+.lum-skip-link:focus {
+  transform: translateY(0);
+}
+
 /* Layout-Helfer für Produktionsseiten */
 .lum-page {
   max-width: var(--page-max, 1440px);
@@ -113,6 +129,13 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: var(--space-24);
   align-items: center;
+}
+
+@media (min-width: 1001px) {
+  .lum-product-buybox {
+    position: sticky;
+    top: 150px;
+  }
 }
 
 /* Luftigeres Shop-Grid — 3-up für mehr Weißraum (Luxus) */

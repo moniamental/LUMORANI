@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Button } from "@/components/ds/core/Button.jsx";
 import { localePath } from "@/lib/i18n";
 import { getDict } from "@/lib/dict";
@@ -30,12 +29,8 @@ export default function NotFound() {
         {t.body}
       </p>
       <div style={{ marginTop: "var(--space-4)", display: "flex", gap: "var(--space-4)", flexWrap: "wrap", justifyContent: "center" }}>
-        <Link href={localePath(locale, "/shop")} style={{ textDecoration: "none" }}>
-          <Button size="lg">{t.toShop}</Button>
-        </Link>
-        <Link href={localePath(locale, "/")} style={{ textDecoration: "none" }}>
-          <Button size="lg" variant="outline">{t.toHome}</Button>
-        </Link>
+        <Button href={localePath(locale, "/shop")} size="lg">{t.toShop}</Button>
+        <Button href={localePath(locale, "/")} size="lg" variant="outline">{t.toHome}</Button>
       </div>
     </main>
   );

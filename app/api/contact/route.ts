@@ -1,4 +1,5 @@
 import { getResend } from "@/lib/resend";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -7,6 +8,14 @@ function esc(s: string) {
 }
 
 export async function POST(req: Request) {
+  const limit = rateLimit(`contact:${clientIp(req)}`, 5, 15 * 60 * 1000);
+  if (!limit.allowed) {
+    return Response.json(
+      { error: "Zu viele Nachrichten. Bitte versuch es später erneut." },
+      { status: 429, headers: { "Retry-After": String(limit.retryAfter) } },
+    );
+  }
+
   let body: unknown;
   try {
     body = await req.json();

@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "framer-motion";
 import { Button } from "@/components/ds/core/Button.jsx";
 import { IMG } from "@/lib/catalog";
@@ -102,7 +101,7 @@ export function Hero() {
             maxWidth: 520,
             fontSize: "var(--text-body)",
             fontWeight: "var(--weight-light)",
-            color: "var(--text-secondary)",
+            color: "rgba(255,255,255,.88)",
           }}
         >
           {t.sub}
@@ -111,14 +110,10 @@ export function Hero() {
           variants={item}
           style={{ marginTop: "var(--space-10)", display: "flex", gap: "var(--space-4)", justifyContent: "center", flexWrap: "wrap" }}
         >
-          <Link href={localePath(locale, "/shop")} style={{ textDecoration: "none" }}>
-            <Button size="lg">{t.ctaPrimary}</Button>
-          </Link>
-          <Link href={localePath(locale, "/edelsteine")} style={{ textDecoration: "none" }}>
-            <Button size="lg" variant="outline">
-              {t.ctaSecondary}
-            </Button>
-          </Link>
+          <Button href={localePath(locale, "/shop")} size="lg">{t.ctaPrimary}</Button>
+          <Button href={localePath(locale, "/edelsteine")} size="lg" variant="outline">
+            {t.ctaSecondary}
+          </Button>
         </motion.div>
       </motion.div>
 

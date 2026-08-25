@@ -63,13 +63,15 @@ export default function RootLayout({
   return (
     <html
       lang="de"
+      data-scroll-behavior="smooth"
       className={`${cinzel.variable} ${cormorant.variable} ${jost.variable}`}
     >
       <body>
+        <a className="lum-skip-link" href="#main-content">Zum Hauptinhalt springen</a>
         <CartProvider>
           <HtmlLangSync />
           <NavBar />
-          {children}
+          <div id="main-content" tabIndex={-1}>{children}</div>
           <SiteFooter />
           <CartDrawer />
         </CartProvider>

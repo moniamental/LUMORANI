@@ -19,7 +19,10 @@ export function NavBar() {
   const t = getDict(locale).nav;
   const cart = useCart();
   const [scrolled, setScrolled] = React.useState(false);
-  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [menuState, setMenuState] = React.useState({ open: false, path: pathname });
+  const menuOpen = menuState.open && menuState.path === pathname;
+  const closeMenu = () => setMenuState({ open: false, path: pathname });
+  const menuRef = React.useRef<HTMLDivElement>(null);
 
   const LINKS: NavItem[] = [
     { label: t.shop, href: localePath(locale, "/shop") },
@@ -39,19 +42,26 @@ export function NavBar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Menü bei Routenwechsel schließen
-  React.useEffect(() => setMenuOpen(false), [pathname]);
-
   // Body-Scroll sperren bei offenem Menü
   React.useEffect(() => {
     if (menuOpen) {
       const prev = document.body.style.overflow;
+      const background = [document.getElementById("main-content"), document.querySelector("footer")].filter(Boolean) as HTMLElement[];
       document.body.style.overflow = "hidden";
+      background.forEach((element) => element.setAttribute("inert", ""));
+      const focusFrame = requestAnimationFrame(() => menuRef.current?.querySelector<HTMLAnchorElement>("nav a")?.focus());
+      const onKey = (event: KeyboardEvent) => {
+        if (event.key === "Escape") setMenuState({ open: false, path: pathname });
+      };
+      window.addEventListener("keydown", onKey);
       return () => {
+        cancelAnimationFrame(focusFrame);
+        window.removeEventListener("keydown", onKey);
+        background.forEach((element) => element.removeAttribute("inert"));
         document.body.style.overflow = prev;
       };
     }
-  }, [menuOpen]);
+  }, [menuOpen, pathname]);
 
   return (
     <header style={{ position: "sticky", top: 0, zIndex: 40 }}>
@@ -86,7 +96,7 @@ export function NavBar() {
         }}
       >
         {/* Logo links — exakt auf den Inhalt beschnitten (Diamant nicht abgeschnitten) */}
-        <Link href={homeHref} aria-label={`LUMORANI — ${t.start}`} style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+        <Link href={homeHref} aria-label={`LUMORANI — ${t.start}`} style={{ display: "flex", alignItems: "center", minHeight: 44, flexShrink: 0 }}>
           <span style={{ display: "block", width: 78, height: 40, overflow: "hidden" }}>
             <Image
               src="/assets/logo-lumorani.svg"
@@ -109,9 +119,9 @@ export function NavBar() {
         {/* Rechts: Sprache + Icons + Burger */}
         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-1)", marginLeft: "auto", flexShrink: 0 }}>
           <LangSwitch pathname={pathname} locale={locale} label={t.langLabel} />
-          <IconBtn label={t.search}>
+          <IconLink label={t.search} href={`${localePath(locale, "/shop")}#produktsuche`}>
             <SearchGlyph />
-          </IconBtn>
+          </IconLink>
           <span style={{ position: "relative" }}>
             <IconBtn label={t.cart} onClick={cart.openCart}>
               <BagGlyph />
@@ -142,9 +152,9 @@ export function NavBar() {
             type="button"
             aria-label={menuOpen ? t.menuClose : t.menuOpen}
             aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((v) => !v)}
+            onClick={() => setMenuState((v) => ({ open: !(v.open && v.path === pathname), path: pathname }))}
             className="lum-nav-burger"
-            style={{ width: 40, height: 40, placeItems: "center", background: "none", border: "none", cursor: "pointer", color: "var(--text-primary)" }}
+            style={{ width: 44, height: 44, placeItems: "center", background: "none", border: "none", cursor: "pointer", color: "var(--text-primary)" }}
           >
             <BurgerGlyph open={menuOpen} />
           </button>
@@ -155,6 +165,7 @@ export function NavBar() {
       <AnimatePresence>
         {menuOpen ? (
           <motion.div
+            ref={menuRef}
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
@@ -182,7 +193,7 @@ export function NavBar() {
                 >
                   <Link
                     href={l.href}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenu}
                     style={{
                       display: "block",
                       padding: "var(--space-4) 0",
@@ -200,7 +211,7 @@ export function NavBar() {
             </nav>
             <div style={{ marginTop: "auto", padding: "var(--space-10) var(--page-pad-mobile)", fontSize: "var(--text-body-sm)", color: "var(--text-muted)" }}>
               <div style={{ marginBottom: "var(--space-6)" }}>
-                <LangSwitch pathname={pathname} locale={locale} label={t.langLabel} onNavigate={() => setMenuOpen(false)} />
+                <LangSwitch pathname={pathname} locale={locale} label={t.langLabel} onNavigate={closeMenu} />
               </div>
               <a href="mailto:info@lumorani.com" style={{ color: "var(--text-gold)" }}>info@lumorani.com</a>
             </div>
@@ -259,8 +270,8 @@ function IconBtn({ label, onClick, children }: { label: string; onClick?: () => 
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{
-        width: 40,
-        height: 40,
+        width: 44,
+        height: 44,
         display: "grid",
         placeItems: "center",
         borderRadius: "var(--radius-pill)",
@@ -273,6 +284,31 @@ function IconBtn({ label, onClick, children }: { label: string; onClick?: () => 
     >
       {children}
     </button>
+  );
+}
+
+function IconLink({ label, href, children }: { label: string; href: string; children: React.ReactNode }) {
+  const [hover, setHover] = React.useState(false);
+  return (
+    <Link
+      aria-label={label}
+      href={href}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        width: 44,
+        height: 44,
+        display: "grid",
+        placeItems: "center",
+        borderRadius: "var(--radius-pill)",
+        border: "1px solid transparent",
+        background: hover ? "rgba(244,241,236,.06)" : "transparent",
+        color: hover ? "var(--gold-200)" : "var(--text-secondary)",
+        transition: "var(--transition-hover)",
+      }}
+    >
+      {children}
+    </Link>
   );
 }
 
@@ -313,7 +349,11 @@ function LangSwitch({
                 fontWeight: active ? "var(--weight-medium)" : "var(--weight-regular)",
                 letterSpacing: "var(--tracking-caps-tight)",
                 textDecoration: "none",
-                padding: "6px 6px",
+                minWidth: 44,
+                minHeight: 44,
+                display: "grid",
+                placeItems: "center",
+                padding: "6px",
                 color: active ? "var(--gold-200)" : "var(--text-muted)",
                 transition: "var(--transition-hover)",
               }}

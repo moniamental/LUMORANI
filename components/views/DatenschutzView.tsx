@@ -67,8 +67,6 @@ export function DatenschutzView({ lang }: { lang: Locale }) {
           <br />
           Samir Sobhani, Bussardstraße 21, 68307 Mannheim, Germany
           <br />
-          Phone: [phone number to follow]
-          <br />
           Email: <a href="mailto:info@lumorani.com">info@lumorani.com</a>
         </p>
         <h3>Storage period</h3>
@@ -211,8 +209,6 @@ export function DatenschutzView({ lang }: { lang: Locale }) {
         Verantwortlich für die Datenverarbeitung auf dieser Website ist:
         <br />
         Samir Sobhani, Bussardstraße 21, 68307 Mannheim
-        <br />
-        Telefon: [Telefonnummer wird ergänzt]
         <br />
         E-Mail: <a href="mailto:info@lumorani.com">info@lumorani.com</a>
       </p>

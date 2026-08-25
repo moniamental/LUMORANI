@@ -34,7 +34,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = React.useState(false);
   const [hydrated, setHydrated] = React.useState(false);
 
-  // aus localStorage laden
+  // Synchronisation mit dem ausschließlich im Browser verfügbaren Speicher.
+  /* eslint-disable react-hooks/set-state-in-effect */
   React.useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -44,6 +45,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
     setHydrated(true);
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   // persistieren
   React.useEffect(() => {
@@ -83,6 +85,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const clear = React.useCallback(() => setItems([]), []);
+  const openCart = React.useCallback(() => setOpen(true), []);
+  const closeCart = React.useCallback(() => setOpen(false), []);
 
   const count = items.reduce((n, it) => n + it.qty, 0);
   const subtotal = items.reduce((n, it) => n + it.qty * it.price, 0);
@@ -96,8 +100,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setQty,
     remove,
     clear,
-    openCart: () => setOpen(true),
-    closeCart: () => setOpen(false),
+    openCart,
+    closeCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

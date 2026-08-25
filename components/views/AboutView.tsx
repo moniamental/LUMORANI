@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { SectionHeading } from "@/components/ds/core/SectionHeading.jsx";
 import { Button } from "@/components/ds/core/Button.jsx";
 import { LoopVideo } from "@/components/site/LoopVideo";
@@ -198,12 +197,8 @@ export function AboutView({ lang }: { lang: Locale }) {
             {t.ctaSub}
           </p>
           <div style={{ marginTop: "var(--space-8)", display: "flex", gap: "var(--space-4)", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href={lp("/shop")} style={{ textDecoration: "none" }}>
-              <Button size="lg">{t.ctaShop}</Button>
-            </Link>
-            <Link href={lp("/edelsteine")} style={{ textDecoration: "none" }}>
-              <Button size="lg" variant="outline">{t.ctaGems}</Button>
-            </Link>
+            <Button href={lp("/shop")} size="lg">{t.ctaShop}</Button>
+            <Button href={lp("/edelsteine")} size="lg" variant="outline">{t.ctaGems}</Button>
           </div>
         </Reveal>
       </section>
