@@ -34,14 +34,17 @@ const jost = Jost({
 });
 
 // Eine Quelle der Wahrheit für Canonicals/OG/Sitemap/Robots.
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lumorani.com";
-// Solange der Shop auf der temporären vercel.app-Adresse läuft: nicht indexieren
-// (verhindert Duplicate Content; hebt sich automatisch auf, sobald SITE_URL = lumorani.com).
-const isTempDomain = SITE_URL.includes("vercel.app");
+// Default = aktuelle öffentliche Adresse (vercel.app), NICHT lumorani.com — so ist ein
+// unkonfigurierter/temporärer Deploy „sicher" (siehe Indexierung unten).
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lumorani.vercel.app";
+// Nur die echte Produktionsdomain darf indexiert werden. Alles andere (vercel.app,
+// unkonfiguriert) → noindex, damit kein Duplicate Content entsteht. Aktiviert sich für
+// die Suche automatisch, sobald NEXT_PUBLIC_SITE_URL = https://lumorani.com gesetzt ist.
+const isProdDomain = SITE_URL.includes("lumorani.com");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  ...(isTempDomain ? { robots: { index: false, follow: true } } : {}),
+  ...(isProdDomain ? {} : { robots: { index: false, follow: true } }),
   title: {
     default: "LUMORANI — Echte Edelsteine. Zeitloses Design.",
     template: "%s — LUMORANI",
