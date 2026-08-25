@@ -1,0 +1,173 @@
+/* LUMORANI — globale Styles.
+   Das Design-System (Tokens + Base) ist der einzige Styling-Ursprung. */
+@import "./ds/styles.css";
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+/* Layout-Helfer für Produktionsseiten */
+.lum-page {
+  max-width: var(--page-max, 1440px);
+  margin: 0 auto;
+  padding-left: var(--page-pad, 56px);
+  padding-right: var(--page-pad, 56px);
+}
+
+.lum-section {
+  padding: var(--section-y) var(--page-pad);
+  max-width: var(--page-max);
+  margin: 0 auto;
+}
+
+/* Fließtext für Rechts-/Story-Seiten */
+.lum-prose {
+  max-width: 68ch;
+  color: var(--text-secondary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-body);
+}
+.lum-prose h2 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-light);
+  font-size: var(--text-title);
+  color: var(--text-primary);
+  margin: var(--space-12) 0 var(--space-4);
+}
+.lum-prose h3 {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps-tight);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--text-gold);
+  margin: var(--space-8) 0 var(--space-3);
+}
+.lum-prose p {
+  margin: 0 0 var(--space-4);
+}
+.lum-prose a {
+  color: var(--text-gold);
+}
+.lum-prose strong {
+  color: var(--text-primary);
+  font-weight: var(--weight-regular);
+}
+
+/* Trust-Band */
+@media (max-width: 900px) {
+  .lum-trust {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: var(--space-5) !important;
+  }
+}
+@media (max-width: 520px) {
+  .lum-trust {
+    grid-template-columns: 1fr !important;
+  }
+  .lum-trust > div {
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+}
+
+/* Navigation */
+.lum-nav-links {
+  display: flex;
+  gap: clamp(18px, 2vw, 40px);
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+.lum-nav-burger {
+  display: none;
+}
+@media (max-width: 900px) {
+  .lum-nav-links {
+    display: none;
+  }
+  .lum-nav-burger {
+    display: grid;
+  }
+}
+
+.lum-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gutter);
+}
+.lum-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gutter);
+}
+.lum-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-24);
+  align-items: center;
+}
+
+/* Luftigeres Shop-Grid — 3-up für mehr Weißraum (Luxus) */
+.lum-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: var(--space-8);
+  row-gap: var(--space-16);
+}
+@media (max-width: 1000px) {
+  .lum-shop-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: var(--space-12);
+  }
+}
+@media (max-width: 560px) {
+  .lum-shop-grid {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-10);
+  }
+}
+
+/* Tablet */
+@media (max-width: 1000px) {
+  .lum-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .lum-grid-3 {
+    grid-template-columns: 1fr;
+  }
+  .lum-split,
+  .lum-newsletter-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-12) !important;
+  }
+  .lum-footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .lum-page {
+    padding-left: var(--page-pad-mobile);
+    padding-right: var(--page-pad-mobile);
+  }
+  .lum-section {
+    padding: var(--section-y-tight) var(--page-pad-mobile);
+  }
+  .lum-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+  .lum-footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-10) !important;
+  }
+}

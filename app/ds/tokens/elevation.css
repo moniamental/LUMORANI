@@ -1,0 +1,14 @@
+:root{
+  /* On near-black, elevation reads as glow + hairline, not drop shadow. */
+  --shadow-none:none;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.5);
+  --shadow-md:0 12px 32px -12px rgba(0,0,0,.7);
+  --shadow-lg:0 32px 80px -24px rgba(0,0,0,.85);
+  --shadow-inset-hairline:inset 0 0 0 1px rgba(244,241,236,.08);
+  --glow-gold:0 0 0 1px rgba(201,162,74,.4),0 18px 48px -20px rgba(201,162,74,.45);
+  --glow-gold-strong:0 0 0 1px rgba(217,182,95,.7),0 24px 64px -18px rgba(201,162,74,.6);
+  --glow-crystal:0 0 40px -8px rgba(220,227,232,.35);
+  --shadow-card:var(--shadow-md),var(--shadow-inset-hairline);
+  --blur-glass:18px;
+  --blur-veil:36px;
+}

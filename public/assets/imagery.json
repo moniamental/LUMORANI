@@ -1,0 +1,14 @@
+{
+  "hero": "assets/imagery/collection-marble.png",
+  "tray": "assets/imagery/collection-tray.png",
+  "silk": "assets/imagery/collection-gold-silk.png",
+  "rubin": "assets/imagery/gem-rubin.png",
+  "smaragd": "assets/imagery/gem-smaragd.png",
+  "aquamarin": "assets/imagery/gem-aquamarin.png",
+  "turmalin": "assets/imagery/gem-turmalin.png",
+  "achat": "assets/imagery/gem-achat.png",
+  "calcit": "assets/imagery/gem-calcit.png",
+  "diamant": "assets/imagery/gem-diamant.png",
+  "quarz": "assets/imagery/gem-quarz.png",
+  "box": "assets/imagery/box-lumorani-emerald.png"
+}

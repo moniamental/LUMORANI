@@ -1,0 +1,15 @@
+:root{
+  /* Luxury = near-square. Radii stay small; pills only for chips + icon buttons. */
+  --radius-none:0px;
+  --radius-xs:2px;
+  --radius-sm:3px;
+  --radius-md:4px;
+  --radius-lg:8px;
+  --radius-xl:14px;
+  --radius-pill:999px;
+  --radius-card:var(--radius-xs);
+  --radius-button:var(--radius-xs);
+  --radius-input:var(--radius-xs);
+  --radius-image:var(--radius-none);
+  --hairline:1px;
+}

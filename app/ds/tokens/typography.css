@@ -1,0 +1,45 @@
+:root{
+  /* Familien werden via next/font (self-hosted) gesetzt: --font-cinzel / --font-cormorant / --font-jost */
+  --font-wordmark:var(--font-cinzel),-apple-system,"Times New Roman",serif;
+  --font-display:var(--font-cormorant),"Cinzel",Georgia,serif;
+  --font-sans:var(--font-jost),"Helvetica Neue",Arial,sans-serif;
+  --font-mono:ui-monospace,"SFMono-Regular",Menlo,monospace;
+
+  /* Display scale — editorial serif, tight leading */
+  --text-hero:clamp(52px,7.5vw,116px);
+  --text-display-1:72px;
+  --text-display-2:56px;
+  --text-display-3:42px;
+  --text-title:32px;
+  --text-subtitle:24px;
+
+  /* UI / body scale — Jost */
+  --text-body-lg:18px;
+  --text-body:16px;
+  --text-body-sm:14px;
+  --text-caption:13px;
+  --text-micro:11px;
+
+  --leading-tight:.94; /* @kind font */
+  --leading-display:1.06; /* @kind font */
+  --leading-snug:1.3; /* @kind font */
+  --leading-body:1.62; /* @kind font */
+  --leading-loose:1.8; /* @kind font */
+
+  --weight-light:300;--weight-regular:400;--weight-medium:500;--weight-semibold:600;--weight-bold:700;
+
+  /* Tracking — wide caps are the brand's signature */
+  --tracking-hero:-0.02em; /* @kind font */
+  --tracking-display:-0.01em; /* @kind font */
+  --tracking-body:0.005em; /* @kind font */
+  --tracking-caps:0.22em; /* @kind font */
+  --tracking-caps-tight:0.14em; /* @kind font */
+  --tracking-caps-wide:0.34em; /* @kind font */
+
+  /* Semantic aliases */
+  --type-eyebrow-size:var(--text-micro);
+  --type-eyebrow-tracking:var(--tracking-caps-wide); /* @kind font */
+  --type-nav-size:var(--text-caption);
+  --type-nav-tracking:var(--tracking-caps-tight); /* @kind font */
+  --type-price-family:var(--font-sans);
+}
