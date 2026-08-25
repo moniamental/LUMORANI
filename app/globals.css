@@ -4,12 +4,28 @@
 
 html {
   height: 100%;
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; /* Fallback ohne JS / bei reduced-motion */
 }
 
 body {
   min-height: 100%;
   overflow-x: hidden;
+}
+
+/* Lenis Smooth-Scroll — übernimmt, sobald aktiv (deaktiviert natives Smooth, um Konflikte zu vermeiden) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+html.lenis,
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
 }
 
 .lum-skip-link {
@@ -100,7 +116,11 @@ body {
   gap: clamp(18px, 2vw, 40px);
   align-items: center;
   justify-content: center;
-  flex: 1;
+  /* Echt auf die Viewport-Mitte zentriert — unabhängig von Logo-/Icon-Breite */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .lum-nav-burger {
   display: none;

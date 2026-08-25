@@ -19,6 +19,7 @@ export function NavBar() {
   const t = getDict(locale).nav;
   const cart = useCart();
   const [scrolled, setScrolled] = React.useState(false);
+  const [hidden, setHidden] = React.useState(false);
   const [menuState, setMenuState] = React.useState({ open: false, path: pathname });
   const menuOpen = menuState.open && menuState.path === pathname;
   const closeMenu = () => setMenuState({ open: false, path: pathname });
@@ -35,8 +36,18 @@ export function NavBar() {
   const isHome = pathname === "/" || pathname === "/en";
   const transparent = isHome && !scrolled && !menuOpen;
 
+  // Scroll: Zustand (transparent/kompakt) + Richtung (Nav ein-/ausblenden)
+  const lastY = React.useRef(0);
   React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      const goingDown = y > lastY.current;
+      if (y < 90) setHidden(false);
+      else if (goingDown && y - lastY.current > 6) setHidden(true);
+      else if (!goingDown && lastY.current - y > 6) setHidden(false);
+      lastY.current = y;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -64,7 +75,15 @@ export function NavBar() {
   }, [menuOpen, pathname]);
 
   return (
-    <header style={{ position: "sticky", top: 0, zIndex: 40 }}>
+    <header
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 40,
+        transform: hidden && !menuOpen ? "translateY(-100%)" : "translateY(0)",
+        transition: "transform 0.5s cubic-bezier(.16,1,.3,1)",
+      }}
+    >
       <div
         style={{
           textAlign: "center",
@@ -87,12 +106,12 @@ export function NavBar() {
           display: "flex",
           alignItems: "center",
           gap: "var(--space-4)",
-          padding: "var(--space-3) clamp(20px, 3vw, var(--page-pad))",
+          padding: `${scrolled ? "var(--space-2)" : "var(--space-3)"} clamp(20px, 3vw, var(--page-pad))`,
+          transition: "padding var(--duration-base) var(--ease-out-silk), background var(--duration-base) var(--ease-out-silk)",
           background: transparent ? "rgba(7,7,8,.35)" : "var(--ink-900)",
           backdropFilter: transparent ? "blur(var(--blur-glass))" : "none",
           WebkitBackdropFilter: transparent ? "blur(var(--blur-glass))" : "none",
           borderBottom: "1px solid var(--border-hairline)",
-          transition: "background var(--duration-base) var(--ease-out-silk)",
         }}
       >
         {/* Logo links — exakt auf den Inhalt beschnitten (Diamant nicht abgeschnitten) */}

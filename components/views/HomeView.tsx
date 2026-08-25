@@ -1,9 +1,12 @@
 import { Hero } from "@/components/home/Hero";
+import { GemstoneMoment } from "@/components/home/GemstoneMoment";
 import { Newsletter } from "@/components/home/Newsletter";
 import { CategoryTile } from "@/components/site/CategoryTile";
 import { ProductTile } from "@/components/site/ProductTile";
 import { TrustBand } from "@/components/site/TrustBand";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { ParallaxImage } from "@/components/motion/ParallaxImage";
+import { MaskReveal } from "@/components/motion/MaskReveal";
 import { SectionHeading } from "@/components/ds/core/SectionHeading.jsx";
 import { Card } from "@/components/ds/core/Card.jsx";
 import { Button } from "@/components/ds/core/Button.jsx";
@@ -61,8 +64,7 @@ export function HomeView({ lang }: { lang: Locale }) {
         <div className="lum-section lum-split">
           <Reveal>
             <div style={{ position: "relative", aspectRatio: "4 / 5", overflow: "hidden" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMG.silk} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <ParallaxImage src={IMG.silk} amount={10} style={{ position: "absolute", inset: 0 }} />
               <div style={{ position: "absolute", inset: 0, boxShadow: "var(--shadow-inset-hairline)" }} />
             </div>
           </Reveal>
@@ -82,6 +84,9 @@ export function HomeView({ lang }: { lang: Locale }) {
           </Reveal>
         </div>
       </section>
+
+      {/* Signature-Scroll-Moment — Edelstein morpht in 3D beim Scrollen */}
+      <GemstoneMoment lang={lang} />
 
       {/* Neuheiten */}
       <section className="lum-section">
@@ -104,17 +109,20 @@ export function HomeView({ lang }: { lang: Locale }) {
 
       {/* Zitat-Band */}
       <section style={{ position: "relative", padding: "var(--section-y) var(--page-pad)", overflow: "hidden" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={IMG.tray} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.5 }} />
+        <ParallaxImage src={IMG.tray} amount={8} style={{ position: "absolute", inset: 0, opacity: 0.5 }} />
         <div style={{ position: "absolute", inset: 0, background: "var(--gradient-ink-scrim)" }} />
-        <Reveal style={{ position: "relative", maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: "var(--weight-light)", fontSize: "var(--text-display-3)", lineHeight: "var(--leading-display)" }}>
-            {t.quote}
-          </h2>
-          <Button href={lp("/edelsteine")} variant="secondary" style={{ marginTop: "var(--space-10)" }}>
-            {getDict(lang).common.viewGemstones}
-          </Button>
-        </Reveal>
+        <div style={{ position: "relative", maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+          <MaskReveal
+            as="h2"
+            lines={[t.quote]}
+            style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: "var(--weight-light)", fontSize: "var(--text-display-3)", lineHeight: "var(--leading-display)" }}
+          />
+          <Reveal delay={0.15}>
+            <Button href={lp("/edelsteine")} variant="secondary" style={{ marginTop: "var(--space-10)" }}>
+              {getDict(lang).common.viewGemstones}
+            </Button>
+          </Reveal>
+        </div>
       </section>
 
       {/* Kundenstimmen */}

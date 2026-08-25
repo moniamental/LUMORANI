@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cinzel, Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { NavBar } from "@/components/site/NavBar";
 import { CartDrawer } from "@/components/site/CartDrawer";
 import { SiteFooter } from "@/components/site/SiteFooter";
@@ -32,8 +33,15 @@ const jost = Jost({
   display: "swap",
 });
 
+// Eine Quelle der Wahrheit für Canonicals/OG/Sitemap/Robots.
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lumorani.com";
+// Solange der Shop auf der temporären vercel.app-Adresse läuft: nicht indexieren
+// (verhindert Duplicate Content; hebt sich automatisch auf, sobald SITE_URL = lumorani.com).
+const isTempDomain = SITE_URL.includes("vercel.app");
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://lumorani.com"),
+  metadataBase: new URL(SITE_URL),
+  ...(isTempDomain ? { robots: { index: false, follow: true } } : {}),
   title: {
     default: "LUMORANI — Echte Edelsteine. Zeitloses Design.",
     template: "%s — LUMORANI",
@@ -69,6 +77,7 @@ export default function RootLayout({
       <body>
         <a className="lum-skip-link" href="#main-content">Zum Hauptinhalt springen</a>
         <CartProvider>
+          <SmoothScroll />
           <HtmlLangSync />
           <NavBar />
           <div id="main-content" tabIndex={-1}>{children}</div>
