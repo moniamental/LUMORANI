@@ -105,55 +105,52 @@ export function ShopClient() {
         ) : null}
       </div>
 
-      <div style={{ marginTop: "var(--space-12)", maxWidth: 520 }}>
-        <label htmlFor="produktsuche" style={{ display: "block", marginBottom: 8, fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-tight)", color: "var(--text-muted)" }}>
-          {t.searchLabel}
-        </label>
-        <input
-          id="produktsuche"
-          type="search"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder={t.searchPlaceholder}
-          style={{ width: "100%", minHeight: 48, padding: "12px 14px", background: "var(--ink-800)", border: "1px solid var(--border-hairline-strong)", color: "var(--text-primary)", font: "inherit" }}
+      {/* Filter-Toolbar: Suche wächst mit, Selects rechts, auf einer Reihe */}
+      <div style={{ marginTop: "var(--space-12)", display: "flex", flexWrap: "wrap", gap: "var(--space-5)", alignItems: "flex-end" }}>
+        <div style={{ flex: "1 1 280px", minWidth: 240 }}>
+          <label htmlFor="produktsuche" style={{ display: "block", marginBottom: 8, fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-tight)", color: "var(--text-muted)" }}>
+            {t.searchLabel}
+          </label>
+          <input
+            id="produktsuche"
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={t.searchPlaceholder}
+            style={{ width: "100%", minHeight: 48, padding: "12px 14px", background: "var(--ink-800)", border: "1px solid var(--border-hairline-strong)", color: "var(--text-primary)", font: "inherit" }}
+          />
+        </div>
+        <Select
+          label={t.selStone}
+          value={gem ?? "Alle Steine"}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setGem(e.target.value === "Alle Steine" ? null : e.target.value)}
+          options={[{ value: "Alle Steine", label: t.allStones }, ...STONES.map((s) => ({ value: s, label: gemName(s, locale) }))]}
+          style={{ width: 160 }}
+        />
+        <Select
+          label={t.selPrice}
+          value={price}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPrice(e.target.value)}
+          options={PRICE_BRACKETS.map((b) => ({ value: b, label: priceLabel[b] }))}
+          style={{ width: 148 }}
+        />
+        <Select
+          label={t.selSort}
+          value={sort}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSort(e.target.value as (typeof SORTS)[number])}
+          options={SORTS.map((s) => ({ value: s, label: sortLabel[s] }))}
+          style={{ width: 180 }}
         />
       </div>
 
-      {/* Filterleiste */}
-      <div style={{ marginTop: "var(--space-10)", display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "var(--space-8)", flexWrap: "wrap" }}>
-        {/* Art-Chips */}
-        <div style={{ display: "flex", gap: "var(--space-2)", flexWrap: "wrap" }}>
-          <Tag selected={!category} onClick={() => setCategory(null)}>{t.filterAll}</Tag>
-          {CATEGORIES.map((c) => (
-            <Tag key={c} selected={category === c} onClick={() => setCategory(c)}>
-              {categoryLabel(c, locale)}
-            </Tag>
-          ))}
-        </div>
-        {/* Selects */}
-        <div style={{ display: "flex", gap: "var(--space-6)", alignItems: "flex-end", flexWrap: "wrap" }}>
-          <Select
-            label={t.selStone}
-            value={gem ?? "Alle Steine"}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setGem(e.target.value === "Alle Steine" ? null : e.target.value)}
-            options={[{ value: "Alle Steine", label: t.allStones }, ...STONES.map((s) => ({ value: s, label: gemName(s, locale) }))]}
-            style={{ width: 170 }}
-          />
-          <Select
-            label={t.selPrice}
-            value={price}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPrice(e.target.value)}
-            options={PRICE_BRACKETS.map((b) => ({ value: b, label: priceLabel[b] }))}
-            style={{ width: 150 }}
-          />
-          <Select
-            label={t.selSort}
-            value={sort}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSort(e.target.value as (typeof SORTS)[number])}
-            options={SORTS.map((s) => ({ value: s, label: sortLabel[s] }))}
-            style={{ width: 190 }}
-          />
-        </div>
+      {/* Kategorie-Chips */}
+      <div style={{ marginTop: "var(--space-6)", display: "flex", gap: "var(--space-2)", flexWrap: "wrap" }}>
+        <Tag selected={!category} onClick={() => setCategory(null)}>{t.filterAll}</Tag>
+        {CATEGORIES.map((c) => (
+          <Tag key={c} selected={category === c} onClick={() => setCategory(c)}>
+            {categoryLabel(c, locale)}
+          </Tag>
+        ))}
       </div>
 
       <div style={{ marginTop: "var(--space-10)", paddingTop: "var(--space-6)", borderTop: "1px solid var(--border-hairline)", fontSize: "var(--text-caption)", color: "var(--text-muted)" }}>
