@@ -163,6 +163,35 @@ html.lenis,
   background: rgba(201, 162, 90, 0.06) !important;
 }
 
+/* Footer-Unterzeile mobil zentriert stapeln */
+@media (max-width: 560px) {
+  .lum-footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Touch: mehr spürbare Interaktion — Tap-Feedback statt Hover */
+.lum-cat-tile img,
+.lum-tile img {
+  transition: transform var(--duration-slow) var(--ease-out-silk);
+}
+@media (hover: none) {
+  .lum-cat-tile:active img,
+  .lum-tile:active img {
+    transform: scale(1.05);
+  }
+  .lum-finder-opt:active {
+    border-color: var(--gold-300);
+    color: var(--gold-100);
+    background: rgba(201, 162, 90, 0.08);
+  }
+  a:active .lum-press,
+  button.lum-press:active {
+    transform: scale(0.98);
+  }
+}
+
 .lum-grid-4 {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

@@ -38,24 +38,25 @@ export function Hero() {
       style={{ position: "relative", height: "92vh", minHeight: 640, display: "grid", placeItems: "center", overflow: "hidden" }}
     >
       <motion.div
-        style={{ position: "absolute", inset: "-8% 0", y: bgY, willChange: "transform" }}
+        style={{ position: "absolute", inset: "-8% 0", y: bgY, background: "var(--ink-1000)", willChange: "transform" }}
         initial={{ scale: 1.08, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.6, ease: SILK }}
       >
         {reduce ? (
+          // Nur bei reduzierter Bewegung ein Standbild (kein Autoplay-Video möglich)
           // eslint-disable-next-line @next/next/no-img-element
           <img src={IMG.hero} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
         ) : (
+          // Kein poster-Bild — sonst blendet vor dem Video ein Steine-Bild ein.
           <video
             autoPlay
             muted
             loop
             playsInline
             preload="auto"
-            poster={IMG.hero}
             aria-hidden
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", background: "var(--ink-1000)" }}
           >
             <source src="/assets/video/hero-craft.mp4" type="video/mp4" />
           </video>

@@ -98,6 +98,7 @@ export function SiteFooter() {
         ))}
       </div>
       <div
+        className="lum-footer-bottom"
         style={{
           maxWidth: "var(--page-max)",
           margin: "0 auto",
@@ -105,6 +106,9 @@ export function SiteFooter() {
           borderTop: "1px solid var(--border-hairline)",
           display: "flex",
           justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "var(--space-3)",
           fontSize: "var(--text-micro)",
           letterSpacing: "var(--tracking-caps-tight)",
           textTransform: "uppercase",

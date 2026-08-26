@@ -14,8 +14,8 @@ const COPY: Record<Locale, { eyebrow: string; l1: string; l2: string; stones: St
     stones: [
       { src: "/assets/imagery/moment-ruby.jpg", name: "Rubin", note: "Feuer, das bleibt." },
       { src: "/assets/imagery/moment-emerald.jpg", name: "Smaragd", note: "Tiefe, die trägt." },
-      { src: "/assets/imagery/moment-aqua.jpg", name: "Aquamarin", note: "Klarheit, die berührt." },
       { src: "/assets/imagery/moment-diamond.jpg", name: "Diamant", note: "Licht, das bleibt." },
+      { src: "/assets/imagery/moment-aqua.jpg", name: "Aquamarin", note: "Klarheit, die berührt." },
     ],
   },
   en: {
@@ -25,8 +25,8 @@ const COPY: Record<Locale, { eyebrow: string; l1: string; l2: string; stones: St
     stones: [
       { src: "/assets/imagery/moment-ruby.jpg", name: "Ruby", note: "Fire that stays." },
       { src: "/assets/imagery/moment-emerald.jpg", name: "Emerald", note: "Depth that carries." },
-      { src: "/assets/imagery/moment-aqua.jpg", name: "Aquamarine", note: "Clarity that moves." },
       { src: "/assets/imagery/moment-diamond.jpg", name: "Diamond", note: "Light that remains." },
+      { src: "/assets/imagery/moment-aqua.jpg", name: "Aquamarine", note: "Clarity that moves." },
     ],
   },
 };
@@ -120,7 +120,7 @@ export function GemstoneMoment({ lang }: { lang: Locale }) {
         </div>
 
         {/* Ink-Vignette für Lesbarkeit */}
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(120% 90% at 50% 42%, transparent 28%, rgba(7,7,8,.58) 76%, rgba(7,7,8,.92) 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(120% 95% at 50% 44%, rgba(7,7,8,.28) 12%, rgba(7,7,8,.62) 72%, rgba(7,7,8,.93) 100%)" }} />
 
         {/* Gold-/Farb-Glow-Puls (wechselt mit dem Stein) */}
         <motion.div aria-hidden style={{ position: "absolute", width: "52vmax", height: "52vmax", borderRadius: "50%", background: glowBg, opacity: glowOpacity, filter: "blur(10px)", pointerEvents: "none" }} />
@@ -170,6 +170,7 @@ const headlineStyle: React.CSSProperties = {
   lineHeight: "var(--leading-display)",
   letterSpacing: "var(--tracking-hero)",
   color: "var(--text-primary)",
+  textShadow: "0 2px 34px rgba(0,0,0,.7), 0 2px 6px rgba(0,0,0,.55)",
 };
 
 function Eyebrow({ children }: { children: React.ReactNode }) {

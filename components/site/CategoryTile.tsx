@@ -14,7 +14,7 @@ export function CategoryTile({ data }: { data: CollectionTile }) {
       onMouseLeave={() => setHover(false)}
       style={{ display: "block", textDecoration: "none", color: "inherit" }}
     >
-      <div style={{ position: "relative", aspectRatio: "3 / 4", overflow: "hidden" }}>
+      <div className="lum-cat-tile" style={{ position: "relative", aspectRatio: "3 / 4", overflow: "hidden" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={data.image}
