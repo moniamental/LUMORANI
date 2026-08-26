@@ -52,7 +52,7 @@ const de = {
     eyebrow: "Echte Edelsteine · Zeitloses Design",
     titleTop: "Schmuck, der",
     titleBottom: "Emotionen trägt",
-    sub: "Für Menschen, die sich mit Stil ausdrücken wollen.",
+    sub: "Für alle, die Schmuck nicht nur tragen, sondern leben.",
     ctaPrimary: "Kollektion entdecken",
     ctaSecondary: "Edelsteine ansehen",
   },
@@ -62,14 +62,14 @@ const de = {
     storyEyebrow: "Unsere Geschichte",
     storyTitle: "Momente, die bleiben",
     storyLead:
-      "Schmuck begleitet uns in Momenten, die bleiben. Ein Geschenk, ein Anfang, ein Gefühl. Deshalb erschaffen wir Stücke, die Bedeutung tragen.",
+      "Manche Dinge trägt man, bis sie ein Teil von dir werden. Ein Geschenk. Ein Anfang. Ein Gefühl, das bleibt.",
     storyBody:
-      "Mit Liebe von Samir und seinem Vater ausgewählt, steht jedes Schmuckstück für Echtheit, Tiefe und Persönlichkeit. Wir glauben an klare Formen, starke Farben und Designs, die sich wie ein Teil von dir anfühlen.",
+      "Jeden Stein wählen Samir und sein Vater von Hand — nach Farbe, Struktur, Charakter. Nichts davon lässt sich bestellen. Es muss gefunden werden. Was dann bleibt, ist ein Unikat, das sich anfühlt wie deins.",
     storyCta: "Über Lumorani",
     newsEyebrow: "Neuheiten",
     newsTitle: "Frisch aus der Werkstatt",
     quote:
-      "Unsere Kollektion kombiniert tiefe Rubintöne, intensives Smaragdgrün und klare metallische Akzente.",
+      "Kein Stein gleicht dem anderen. Wie kein Moment dem anderen gleicht.",
     voicesEyebrow: "Kundenstimmen",
     voicesTitle: "Was unsere Kundinnen sagen",
   },
@@ -259,7 +259,7 @@ const en: typeof de = {
     eyebrow: "Real gemstones · Timeless design",
     titleTop: "Jewellery that",
     titleBottom: "carries emotion",
-    sub: "For people who like to express themselves with style.",
+    sub: "For those who don’t just wear jewellery — they live it.",
     ctaPrimary: "Explore the collection",
     ctaSecondary: "View gemstones",
   },
@@ -269,14 +269,14 @@ const en: typeof de = {
     storyEyebrow: "Our story",
     storyTitle: "Moments that stay",
     storyLead:
-      "Jewellery accompanies us through moments that stay. A gift, a beginning, a feeling. That is why we create pieces that carry meaning.",
+      "Some things you wear until they become part of you. A gift. A beginning. A feeling that stays.",
     storyBody:
-      "Chosen with care by Samir and his father, every piece stands for authenticity, depth and character. We believe in clear forms, strong colours and designs that feel like a part of you.",
+      "Every stone is chosen by hand by Samir and his father — for its colour, its structure, its character. None of it can be ordered. It has to be found. What remains is one of a kind — and it feels like yours.",
     storyCta: "About Lumorani",
     newsEyebrow: "New arrivals",
     newsTitle: "Fresh from the workshop",
     quote:
-      "Our collection combines deep ruby tones, intense emerald green and clear metallic accents.",
+      "No stone is like the next. Just as no moment is like the last.",
     voicesEyebrow: "Testimonials",
     voicesTitle: "What our customers say",
   },
