@@ -7,10 +7,10 @@
 
   /* Display scale — editorial serif, tight leading */
   --text-hero:clamp(52px,7.5vw,116px);
-  --text-display-1:72px;
-  --text-display-2:56px;
-  --text-display-3:42px;
-  --text-title:32px;
+  --text-display-1:clamp(38px,8vw,72px);
+  --text-display-2:clamp(34px,7vw,56px);
+  --text-display-3:clamp(27px,5.4vw,42px);
+  --text-title:clamp(25px,4vw,32px);
   --text-subtitle:24px;
 
   /* UI / body scale — Jost */

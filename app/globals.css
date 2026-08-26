@@ -165,17 +165,17 @@ html.lenis,
 
 .lum-grid-4 {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--gutter);
 }
 .lum-grid-3 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--gutter);
 }
 .lum-split {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--space-24);
   align-items: center;
 }
@@ -196,7 +196,7 @@ html.lenis,
 }
 @media (max-width: 1000px) {
   .lum-shop-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     row-gap: var(--space-12);
   }
 }
@@ -210,7 +210,7 @@ html.lenis,
 /* Tablet */
 @media (max-width: 1000px) {
   .lum-grid-4 {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .lum-grid-3 {
     grid-template-columns: 1fr;
@@ -235,7 +235,7 @@ html.lenis,
     padding: var(--section-y-tight) var(--page-pad-mobile);
   }
   .lum-grid-4 {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-4);
   }
   .lum-footer-grid {

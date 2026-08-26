@@ -80,7 +80,10 @@ export function NavBar() {
         position: "sticky",
         top: 0,
         zIndex: 40,
-        transform: hidden && !menuOpen ? "translateY(-100%)" : "translateY(0)",
+        // WICHTIG: kein transform, wenn das Menü offen ist — sonst wird das
+        // position:fixed-Overlay am (transformierten) Header statt am Viewport
+        // ausgerichtet und der Hintergrund deckt nur die Header-Höhe ab.
+        transform: menuOpen ? "none" : hidden ? "translateY(-100%)" : "translateY(0)",
         transition: "transform 0.5s cubic-bezier(.16,1,.3,1)",
       }}
     >

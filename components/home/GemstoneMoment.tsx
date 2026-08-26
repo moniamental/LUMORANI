@@ -103,8 +103,8 @@ export function GemstoneMoment({ lang }: { lang: Locale }) {
     <section ref={ref} aria-label={t.eyebrow} style={{ position: "relative", height: "360vh" }}>
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "var(--ink-1000)", display: "grid", placeItems: "center" }}>
         {/* 3D-Bühne mit den morphenden Steinen */}
-        <div style={{ position: "absolute", inset: 0, perspective: 2600, transformStyle: "preserve-3d" }}>
-          <motion.div style={{ position: "absolute", inset: "-8%", rotateY, rotateX, scale, x: panX, y: panY, transformStyle: "preserve-3d", willChange: "transform" }}>
+        <div style={{ position: "absolute", inset: 0, perspective: 2600, overflow: "hidden" }}>
+          <motion.div style={{ position: "absolute", inset: "-8%", rotateY, rotateX, scale, x: panX, y: panY, willChange: "transform" }}>
             {t.stones.map((s, i) => (
               // eslint-disable-next-line @next/next/no-img-element
               <motion.img
