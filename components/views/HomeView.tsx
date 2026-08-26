@@ -7,6 +7,7 @@ import { TrustBand } from "@/components/site/TrustBand";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
 import { MaskReveal } from "@/components/motion/MaskReveal";
+import { Divider } from "@/components/motion/Divider";
 import { SectionHeading } from "@/components/ds/core/SectionHeading.jsx";
 import { Card } from "@/components/ds/core/Card.jsx";
 import { Button } from "@/components/ds/core/Button.jsx";
@@ -71,6 +72,8 @@ export function HomeView({ lang }: { lang: Locale }) {
         </RevealGroup>
       </section>
 
+      <Divider />
+
       {/* Unsere Geschichte */}
       <section
         style={{
@@ -125,6 +128,8 @@ export function HomeView({ lang }: { lang: Locale }) {
         </RevealGroup>
       </section>
 
+      <Divider />
+
       {/* Individuelle Sets / Schmucksets — mit Anfrage-CTA */}
       <section
         style={{
@@ -160,7 +165,7 @@ export function HomeView({ lang }: { lang: Locale }) {
 
       {/* Zitat-Band */}
       <section style={{ position: "relative", padding: "var(--section-y) var(--page-pad)", overflow: "hidden" }}>
-        <ParallaxImage src={IMG.tray} amount={8} style={{ position: "absolute", inset: 0, opacity: 0.5 }} />
+        <ParallaxImage src={IMG.hero} amount={8} style={{ position: "absolute", inset: 0, opacity: 0.45 }} />
         <div style={{ position: "absolute", inset: 0, background: "var(--gradient-ink-scrim)" }} />
         <div style={{ position: "relative", maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
           <MaskReveal

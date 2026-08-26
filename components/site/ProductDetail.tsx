@@ -10,7 +10,6 @@ import { QuantityStepper } from "@/components/ds/commerce/QuantityStepper.jsx";
 import { ProductTile } from "@/components/site/ProductTile";
 import { Reveal } from "@/components/motion/Reveal";
 import {
-  IMG,
   type Product,
   productName,
   productDescription,
@@ -38,7 +37,9 @@ export function ProductDetail({
   const name = productName(product, locale);
   const gem = gemName(product.gem, locale);
   const lore = gemLoreFor(product.gem, locale);
-  const shots = [product.image, IMG.box, IMG.tray];
+  // Nur das echte Produktbild — keine generischen Box-/Collage-Bilder mehr,
+  // die auf jedem Produkt gleich (und damit „falsch") wirkten.
+  const shots = [product.image];
 
   const facts: [string, string][] = [
     [t.factMaterial, lore?.herkunft ?? t.factMaterialFallback],
@@ -71,20 +72,22 @@ export function ProductDetail({
               </div>
             ) : null}
           </div>
-          <div style={{ marginTop: "var(--space-3)", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--space-3)" }}>
-            {shots.map((s, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => setShot(i)}
-                aria-label={i === 0 ? t.shotProduct : i === 1 ? t.shotBox : t.shotCollection}
-                style={{ padding: 0, aspectRatio: "1 / 1", overflow: "hidden", cursor: "pointer", background: "none", border: "1px solid " + (i === shot ? "var(--gold-300)" : "var(--border-hairline)") }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={s} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: i === shot ? 1 : 0.6 }} />
-              </button>
-            ))}
-          </div>
+          {shots.length > 1 ? (
+            <div style={{ marginTop: "var(--space-3)", display: "grid", gridTemplateColumns: `repeat(${shots.length}, 1fr)`, gap: "var(--space-3)" }}>
+              {shots.map((s, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setShot(i)}
+                  aria-label={t.shotProduct}
+                  style={{ padding: 0, aspectRatio: "1 / 1", overflow: "hidden", cursor: "pointer", background: "none", border: "1px solid " + (i === shot ? "var(--gold-300)" : "var(--border-hairline)") }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={s} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: i === shot ? 1 : 0.6 }} />
+                </button>
+              ))}
+            </div>
+          ) : null}
         </div>
 
         {/* Kaufspalte */}

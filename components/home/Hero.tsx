@@ -18,8 +18,10 @@ export function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   // sanfter Parallax: Bild driftet nach unten, Text leicht mit
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "16%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "40%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "26%"]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  // Scroll-Hinweis blendet beim Scrollen aus, bevor die Buttons ihn erreichen
+  const hintOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
 
   const container: Variants = {
     hidden: {},
@@ -117,15 +119,16 @@ export function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll-Hinweis — sanftes Auf-/Abblenden statt Hüpfen */}
+      {/* Scroll-Hinweis — zentriert, mit Weißraum, blendet beim Scrollen aus */}
       <motion.div
         aria-hidden
-        initial={{ opacity: 0 }}
-        animate={reduce ? { opacity: 0 } : { opacity: [0.15, 0.85, 0.15] }}
-        transition={{ delay: 1.2, duration: 3.2, ease: "easeInOut", repeat: Infinity }}
-        style={{ position: "absolute", bottom: "var(--space-8)", left: "50%", x: "-50%" }}
+        style={{ position: "absolute", bottom: "var(--space-10)", left: "50%", x: "-50%", opacity: reduce ? 0 : hintOpacity, display: "grid", placeItems: "center", gap: "var(--space-3)" }}
       >
-        <div style={{ width: 1, height: 52, background: "linear-gradient(var(--gold-300), transparent)" }} />
+        <motion.div
+          animate={reduce ? {} : { opacity: [0.2, 0.85, 0.2] }}
+          transition={{ delay: 1.2, duration: 3.2, ease: "easeInOut", repeat: Infinity }}
+          style={{ width: 1, height: 56, background: "linear-gradient(var(--gold-300), transparent)" }}
+        />
       </motion.div>
     </section>
   );

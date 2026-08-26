@@ -76,7 +76,7 @@ export function GeschenksetsView({ lang }: { lang: Locale }) {
             <h2 style={{ marginTop: "var(--space-5)", fontFamily: "var(--font-display)", fontSize: "var(--text-display-3)", fontWeight: "var(--weight-light)", color: "var(--text-on-inverse)" }}>
               {t.undecidedTitle}
             </h2>
-            <p style={{ margin: "var(--space-6) auto 0", maxWidth: 480, fontSize: "var(--text-body-sm)", fontWeight: "var(--weight-light)", color: "var(--gold-200)" }}>
+            <p style={{ margin: "var(--space-6) auto 0", maxWidth: 480, fontSize: "var(--text-body-sm)", fontWeight: "var(--weight-light)", color: "var(--gold-600)" }}>
               {lang === "en"
                 ? "Have something specific in mind? We compose individual sets by hand — tell us the occasion and budget."
                 : "Etwas Bestimmtes im Sinn? Wir stellen individuelle Sets von Hand zusammen — sag uns Anlass und Budget."}

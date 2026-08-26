@@ -54,8 +54,8 @@ const CONTENT: Record<Locale, AboutCopy> = {
       ["Persönlichkeit", "Klare Formen, starke Farben, ehrliche Materialien. Schmuck, der dich nicht definiert – sondern dich ausdrückt."],
     ],
     quote:
-      "„Ich verkaufe keinen Stein, den ich nicht selbst tragen würde. Für mich ist jedes Stück ein kleines Stück Vertrauen – und das gebe ich nicht leichtfertig weiter.“",
-    quoteRole: "Samir · Gründer & Steinsucher",
+      "„Jeder Stein muss mich erst selbst überzeugen. Erst dann darf er zu dir.“",
+    quoteRole: "Samir · Gründer",
     ctaTitle: "Finde deinen Stein",
     ctaSub: "Jedes Stück ist ein Unikat. Vielleicht wartet deins schon.",
     ctaShop: "Zum Shop",
@@ -87,8 +87,8 @@ const CONTENT: Record<Locale, AboutCopy> = {
       ["Character", "Clear forms, strong colours, honest materials. Jewellery that doesn’t define you — it expresses you."],
     ],
     quote:
-      "“I don’t sell a stone I wouldn’t wear myself. To me every piece is a small piece of trust — and I don’t pass that on lightly.”",
-    quoteRole: "Samir · Founder & stone finder",
+      "“Every stone has to win me over first. Only then may it go to you.”",
+    quoteRole: "Samir · Founder",
     ctaTitle: "Find your stone",
     ctaSub: "Every piece is one of a kind. Maybe yours is already waiting.",
     ctaShop: "To the shop",
