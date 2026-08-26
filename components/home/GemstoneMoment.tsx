@@ -52,10 +52,13 @@ export function GemstoneMoment({ lang }: { lang: Locale }) {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const p = useSpring(scrollYProgress, { stiffness: 110, damping: 28, mass: 0.4 });
 
-  // Kräftigeres 3D-Drehen + Atmen der Bühne
-  const rotateY = useTransform(p, [0, 1], [-13, 13]);
-  const rotateX = useTransform(p, [0, 0.5, 1], [4.5, -3, 4.5]);
-  const scale = useTransform(p, [0, 0.5, 1], [1.08, 1.18, 1.08]);
+  // Cinematischer Kamera-Move statt „rotierende Platte": langsamer Push-in + sanfter
+  // Pan, nur minimaler Tilt bei flacher Perspektive → wirkt räumlich, nicht wie ein 2D-Bild.
+  const rotateY = useTransform(p, [0, 1], [-4.5, 4.5]);
+  const rotateX = useTransform(p, [0, 0.5, 1], [1.6, -1.2, 1.6]);
+  const scale = useTransform(p, [0, 1], [1.12, 1.22]);
+  const panX = useTransform(p, [0, 1], ["-1.8%", "1.8%"]);
+  const panY = useTransform(p, [0, 0.5, 1], ["1.4%", "-0.8%", "1.4%"]);
 
   // 4 Stein-Opazitäten (Hooks unrolled — Anzahl konstant)
   const op0 = useTransform(p, WINDOWS[0][0], WINDOWS[0][1]);
@@ -100,8 +103,8 @@ export function GemstoneMoment({ lang }: { lang: Locale }) {
     <section ref={ref} aria-label={t.eyebrow} style={{ position: "relative", height: "360vh" }}>
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "var(--ink-1000)", display: "grid", placeItems: "center" }}>
         {/* 3D-Bühne mit den morphenden Steinen */}
-        <div style={{ position: "absolute", inset: 0, perspective: 1500, transformStyle: "preserve-3d" }}>
-          <motion.div style={{ position: "absolute", inset: "-6%", rotateY, rotateX, scale, transformStyle: "preserve-3d", willChange: "transform" }}>
+        <div style={{ position: "absolute", inset: 0, perspective: 2600, transformStyle: "preserve-3d" }}>
+          <motion.div style={{ position: "absolute", inset: "-8%", rotateY, rotateX, scale, x: panX, y: panY, transformStyle: "preserve-3d", willChange: "transform" }}>
             {t.stones.map((s, i) => (
               // eslint-disable-next-line @next/next/no-img-element
               <motion.img
