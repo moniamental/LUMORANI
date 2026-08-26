@@ -42,15 +42,16 @@ export function EdelsteineView({ lang }: { lang: Locale }) {
         </RevealGroup>
 
         {/* Steine */}
-        <RevealGroup className="lum-grid-4" style={{ marginTop: "var(--section-y-tight)" }} stagger={0.06}>
+        <RevealGroup className="lum-grid-4" style={{ marginTop: "var(--section-y-tight)", gridAutoRows: "1fr" }} stagger={0.06}>
           {GEMS.map((g) => (
-            <RevealItem key={g.name}>
-              <Link href={localePath(lang, `/shop?stein=${encodeURIComponent(g.name)}`)} style={{ display: "block", textDecoration: "none", color: "inherit" }}>
+            <RevealItem key={g.name} style={{ height: "100%" }}>
+              <Link href={localePath(lang, `/shop?stein=${encodeURIComponent(g.name)}`)} style={{ display: "block", height: "100%", textDecoration: "none", color: "inherit" }}>
                 <GemCard
                   name={gemName(g.name, lang)}
                   description={gemLoreFor(g.name, lang)?.bedeutung ?? g.description}
                   image={g.image}
                   cuts={cutLabels}
+                  style={{ height: "100%" }}
                 />
               </Link>
             </RevealItem>

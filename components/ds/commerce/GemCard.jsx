@@ -34,7 +34,7 @@ export function GemCard({ name, description, image, cuts = [], onClick, style })
           <span style={{ fontFamily: "var(--font-display)", fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-light)" }}>{name}</span>
         </div>
         {description ? (
-          <p style={{ margin: "var(--space-3) 0 0", fontSize: "var(--text-body-sm)", fontWeight: "var(--weight-light)", lineHeight: "var(--leading-body)", color: "var(--text-secondary)", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden", minHeight: "4.5em" }}>{description}</p>
+          <p style={{ margin: "var(--space-3) 0 0", fontSize: "var(--text-body-sm)", fontWeight: "var(--weight-light)", lineHeight: "var(--leading-body)", color: "var(--text-secondary)", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden", height: "5em" }}>{description}</p>
         ) : null}
         {cuts.length ? (
           <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "var(--space-5)" }}>

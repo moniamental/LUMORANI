@@ -75,15 +75,14 @@ export function NavBar() {
   }, [menuOpen, pathname]);
 
   return (
+    <>
     <header
       style={{
         position: "sticky",
         top: 0,
         zIndex: 40,
-        // WICHTIG: kein transform, wenn das Menü offen ist — sonst wird das
-        // position:fixed-Overlay am (transformierten) Header statt am Viewport
-        // ausgerichtet und der Hintergrund deckt nur die Header-Höhe ab.
-        transform: menuOpen ? "none" : hidden ? "translateY(-100%)" : "translateY(0)",
+        // Header bleibt sichtbar, wenn das Menü offen ist (X muss erreichbar sein).
+        transform: hidden && !menuOpen ? "translateY(-100%)" : "translateY(0)",
         transition: "transform 0.5s cubic-bezier(.16,1,.3,1)",
       }}
     >
@@ -183,7 +182,10 @@ export function NavBar() {
         </div>
       </div>
 
-      {/* Mobile-Menü */}
+      </header>
+
+      {/* Mobile-Menü — AUSSERHALB des <header>, damit das position:fixed-Overlay
+          am Viewport haftet (nicht am transformierten Header) und sofort deckt. */}
       <AnimatePresence>
         {menuOpen ? (
           <motion.div
@@ -232,15 +234,13 @@ export function NavBar() {
               ))}
             </nav>
             <div style={{ marginTop: "auto", padding: "var(--space-10) var(--page-pad-mobile)", fontSize: "var(--text-body-sm)", color: "var(--text-muted)" }}>
-              <div style={{ marginBottom: "var(--space-6)" }}>
-                <LangSwitch pathname={pathname} locale={locale} label={t.langLabel} onNavigate={closeMenu} />
-              </div>
+              {/* Sprachauswahl steckt schon oben in der Navigation — hier nicht doppeln. */}
               <a href="mailto:info@lumorani.com" style={{ color: "var(--text-gold)" }}>info@lumorani.com</a>
             </div>
           </motion.div>
         ) : null}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
 
