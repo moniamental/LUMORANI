@@ -134,6 +134,28 @@ html.lenis,
   }
 }
 
+/* Produktkachel — CTA/Interaktion je nach Eingabegerät */
+.lum-tile-cta {
+  opacity: 1;
+}
+@media (hover: hover) {
+  .lum-tile-cta {
+    opacity: 0.82;
+  }
+  .lum-tile:hover .lum-tile-cta {
+    opacity: 1;
+  }
+}
+@media (hover: none) {
+  /* Touch: CTA immer voll sichtbar + Tap-Feedback aufs Bild */
+  .lum-tile-cta {
+    opacity: 1;
+  }
+  .lum-tile:active img {
+    transform: scale(1.03);
+  }
+}
+
 .lum-grid-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

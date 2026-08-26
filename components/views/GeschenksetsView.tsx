@@ -76,7 +76,15 @@ export function GeschenksetsView({ lang }: { lang: Locale }) {
             <h2 style={{ marginTop: "var(--space-5)", fontFamily: "var(--font-display)", fontSize: "var(--text-display-3)", fontWeight: "var(--weight-light)", color: "var(--text-on-inverse)" }}>
               {t.undecidedTitle}
             </h2>
-            <div style={{ marginTop: "var(--space-10)", display: "flex", gap: "var(--space-4)", justifyContent: "center", flexWrap: "wrap" }}>
+            <p style={{ margin: "var(--space-6) auto 0", maxWidth: 480, fontSize: "var(--text-body-sm)", fontWeight: "var(--weight-light)", color: "var(--gold-200)" }}>
+              {lang === "en"
+                ? "Have something specific in mind? We compose individual sets by hand — tell us the occasion and budget."
+                : "Etwas Bestimmtes im Sinn? Wir stellen individuelle Sets von Hand zusammen — sag uns Anlass und Budget."}
+            </p>
+            <div style={{ marginTop: "var(--space-8)", display: "flex", gap: "var(--space-4)", justifyContent: "center", flexWrap: "wrap" }}>
+              <Button href={lp("/kontakt")} variant="inverse">
+                {lang === "en" ? "Request a custom set" : "Individuelles Set anfragen"}
+              </Button>
               <Button href={lp("/shop?anlass=anfang")} variant="inverse">{t.ctaMilestone}</Button>
               <Button href={lp("/shop?anlass=alltag")} variant="inverse">{t.ctaEveryday}</Button>
               <Button href={lp("/edelsteine")} variant="inverse">{t.ctaByStone}</Button>

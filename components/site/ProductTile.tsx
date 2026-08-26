@@ -20,6 +20,7 @@ export function ProductTile({ product, ratio = "3 / 4" }: { product: Product; ra
 
   return (
     <article
+      className="lum-tile"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{ display: "block", color: "inherit" }}
@@ -66,6 +67,7 @@ export function ProductTile({ product, ratio = "3 / 4" }: { product: Product; ra
         ) : null}
         <button
           type="button"
+          className="lum-tile-cta"
           onClick={() => cart.add(product)}
           aria-label={`${name} — ${addLabel}`}
           style={{
@@ -85,9 +87,8 @@ export function ProductTile({ product, ratio = "3 / 4" }: { product: Product; ra
             border: "none",
             cursor: "pointer",
             minHeight: 46,
-            opacity: hover ? 1 : 0.86,
             transform: "translateY(0)",
-            transition: "var(--transition-hover)",
+            transition: "opacity var(--duration-base) var(--ease-out-silk)",
           }}
         >
           {addLabel}

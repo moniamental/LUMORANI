@@ -25,6 +25,24 @@ import { getDict } from "@/lib/dict";
 export function HomeView({ lang }: { lang: Locale }) {
   const t = getDict(lang).home;
   const lp = (p: string) => localePath(lang, p);
+  const sets =
+    lang === "en"
+      ? {
+          eyebrow: "Sets & gifts",
+          title: "Your set, composed by hand",
+          lead: "A necklace, a ring, a loose stone — we compose your set by hand, to your occasion and budget. Gift-wrapped with care.",
+          sub: "Tell us what you have in mind — Samir replies personally with a suggestion.",
+          cta: "Request a custom set",
+          cta2: "See gifts",
+        }
+      : {
+          eyebrow: "Sets & Geschenke",
+          title: "Dein Set, von Hand gestellt",
+          lead: "Kette, Ring, ein loser Stein — wir stellen dein Set nach Anlass und Budget von Hand zusammen. Auch als Geschenk, sorgfältig verpackt.",
+          sub: "Sag uns, woran du denkst — Samir meldet sich persönlich mit einem Vorschlag.",
+          cta: "Individuelles Set anfragen",
+          cta2: "Geschenke ansehen",
+        };
 
   return (
     <main>
@@ -105,6 +123,39 @@ export function HomeView({ lang }: { lang: Locale }) {
             </RevealItem>
           ))}
         </RevealGroup>
+      </section>
+
+      {/* Individuelle Sets / Schmucksets — mit Anfrage-CTA */}
+      <section
+        style={{
+          background: "var(--surface-page-alt)",
+          borderTop: "1px solid var(--border-hairline)",
+          borderBottom: "1px solid var(--border-hairline)",
+        }}
+      >
+        <div className="lum-section lum-split">
+          <Reveal delay={0.05}>
+            <div>
+              <SectionHeading align="left" size="md" eyebrow={sets.eyebrow} title={sets.title} />
+              <p style={{ marginTop: "var(--space-8)", fontSize: "var(--text-body-lg)", fontWeight: "var(--weight-light)", lineHeight: "var(--leading-body)", color: "var(--text-secondary)" }}>
+                {sets.lead}
+              </p>
+              <p style={{ marginTop: "var(--space-5)", fontSize: "var(--text-body-sm)", fontWeight: "var(--weight-light)", lineHeight: "var(--leading-body)", color: "var(--text-muted)" }}>
+                {sets.sub}
+              </p>
+              <div style={{ marginTop: "var(--space-8)", display: "flex", gap: "var(--space-4)", flexWrap: "wrap" }}>
+                <Button href={lp("/kontakt")}>{sets.cta}</Button>
+                <Button href={lp("/geschenksets")} variant="ghost">{sets.cta2}</Button>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal>
+            <div style={{ position: "relative", aspectRatio: "4 / 3", overflow: "hidden" }}>
+              <ParallaxImage src="/assets/imagery/set-emerald.jpg" amount={8} style={{ position: "absolute", inset: 0 }} />
+              <div style={{ position: "absolute", inset: 0, boxShadow: "var(--shadow-inset-hairline)" }} />
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       {/* Zitat-Band */}
