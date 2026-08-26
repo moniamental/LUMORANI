@@ -10,14 +10,18 @@ import { ProductTile } from "@/components/site/ProductTile";
 import {
   PRODUCTS,
   CATEGORIES,
+  CUTS,
   STONES,
   getOccasion,
   productName,
   categoryLabel,
+  cutLabel,
+  isCut,
   gemName,
   occasionLabel,
   occasionCopy,
   type Category,
+  type Cut,
   type OccasionSlug,
 } from "@/lib/catalog";
 import { localePath } from "@/lib/i18n";
@@ -53,6 +57,7 @@ export function ShopClient() {
   const urlOccasion = (params.get("anlass") as OccasionSlug | null) ?? null;
   const urlKategorie = params.get("kategorie");
   const urlStein = params.get("stein");
+  const urlSchliff = params.get("schliff");
 
   const [category, setCategory] = React.useState<Category | null>(
     urlKategorie && (CATEGORIES as string[]).includes(urlKategorie) ? (urlKategorie as Category) : null,
@@ -60,6 +65,7 @@ export function ShopClient() {
   const [gem, setGem] = React.useState<string | null>(
     urlStein && STONES.includes(urlStein) ? urlStein : null,
   );
+  const [cut, setCut] = React.useState<Cut | null>(isCut(urlSchliff) ? urlSchliff : null);
   const [occasion, setOccasion] = React.useState<OccasionSlug | null>(urlOccasion);
   const [price, setPrice] = React.useState<string>("Alle Preise");
   const [sort, setSort] = React.useState<(typeof SORTS)[number]>("Empfohlen");
@@ -71,6 +77,7 @@ export function ShopClient() {
     (p) =>
       (!category || p.category === category) &&
       (!gem || p.gem === gem) &&
+      (!cut || p.cut === cut) &&
       (!occasion || p.occasion === occasion) &&
       (!query || `${productName(p, locale)} ${p.name} ${p.gem} ${categoryLabel(p.category, locale)} ${p.description}`.toLocaleLowerCase(locale).includes(query.toLocaleLowerCase(locale).trim())) &&
       inBracket(p.price, price),
@@ -153,6 +160,19 @@ export function ShopClient() {
         ))}
       </div>
 
+      {/* Schliff-Chips — Ungeschliffen / Geschliffen / Half & Half, filtern wirklich */}
+      <div style={{ marginTop: "var(--space-4)", display: "flex", gap: "var(--space-2)", flexWrap: "wrap", alignItems: "center" }}>
+        <span style={{ marginRight: "var(--space-2)", fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-tight)", color: "var(--text-muted)" }}>
+          {t.selCut}
+        </span>
+        <Tag selected={!cut} onClick={() => setCut(null)}>{t.cutAll}</Tag>
+        {CUTS.map((c) => (
+          <Tag key={c} selected={cut === c} onClick={() => setCut((prev) => (prev === c ? null : c))}>
+            {cutLabel(c, locale)}
+          </Tag>
+        ))}
+      </div>
+
       <div style={{ marginTop: "var(--space-10)", paddingTop: "var(--space-6)", borderTop: "1px solid var(--border-hairline)", fontSize: "var(--text-caption)", color: "var(--text-muted)" }}>
         {list.length} {list.length === 1 ? t.countOne : t.countMany}
       </div>
@@ -169,7 +189,7 @@ export function ShopClient() {
           <div style={{ marginTop: "var(--space-8)", display: "flex", gap: "var(--space-4)", justifyContent: "center", flexWrap: "wrap" }}>
             <Button href={lp("/kontakt")} size="lg">{t.emptyCta}</Button>
             <button
-              onClick={() => { setCategory(null); setGem(null); setOccasion(null); setPrice("Alle Preise"); setQuery(""); }}
+              onClick={() => { setCategory(null); setGem(null); setCut(null); setOccasion(null); setPrice("Alle Preise"); setQuery(""); }}
               style={{ background: "none", border: "1px solid var(--border-hairline-strong)", borderRadius: "var(--radius-button)", color: "var(--text-primary)", padding: "15px 32px", fontFamily: "var(--font-sans)", fontSize: 11, textTransform: "uppercase", letterSpacing: "var(--tracking-caps)", cursor: "pointer" }}
             >
               {t.resetFilters}

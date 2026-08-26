@@ -27,6 +27,8 @@ export const IMG = {
 
 export type Category = "Armbänder" | "Halsketten" | "Ringe" | "Edelsteine";
 export type OccasionSlug = "anfang" | "alltag" | "statement" | "geschenk";
+/** Schliff-Art: roh (ungeschliffen), poliert/facettiert (geschliffen) oder gemischt (half & half). */
+export type Cut = "ungeschliffen" | "geschliffen" | "halfhalf";
 
 export type Product = {
   id: string;
@@ -38,6 +40,7 @@ export type Product = {
   description: string;
   category: Category;
   occasion: OccasionSlug;
+  cut: Cut;
   badge?: string;
   compareAt?: number;
 };
@@ -46,6 +49,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "amazonit-armband",
     slug: "amazonit-armband",
+    cut: "halfhalf",
     name: "Amazonit Armband",
     gem: "Amazonit",
     price: 25,
@@ -58,6 +62,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "lapislazuli-kette",
     slug: "lapislazuli-kette",
+    cut: "halfhalf",
     name: "Lapislazuli Kette",
     gem: "Lapislazuli",
     price: 80,
@@ -70,6 +75,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "lapislazuli-anhaenger",
     slug: "lapislazuli-anhaenger",
+    cut: "geschliffen",
     name: "Lapislazuli · Geschliffener Anhänger",
     gem: "Lapislazuli",
     price: 10,
@@ -82,6 +88,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "lapislazuli-armband",
     slug: "lapislazuli-armband",
+    cut: "geschliffen",
     name: "Lapislazuli Armband",
     gem: "Lapislazuli",
     price: 50,
@@ -94,6 +101,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "lapislazuli-ring",
     slug: "lapislazuli-ring",
+    cut: "halfhalf",
     name: "Lapislazuli Ring",
     gem: "Lapislazuli",
     price: 60,
@@ -106,6 +114,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "malachit-edelstein",
     slug: "malachit-edelstein",
+    cut: "geschliffen",
     name: "Malachit · Geschliffener Edelstein",
     gem: "Malachit",
     price: 10,
@@ -118,6 +127,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "lapislazuli-edelstein",
     slug: "lapislazuli-edelstein",
+    cut: "geschliffen",
     name: "Lapislazuli · Geschliffener Edelstein",
     gem: "Lapislazuli",
     price: 180,
@@ -130,6 +140,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "haematitkette-tuerkis",
     slug: "haematitkette-tuerkis",
+    cut: "geschliffen",
     name: "Hämatitkette mit Türkisperlen",
     gem: "Hämatit",
     price: 30,
@@ -142,6 +153,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "rosenquarz-edelstein",
     slug: "rosenquarz-edelstein",
+    cut: "geschliffen",
     name: "Rosenquarz · Geschliffener Edelstein",
     gem: "Rosenquarz",
     price: 30,
@@ -154,6 +166,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "jade-armband",
     slug: "jade-armband",
+    cut: "halfhalf",
     name: "Jade Armband",
     gem: "Jade",
     price: 19,
@@ -166,6 +179,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "tigerauge-armband",
     slug: "tigerauge-armband",
+    cut: "geschliffen",
     name: "Tigerauge Armband",
     gem: "Tigerauge",
     price: 30,
@@ -178,6 +192,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "tigerauge-armreif",
     slug: "tigerauge-armreif",
+    cut: "geschliffen",
     name: "Tigerauge Armreif",
     gem: "Tigerauge",
     price: 30,
@@ -190,6 +205,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "haematit-armband",
     slug: "haematit-armband",
+    cut: "geschliffen",
     name: "Hämatit Armband",
     gem: "Hämatit",
     price: 25,
@@ -202,6 +218,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "amethyst-armband",
     slug: "amethyst-armband",
+    cut: "geschliffen",
     name: "Amethyst Armband",
     gem: "Amethyst",
     price: 29,
@@ -214,6 +231,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "aquamarin-armband",
     slug: "aquamarin-armband",
+    cut: "geschliffen",
     name: "Aquamarin Armband",
     gem: "Aquamarin",
     price: 30,
@@ -226,6 +244,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "kugelarmband-silber",
     slug: "kugelarmband-silber",
+    cut: "geschliffen",
     name: "Kugelarmband aus 925 Sterlingsilber",
     gem: "Sterlingsilber",
     price: 25,
@@ -387,6 +406,26 @@ export const VOICES: Voice[] = [
 // Helfer
 // ————————————————————————————————————————————————
 export const CATEGORIES: Category[] = ["Armbänder", "Halsketten", "Ringe", "Edelsteine"];
+
+/** Schliff-Arten in Anzeige-Reihenfolge. */
+export const CUTS: Cut[] = ["geschliffen", "halfhalf", "ungeschliffen"];
+
+const CUT_LABEL_DE: Record<Cut, string> = {
+  geschliffen: "Geschliffen",
+  halfhalf: "Half & Half",
+  ungeschliffen: "Ungeschliffen",
+};
+const CUT_LABEL_EN: Record<Cut, string> = {
+  geschliffen: "Faceted",
+  halfhalf: "Half & Half",
+  ungeschliffen: "Uncut",
+};
+export function cutLabel(cut: Cut, locale: Locale): string {
+  return (locale === "en" ? CUT_LABEL_EN : CUT_LABEL_DE)[cut];
+}
+export function isCut(value: string | null | undefined): value is Cut {
+  return value === "geschliffen" || value === "halfhalf" || value === "ungeschliffen";
+}
 
 export const STONES: string[] = [
   "Amazonit",

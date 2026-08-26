@@ -272,3 +272,7 @@ html.lenis,
     gap: var(--space-10) !important;
   }
 }
+
+/* Edelsteine → Schliff-Karten: Pfeil gleitet beim Hover (Karte selbst hebt via Card interactive) */
+.lum-cut-arrow { transition: transform var(--transition-hover, 220ms ease); }
+.lum-cut-card:hover .lum-cut-arrow { transform: translateX(5px); }

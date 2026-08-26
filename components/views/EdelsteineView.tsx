@@ -3,17 +3,17 @@ import { SectionHeading } from "@/components/ds/core/SectionHeading.jsx";
 import { Card } from "@/components/ds/core/Card.jsx";
 import { GemCard } from "@/components/ds/commerce/GemCard.jsx";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
-import { GEMS, IMG, gemName, gemLoreFor } from "@/lib/catalog";
+import { GEMS, IMG, gemName, gemLoreFor, type Cut } from "@/lib/catalog";
 import { type Locale, localePath } from "@/lib/i18n";
 import { getDict } from "@/lib/dict";
 
 export function EdelsteineView({ lang }: { lang: Locale }) {
   const t = getDict(lang).gemstones;
   const cutLabels = [t.cutRawT, t.cutFacetedT, t.cutHalfT];
-  const cuts: [string, string][] = [
-    [t.cutRawT, t.cutRawB],
-    [t.cutFacetedT, t.cutFacetedB],
-    [t.cutHalfT, t.cutHalfB],
+  const cuts: { title: string; body: string; cut: Cut }[] = [
+    { title: t.cutRawT, body: t.cutRawB, cut: "ungeschliffen" },
+    { title: t.cutFacetedT, body: t.cutFacetedB, cut: "geschliffen" },
+    { title: t.cutHalfT, body: t.cutHalfB, cut: "halfhalf" },
   ];
 
   return (
@@ -32,11 +32,23 @@ export function EdelsteineView({ lang }: { lang: Locale }) {
       <section style={{ padding: "0 var(--page-pad) var(--section-y-tight)", maxWidth: "var(--page-max)", margin: "0 auto" }}>
         <RevealGroup className="lum-grid-3" style={{ marginTop: "calc(var(--space-16) * -1)", position: "relative" }}>
           {cuts.map((c) => (
-            <RevealItem key={c[0]}>
-              <Card variant="solid" padding="var(--space-8)">
-                <div style={{ fontFamily: "var(--font-display)", fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-light)" }}>{c[0]}</div>
-                <p style={{ margin: "var(--space-3) 0 0", fontSize: "var(--text-body-sm)", fontWeight: "var(--weight-light)", lineHeight: "var(--leading-body)", color: "var(--text-secondary)" }}>{c[1]}</p>
-              </Card>
+            <RevealItem key={c.title}>
+              <Link
+                href={localePath(lang, `/shop?schliff=${c.cut}`)}
+                className="lum-cut-card"
+                style={{ display: "block", height: "100%", textDecoration: "none", color: "inherit" }}
+              >
+                <Card variant="solid" padding="var(--space-8)" interactive style={{ height: "100%" }}>
+                  <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "var(--space-4)" }}>
+                    <span style={{ fontFamily: "var(--font-display)", fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-light)" }}>{c.title}</span>
+                    <span aria-hidden className="lum-cut-arrow" style={{ fontSize: "var(--text-body-sm)", color: "var(--text-gold)" }}>→</span>
+                  </div>
+                  <p style={{ margin: "var(--space-3) 0 0", fontSize: "var(--text-body-sm)", fontWeight: "var(--weight-light)", lineHeight: "var(--leading-body)", color: "var(--text-secondary)" }}>{c.body}</p>
+                  <span style={{ display: "inline-block", marginTop: "var(--space-5)", fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-tight)", color: "var(--text-muted)" }}>
+                    {t.cutFilterCta}
+                  </span>
+                </Card>
+              </Link>
             </RevealItem>
           ))}
         </RevealGroup>

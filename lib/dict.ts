@@ -122,6 +122,8 @@ const de = {
     selStone: "Stein",
     selPrice: "Preis",
     selSort: "Sortieren",
+    selCut: "Schliff",
+    cutAll: "Alle",
     allStones: "Alle Steine",
     priceAll: "Alle Preise",
     priceUnder25: "bis 25 €",
@@ -172,6 +174,7 @@ const de = {
     cutFacetedB: "Facettiert und poliert. Präzise Kanten, die das Licht brechen.",
     cutHalfT: "Half & Half",
     cutHalfB: "Halb roh, halb geschliffen — der Kontrast für moderne, ausdrucksstarke Designs.",
+    cutFilterCta: "Im Shop ansehen",
     closing:
       "Diese Vielfalt macht unsere Steine ideal für Sammler, Schmuckliebhaber, Gestalter und alle, die besondere Materialien schätzen.",
   },
@@ -329,6 +332,8 @@ const en: typeof de = {
     selStone: "Stone",
     selPrice: "Price",
     selSort: "Sort",
+    selCut: "Cut",
+    cutAll: "All",
     allStones: "All stones",
     priceAll: "All prices",
     priceUnder25: "up to €25",
@@ -379,6 +384,7 @@ const en: typeof de = {
     cutFacetedB: "Faceted and polished. Precise edges that break the light.",
     cutHalfT: "Half & Half",
     cutHalfB: "Half raw, half faceted — the contrast for modern, expressive designs.",
+    cutFilterCta: "View in shop",
     closing:
       "This variety makes our stones ideal for collectors, jewellery lovers, designers and anyone who values special materials.",
   },
