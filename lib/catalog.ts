@@ -257,7 +257,7 @@ export const OCCASIONS: Occasion[] = [
     label: "Für jeden Anfang",
     tagline: "Ein Ja. Ein Meilenstein. Ein Versprechen.",
     copy: "Besondere Stücke für die Momente, in denen alles beginnt. Handverlesen für das, was bleibt.",
-    image: P + "rosenquarz-edelstein.jpg",
+    image: IMGBASE + "occ-anfang.jpg",
     href: "/shop?anlass=anfang",
   },
   {
@@ -265,7 +265,7 @@ export const OCCASIONS: Occasion[] = [
     label: "Für jeden Tag",
     tagline: "Nah an der Haut. Leise. Deins.",
     copy: "Armbänder, die dich täglich begleiten, ohne je laut zu sein. Zeitlos, klar, echt.",
-    image: P + "amethyst-armband.jpg",
+    image: IMGBASE + "occ-alltag.jpg",
     href: "/shop?anlass=alltag",
   },
   {
@@ -273,7 +273,7 @@ export const OCCASIONS: Occasion[] = [
     label: "Statement",
     tagline: "Groß. Farbstark. Unübersehbar.",
     copy: "Für den Auftritt, den nur du hinlegst. Ausdrucksstarke Steine für ausdrucksstarke Menschen.",
-    image: P + "tigerauge-armreif.jpg",
+    image: IMGBASE + "occ-statement.jpg",
     href: "/shop?anlass=statement",
   },
   {
@@ -281,7 +281,7 @@ export const OCCASIONS: Occasion[] = [
     label: "Zum Verschenken",
     tagline: "Sorgfältig gewählt. Von Hand verpackt.",
     copy: "Ein Geschenk, das bleibt. Handgefertigte Unikate, in der emeraldgrünen LUMORANI-Box.",
-    image: IMG.box,
+    image: IMGBASE + "occ-geschenk.jpg",
     href: "/shop?anlass=geschenk",
   },
 ];

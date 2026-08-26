@@ -1,5 +1,6 @@
 import { Hero } from "@/components/home/Hero";
 import { GemstoneMoment } from "@/components/home/GemstoneMoment";
+import { StoneFinder } from "@/components/home/StoneFinder";
 import { Newsletter } from "@/components/home/Newsletter";
 import { CategoryTile } from "@/components/site/CategoryTile";
 import { ProductTile } from "@/components/site/ProductTile";
@@ -108,6 +109,9 @@ export function HomeView({ lang }: { lang: Locale }) {
 
       {/* Signature-Scroll-Moment — Edelstein morpht in 3D beim Scrollen */}
       <GemstoneMoment lang={lang} />
+
+      {/* Interaktiver Stein-Finder */}
+      <StoneFinder lang={lang} />
 
       {/* Neuheiten */}
       <section className="lum-section">

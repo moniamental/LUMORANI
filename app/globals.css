@@ -156,6 +156,13 @@ html.lenis,
   }
 }
 
+/* Stein-Finder Antwort-Buttons */
+.lum-finder-opt:hover {
+  border-color: var(--gold-300) !important;
+  color: var(--gold-100) !important;
+  background: rgba(201, 162, 90, 0.06) !important;
+}
+
 .lum-grid-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
