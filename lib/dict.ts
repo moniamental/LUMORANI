@@ -105,6 +105,7 @@ const de = {
     promoPlaceholder: "Gutscheincode",
     promoHint: "an der Kasse",
     sum: "Summe",
+    uniqueHint: "Jedes Stück wird von Hand gefertigt — Farbe und Maserung fallen bei jedem Stein etwas anders aus.",
     checkout: "Zur Kasse",
     checkoutLoading: "Einen Moment …",
     reassurance: "Sichere Zahlung über Stripe · Versichert versandt · 14 Tage Rückgabe",
@@ -144,6 +145,8 @@ const de = {
   },
   product: {
     add: "In den Warenkorb",
+    unique: "Von Hand gefertigt — kein Stein gleicht dem anderen",
+    voicesTitle: "Was Kundinnen und Kunden sagen",
     trust1: "Handgefertigtes Unikat",
     trust2: "Versichert versandt",
     trust3: "14 Tage Rückgabe",
@@ -316,6 +319,7 @@ const en: typeof de = {
     promoPlaceholder: "Voucher code",
     promoHint: "at checkout",
     sum: "Subtotal",
+    uniqueHint: "Every piece is made by hand — colour and banding differ slightly from stone to stone.",
     checkout: "Checkout",
     checkoutLoading: "One moment …",
     reassurance: "Secure payment via Stripe · Insured shipping · 14-day returns",
@@ -355,6 +359,8 @@ const en: typeof de = {
   },
   product: {
     add: "Add to cart",
+    unique: "Handmade — no two stones are alike",
+    voicesTitle: "What our customers say",
     trust1: "Handmade, one of a kind",
     trust2: "Insured shipping",
     trust3: "14-day returns",

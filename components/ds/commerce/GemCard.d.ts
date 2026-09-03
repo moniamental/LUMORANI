@@ -9,6 +9,8 @@ export interface GemCardProps {
   name: string;
   description?: string;
   image?: string;
+  /** Beschreibt, was auf dem Bild tatsächlich zu sehen ist. Fällt auf `name` zurück. */
+  imageAlt?: string;
   /** Available cuts, e.g. ["Ungeschliffen", "Geschliffen", "Half & Half"]. */
   cuts?: string[];
   onClick?: () => void;

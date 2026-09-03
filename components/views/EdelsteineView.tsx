@@ -8,6 +8,29 @@ import { type Locale, localePath } from "@/lib/i18n";
 import { getDict } from "@/lib/dict";
 import Image from "next/image";
 
+/**
+ * Ehrlicher Alt-Text für die Steinkarten.
+ *
+ * Für sechs der neun Steine liegt bislang kein Foto des losen Steins vor —
+ * dort zeigt die Karte den Stein, wie er in einem Armband verarbeitet ist.
+ * Der Alt-Text darf das nicht verschweigen: „Amazonit" als Beschreibung eines
+ * Armbandfotos wäre für Screenreader schlicht falsch.
+ *
+ * Sobald echte Fotos der losen Steine vorliegen, greift automatisch der
+ * „lose"-Zweig — es ist dann nur der Dateiname im Katalog zu tauschen.
+ */
+function gemImageAlt(image: string, name: string, lang: Locale): string {
+  const armband = /-armband/.test(image);
+  if (lang === "en") {
+    return armband
+      ? `${name} worked into a LUMORANI bracelet`
+      : `Loose ${name} gemstone from LUMORANI`;
+  }
+  return armband
+    ? `${name}, verarbeitet in einem Armband von LUMORANI`
+    : `Loser ${name} von LUMORANI`;
+}
+
 export function EdelsteineView({ lang }: { lang: Locale }) {
   const t = getDict(lang).gemstones;
   const cutLabels = [t.cutRawT, t.cutFacetedT, t.cutHalfT];
@@ -62,6 +85,7 @@ export function EdelsteineView({ lang }: { lang: Locale }) {
                   name={gemName(g.name, lang)}
                   description={gemLoreFor(g.name, lang)?.bedeutung ?? g.description}
                   image={g.image}
+                  imageAlt={gemImageAlt(g.image, gemName(g.name, lang), lang)}
                   cuts={cutLabels}
                   style={{ height: "100%" }}
                 />

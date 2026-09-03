@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 
 const gemColors = {
   rubin: "var(--gem-ruby)", smaragd: "var(--gem-emerald)", aquamarin: "var(--gem-aquamarine)",
@@ -7,7 +8,7 @@ const gemColors = {
   diamant: "var(--gem-diamond)", quarz: "var(--gem-quartz)"
 };
 
-export function GemCard({ name, description, image, cuts = [], onClick, style }) {
+export function GemCard({ name, description, image, imageAlt, cuts = [], onClick, style }) {
   const [hover, setHover] = React.useState(false);
   const key = String(name || "").toLowerCase();
   const hue = gemColors[key] || "var(--gold-400)";
@@ -24,7 +25,13 @@ export function GemCard({ name, description, image, cuts = [], onClick, style })
     >
       {image ? (
         <div style={{ position: "relative", aspectRatio: "4 / 3", overflow: "hidden" }}>
-          <img src={image} alt={name} style={{ width: "100%", height: "100%", objectFit: "cover", transform: hover ? "var(--image-zoom)" : "none", transition: "transform var(--duration-slow) var(--ease-out-silk)" }} />
+          <Image
+            src={image}
+            alt={imageAlt || name}
+            fill
+            sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 25vw"
+            style={{ objectFit: "cover", transform: hover ? "var(--image-zoom)" : "none", transition: "transform var(--duration-slow) var(--ease-out-silk)" }}
+          />
           <div style={{ position: "absolute", inset: 0, background: "var(--gradient-ink-veil)", opacity: .7 }} />
         </div>
       ) : null}

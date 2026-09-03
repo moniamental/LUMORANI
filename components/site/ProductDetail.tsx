@@ -16,6 +16,7 @@ import {
   gemName,
   categoryLabel,
   gemLoreFor,
+  VOICES,
 } from "@/lib/catalog";
 import { localePath } from "@/lib/i18n";
 import { getDict } from "@/lib/dict";
@@ -113,7 +114,14 @@ export function ProductDetail({
             {productDescription(product, locale)}
           </p>
 
-          <div style={{ marginTop: "var(--space-10)", display: "flex", gap: "var(--space-4)", alignItems: "center" }}>
+          {/* Verknappung ist hier keine Masche, sondern die Wahrheit:
+              jedes Stück wird einmal von Hand gefertigt. */}
+          <p style={{ marginTop: "var(--space-8)", display: "inline-flex", alignItems: "center", gap: "var(--space-3)", padding: "var(--space-3) var(--space-5)", border: "1px solid var(--border-gold)", borderRadius: "var(--radius-button)", fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-tight)", color: "var(--text-gold)" }}>
+            <span aria-hidden style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--text-gold)" }} />
+            {t.unique}
+          </p>
+
+          <div style={{ marginTop: "var(--space-8)", display: "flex", gap: "var(--space-4)", alignItems: "center" }}>
             <QuantityStepper value={qty} onChange={setQty} max={5} />
             <Button size="lg" fullWidth onClick={() => cart.add(product, qty)}>
               {t.add}
@@ -160,6 +168,30 @@ export function ProductDetail({
               <div style={{ marginTop: "var(--space-6)", fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-tight)", color: "var(--text-muted)" }}>
                 {t.samirRole}
               </div>
+            </div>
+          </section>
+        </Reveal>
+      ) : null}
+
+      {/* Kundenstimmen — Vertrauen genau dort, wo entschieden wird.
+          Bisher standen sie nur auf der Startseite. */}
+      {VOICES.length ? (
+        <Reveal>
+          <section style={{ marginTop: "var(--section-y-tight)", paddingTop: "var(--space-12)", borderTop: "1px solid var(--border-hairline)" }}>
+            <div style={{ fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-wide)", color: "var(--text-gold)" }}>
+              {t.voicesTitle}
+            </div>
+            <div className="lum-grid-3" style={{ marginTop: "var(--space-8)" }}>
+              {VOICES.map((v) => (
+                <figure key={v.name} style={{ margin: 0 }}>
+                  <blockquote style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: "var(--text-body)", fontWeight: "var(--weight-light)", lineHeight: "var(--leading-body)", color: "var(--text-secondary)" }}>
+                    {locale === "en" ? `“${v.quote}”` : `„${v.quote}"`}
+                  </blockquote>
+                  <figcaption style={{ marginTop: "var(--space-4)", fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-tight)", color: "var(--text-muted)" }}>
+                    {v.name}
+                  </figcaption>
+                </figure>
+              ))}
             </div>
           </section>
         </Reveal>

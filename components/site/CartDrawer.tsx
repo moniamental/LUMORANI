@@ -10,6 +10,7 @@ import { PriceTag } from "@/components/ds/commerce/PriceTag.jsx";
 import { getProductBySlug, productName, gemName } from "@/lib/catalog";
 import { getDict } from "@/lib/dict";
 import { useLocale } from "@/lib/useLocale";
+import { priceNote } from "@/lib/tax";
 
 const SILK = [0.16, 1, 0.3, 1] as const;
 
@@ -248,6 +249,14 @@ export function CartDrawer() {
                 </span>
                 <PriceTag value={cart.subtotal} size="md" locale={locale} />
               </div>
+              {/* Pflichtangaben auch hier — der Hinweis von der Produktseite
+                  darf genau dort nicht fehlen, wo entschieden wird. */}
+              <p style={{ margin: "var(--space-3) 0 0", fontSize: "var(--text-micro)", color: "var(--text-muted)", lineHeight: 1.5 }}>
+                {priceNote(locale).text} {priceNote(locale).linkLabel}
+              </p>
+              <p style={{ margin: "var(--space-2) 0 0", fontSize: "var(--text-micro)", color: "var(--text-muted)", lineHeight: 1.5 }}>
+                {t.uniqueHint}
+              </p>
               <Button
                 size="lg"
                 fullWidth
