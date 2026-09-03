@@ -1,8 +1,11 @@
 import { LegalShell } from "@/components/site/LegalShell";
 import { type Locale, localePath } from "@/lib/i18n";
+import { TAX_MODE } from "@/lib/tax";
 
 export function AgbView({ lang }: { lang: Locale }) {
   const returnsHref = localePath(lang, "/rueckgabe");
+  const withdrawalHref = localePath(lang, "/widerruf");
+  const kleinunternehmer = TAX_MODE === "kleinunternehmer";
 
   if (lang === "en") {
     return (
@@ -27,14 +30,21 @@ export function AgbView({ lang }: { lang: Locale }) {
 
         <h2>§ 3 Prices and shipping costs</h2>
         <p>
-          All prices are in euros and include statutory VAT. Within Germany we deliver free of shipping
-          costs. Separate conditions, communicated in advance, apply to international deliveries.
+          All prices are in euros and are total prices.{" "}
+          {kleinunternehmer
+            ? "As a small business within the meaning of § 19 of the German VAT Act, we do not show VAT separately."
+            : "They include statutory VAT."}{" "}
+          Within Germany we deliver free of shipping costs. Separate conditions, communicated in advance,
+          apply to international deliveries.
         </p>
 
         <h2>§ 4 Payment</h2>
         <p>
-          Payment is made via the payment service provider offered during the order process. The data
-          required for payment is processed there securely and encrypted.
+          Payment is processed by our payment service provider Stripe. Depending on availability you can
+          pay by credit or debit card, Klarna, Apple Pay or Amazon Pay. Which methods are available is
+          shown to you before you complete the order. The data required for payment is transmitted
+          directly to Stripe and processed there in encrypted form; we never see your full card details.
+          Payment is due immediately upon conclusion of the contract.
         </p>
 
         <h2>§ 5 Delivery</h2>
@@ -44,21 +54,31 @@ export function AgbView({ lang }: { lang: Locale }) {
           and banding are natural and do not constitute a defect.
         </p>
 
-        <h2>§ 6 Right of withdrawal for consumers</h2>
+        <h2>§ 6 Retention of title</h2>
+        <p>The goods remain our property until payment has been received in full.</p>
+
+        <h2>§ 7 Right of withdrawal for consumers</h2>
         <p>
-          Consumers have a statutory right of withdrawal of 14 days from receipt of the goods. To
-          exercise your right of withdrawal, a clear statement to{" "}
-          <a href="mailto:info@lumorani.com">info@lumorani.com</a> is sufficient. You can find further
-          information in our <a href={returnsHref}>returns policy</a>.
+          Consumers have a statutory right of withdrawal of 14 days from receipt of the goods. The full
+          statutory wording, the effects of withdrawal and the model withdrawal form can be found in our{" "}
+          <a href={withdrawalHref}>right of withdrawal notice</a>. Our practical returns process is
+          described in the <a href={returnsHref}>returns policy</a>.
         </p>
 
-        <h2>§ 7 Warranty</h2>
+        <h2>§ 8 Warranty</h2>
         <p>
           Statutory warranty rights apply. In the case of justified defects, we strive for a swift and
           fair solution.
         </p>
 
-        <h2>§ 8 Dispute resolution</h2>
+        <h2>§ 9 Contract language and storage of the contract text</h2>
+        <p>
+          The contract can be concluded in German or English. We store the contract text and send you the
+          order details by email. You can view your order data at any time by writing to{" "}
+          <a href="mailto:info@lumorani.com">info@lumorani.com</a>.
+        </p>
+
+        <h2>§ 10 Dispute resolution</h2>
         <p>
           We are neither obliged nor willing to take part in dispute resolution proceedings before a
           consumer arbitration board.
@@ -86,15 +106,22 @@ export function AgbView({ lang }: { lang: Locale }) {
 
       <h2>§ 3 Preise und Versandkosten</h2>
       <p>
-        Alle Preise verstehen sich in Euro und enthalten die gesetzliche Umsatzsteuer. Innerhalb
-        Deutschlands liefern wir versandkostenfrei. Für Lieferungen ins Ausland gelten gesonderte, vorab
-        mitgeteilte Konditionen.
+        Alle Preise verstehen sich in Euro und sind Gesamtpreise.{" "}
+        {kleinunternehmer
+          ? "Als Kleinunternehmer im Sinne des § 19 UStG weisen wir keine Umsatzsteuer gesondert aus."
+          : "Sie enthalten die gesetzliche Umsatzsteuer."}{" "}
+        Innerhalb Deutschlands liefern wir versandkostenfrei. Für Lieferungen ins Ausland gelten
+        gesonderte, vorab mitgeteilte Konditionen.
       </p>
 
       <h2>§ 4 Zahlung</h2>
       <p>
-        Die Zahlung erfolgt über den im Bestellprozess angebotenen Zahlungsdienstleister. Die für die
-        Zahlung erforderlichen Daten werden dort sicher und verschlüsselt verarbeitet.
+        Die Zahlung wird über unseren Zahlungsdienstleister Stripe abgewickelt. Je nach Verfügbarkeit
+        kannst du per Kredit- oder Debitkarte, Klarna, Apple Pay oder Amazon Pay bezahlen. Welche
+        Zahlungsarten zur Verfügung stehen, siehst du vor Abschluss der Bestellung. Die für die Zahlung
+        erforderlichen Daten werden direkt an Stripe übermittelt und dort verschlüsselt verarbeitet —
+        deine vollständigen Kartendaten sehen wir zu keinem Zeitpunkt. Die Zahlung ist mit
+        Vertragsschluss sofort fällig.
       </p>
 
       <h2>§ 5 Lieferung</h2>
@@ -104,21 +131,31 @@ export function AgbView({ lang }: { lang: Locale }) {
         Abweichungen in Farbe und Maserung sind natürlich und stellen keinen Mangel dar.
       </p>
 
-      <h2>§ 6 Widerrufsrecht für Verbraucher</h2>
+      <h2>§ 6 Eigentumsvorbehalt</h2>
+      <p>Die Ware bleibt bis zur vollständigen Bezahlung unser Eigentum.</p>
+
+      <h2>§ 7 Widerrufsrecht für Verbraucher</h2>
       <p>
-        Verbraucher haben ein gesetzliches Widerrufsrecht von 14 Tagen ab Erhalt der Ware. Um dein
-        Widerrufsrecht auszuüben, genügt eine eindeutige Erklärung an{" "}
-        <a href="mailto:info@lumorani.com">info@lumorani.com</a>. Weitere Informationen findest du in
-        unseren <a href={returnsHref}>Rückgaberichtlinien</a>.
+        Verbraucher haben ein gesetzliches Widerrufsrecht von 14 Tagen ab Erhalt der Ware. Den
+        vollständigen gesetzlichen Wortlaut, die Folgen des Widerrufs und das Muster-Widerrufsformular
+        findest du in unserer <a href={withdrawalHref}>Widerrufsbelehrung</a>. Wie die Rückgabe bei uns
+        praktisch abläuft, steht in den <a href={returnsHref}>Rückgaberichtlinien</a>.
       </p>
 
-      <h2>§ 7 Gewährleistung</h2>
+      <h2>§ 8 Gewährleistung</h2>
       <p>
         Es gelten die gesetzlichen Gewährleistungsrechte. Bei berechtigten Mängeln bemühen wir uns um
         eine zügige und faire Lösung.
       </p>
 
-      <h2>§ 8 Streitbeilegung</h2>
+      <h2>§ 9 Vertragssprache und Speicherung des Vertragstextes</h2>
+      <p>
+        Der Vertrag kann auf Deutsch oder Englisch geschlossen werden. Wir speichern den Vertragstext und
+        senden dir die Bestelldaten per E-Mail zu. Deine Bestelldaten kannst du jederzeit unter{" "}
+        <a href="mailto:info@lumorani.com">info@lumorani.com</a> anfordern.
+      </p>
+
+      <h2>§ 10 Streitbeilegung</h2>
       <p>
         Wir sind nicht verpflichtet und nicht bereit, an einem Streitbeilegungsverfahren vor einer
         Verbraucherschlichtungsstelle teilzunehmen.

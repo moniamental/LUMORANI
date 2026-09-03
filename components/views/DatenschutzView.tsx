@@ -60,6 +60,20 @@ export function DatenschutzView({ lang }: { lang: Locale }) {
           clauses.
         </p>
 
+        <h3>Vercel Web Analytics</h3>
+        <p>
+          We use Vercel Web Analytics, a service of Vercel Inc., to measure reach. The service works{" "}
+          <strong>without cookies</strong> and does not create a cross-device identifier. Only aggregated
+          information such as the page visited, referrer, device type and country is recorded. We cannot
+          draw conclusions about individual people and no personal profiles are created.
+        </p>
+        <p>
+          The legal basis is Art. 6(1)(f) GDPR. Our legitimate interest lies in a data-minimising
+          analysis of which parts of our shop are used. As no cookies are set and no information is read
+          from your device, consent under § 25 TDDG is not required — which is why we deliberately do not
+          use a consent banner.
+        </p>
+
         <h2>3. General notes and mandatory information</h2>
         <h3>Notice on the responsible party</h3>
         <p>
@@ -201,6 +215,21 @@ export function DatenschutzView({ lang }: { lang: Locale }) {
         Interesse an einer zuverlässigen und sicheren Darstellung unserer Website. Mit dem Anbieter
         besteht ein Vertrag über Auftragsverarbeitung (AVV). Die Datenübertragung in die USA wird auf
         die Standardvertragsklauseln der EU-Kommission gestützt.
+      </p>
+
+      <h3>Vercel Web Analytics</h3>
+      <p>
+        Zur Reichweitenmessung nutzen wir Vercel Web Analytics, einen Dienst der Vercel Inc. Der Dienst
+        arbeitet <strong>ohne Cookies</strong> und legt <strong>keine geräteübergreifende Kennung</strong>{" "}
+        an. Erfasst werden ausschließlich aggregierte Angaben wie aufgerufene Seite, Verweisquelle,
+        Gerätetyp und Land. Ein Rückschluss auf einzelne Personen ist uns damit nicht möglich; es werden
+        keine personenbezogenen Profile gebildet.
+      </p>
+      <p>
+        Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in einer
+        datensparsamen Auswertung, welche Inhalte unseres Shops genutzt werden. Weil weder Cookies
+        gesetzt noch Informationen aus deinem Endgerät ausgelesen werden, ist eine Einwilligung nach
+        § 25 TDDG nicht erforderlich — wir setzen deshalb bewusst kein Einwilligungsbanner ein.
       </p>
 
       <h2>3. Allgemeine Hinweise und Pflichtinformationen</h2>
