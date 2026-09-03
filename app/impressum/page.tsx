@@ -4,6 +4,8 @@ import { altLanguages } from "@/lib/meta";
 
 export const metadata: Metadata = {
   title: "Impressum",
+  description:
+    "Impressum von LUMORANI nach § 5 DDG — Anbieter, Anschrift und Kontakt.",
   robots: { index: false },
   alternates: altLanguages("/impressum"),
 };

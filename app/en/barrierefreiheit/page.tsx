@@ -4,6 +4,8 @@ import { altLanguages } from "@/lib/meta";
 
 export const metadata: Metadata = {
   title: "Accessibility",
+  description:
+    "Accessibility statement for LUMORANI — current status and how to give feedback.",
   alternates: altLanguages("/barrierefreiheit"),
 };
 

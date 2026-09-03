@@ -29,6 +29,13 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Moderne Bildformate. Next liefert damit AVIF/WebP statt der Original-JPEGs
+  // aus — bei einem bildlastigen Shop der größte Ladezeit-Hebel.
+  images: {
+    formats: ["image/avif", "image/webp"],
+    deviceSizes: [390, 640, 828, 1080, 1200, 1600, 1920],
+    imageSizes: [64, 120, 160, 256, 384],
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

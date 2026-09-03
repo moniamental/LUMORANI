@@ -1,6 +1,7 @@
 "use client";
 
 import { useReducedMotion } from "framer-motion";
+import Image from "next/image";
 
 /** Atmosphärisches Loop-Video; bei prefers-reduced-motion nur das Poster. */
 export function LoopVideo({
@@ -13,11 +14,10 @@ export function LoopVideo({
   style?: React.CSSProperties;
 }) {
   const reduce = useReducedMotion();
-  const fill: React.CSSProperties = { width: "100%", height: "100%", objectFit: "cover", ...style };
+  const fill: React.CSSProperties = { objectFit: "cover", ...style };
 
   if (reduce) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={poster} alt="" style={fill} />;
+    return <Image fill sizes="(max-width: 900px) 100vw, 50vw" src={poster} alt="" style={fill} />;
   }
   return (
     <video autoPlay muted loop playsInline preload="metadata" poster={poster} aria-hidden style={fill}>

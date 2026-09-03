@@ -7,6 +7,7 @@ import { IMG } from "@/lib/catalog";
 import { localePath } from "@/lib/i18n";
 import { getDict } from "@/lib/dict";
 import { useLocale } from "@/lib/useLocale";
+import Image from "next/image";
 
 const SILK = [0.16, 1, 0.3, 1] as const;
 
@@ -45,8 +46,7 @@ export function Hero() {
       >
         {reduce ? (
           // Nur bei reduzierter Bewegung ein Standbild (kein Autoplay-Video möglich)
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={IMG.hero} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          <Image fill sizes="100vw" src={IMG.hero} alt="" style={{ objectFit: "cover" }} />
         ) : (
           // Kein poster-Bild — sonst blendet vor dem Video ein Steine-Bild ein.
           <video
@@ -56,7 +56,7 @@ export function Hero() {
             playsInline
             preload="auto"
             aria-hidden
-            style={{ width: "100%", height: "100%", objectFit: "cover", background: "var(--ink-1000)" }}
+            style={{ objectFit: "cover", background: "var(--ink-1000)" }}
           >
             <source src="/assets/video/hero-craft.mp4" type="video/mp4" />
           </video>

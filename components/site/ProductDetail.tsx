@@ -20,6 +20,8 @@ import {
 import { localePath } from "@/lib/i18n";
 import { getDict } from "@/lib/dict";
 import { useLocale } from "@/lib/useLocale";
+import { priceNote } from "@/lib/tax";
+import Image from "next/image";
 
 export function ProductDetail({
   product,
@@ -37,6 +39,7 @@ export function ProductDetail({
   const name = productName(product, locale);
   const gem = gemName(product.gem, locale);
   const lore = gemLoreFor(product.gem, locale);
+  const note = priceNote(locale);
   // Nur das echte Produktbild — keine generischen Box-/Collage-Bilder mehr,
   // die auf jedem Produkt gleich (und damit „falsch") wirkten.
   const shots = [product.image];
@@ -64,8 +67,7 @@ export function ProductDetail({
         {/* Galerie */}
         <div>
           <div style={{ position: "relative", aspectRatio: "4 / 5", overflow: "hidden", background: "var(--ink-800)" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={shots[shot]} alt={name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <Image fill sizes="(max-width: 900px) 100vw, 50vw" src={shots[shot]} alt={name} style={{ objectFit: "cover" }} />
             {product.badge ? (
               <div style={{ position: "absolute", top: 18, left: 18 }}>
                 <Badge tone="outline">{product.badge}</Badge>
@@ -80,10 +82,9 @@ export function ProductDetail({
                   type="button"
                   onClick={() => setShot(i)}
                   aria-label={t.shotProduct}
-                  style={{ padding: 0, aspectRatio: "1 / 1", overflow: "hidden", cursor: "pointer", background: "none", border: "1px solid " + (i === shot ? "var(--gold-300)" : "var(--border-hairline)") }}
+                  style={{ position: "relative", padding: 0, aspectRatio: "1 / 1", overflow: "hidden", cursor: "pointer", background: "none", border: "1px solid " + (i === shot ? "var(--gold-300)" : "var(--border-hairline)") }}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={s} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: i === shot ? 1 : 0.6 }} />
+                  <Image fill sizes="120px" src={s} alt="" style={{ objectFit: "cover", opacity: i === shot ? 1 : 0.6 }} />
                 </button>
               ))}
             </div>
@@ -100,6 +101,13 @@ export function ProductDetail({
           </h1>
           <div style={{ marginTop: "var(--space-5)" }}>
             <PriceTag value={product.price} compareAt={product.compareAt} size="lg" locale={locale} />
+            {/* Pflichtangabe nach § 6 PAngV — Text zentral in lib/tax.ts umschaltbar. */}
+            <p style={{ margin: "var(--space-3) 0 0", fontSize: "var(--text-micro)", color: "var(--text-muted)", lineHeight: 1.5 }}>
+              {note.text}{" "}
+              <Link href={localePath(locale, "/versand")} style={{ color: "var(--text-muted)", textDecoration: "underline" }}>
+                {note.linkLabel}
+              </Link>
+            </p>
           </div>
           <p style={{ marginTop: "var(--space-6)", fontSize: "var(--text-body)", fontWeight: "var(--weight-light)", lineHeight: "var(--leading-body)", color: "var(--text-secondary)" }}>
             {productDescription(product, locale)}
@@ -170,6 +178,15 @@ export function ProductDetail({
           </div>
         </div>
       ) : null}
+      {/* Mitlaufender Kauf-Balken auf schmalen Bildschirmen. Der eigentliche
+          CTA liegt weit unten in der Kaufspalte — mobil sonst außer Sichtweite. */}
+      <div className="lum-buybar" aria-hidden={false}>
+        <div className="lum-buybar__info">
+          <span className="lum-buybar__name">{name}</span>
+          <span className="lum-buybar__price">{new Intl.NumberFormat(locale === "en" ? "en-DE" : "de-DE", { style: "currency", currency: "EUR" }).format(product.price)}</span>
+        </div>
+        <Button size="md" onClick={() => cart.add(product, qty)}>{t.add}</Button>
+      </div>
     </main>
   );
 }

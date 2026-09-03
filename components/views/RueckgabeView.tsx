@@ -1,8 +1,10 @@
+import Link from "next/link";
 import { SectionHeading } from "@/components/ds/core/SectionHeading.jsx";
 import { Button } from "@/components/ds/core/Button.jsx";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { IMG } from "@/lib/catalog";
 import { type Locale, localePath } from "@/lib/i18n";
+import Image from "next/image";
 
 const CONTENT: Record<Locale, {
   eyebrow: string; title: string; subtitle: string;
@@ -47,8 +49,7 @@ export function RueckgabeView({ lang }: { lang: Locale }) {
   return (
     <main>
       <section style={{ position: "relative", padding: "var(--space-24) var(--page-pad)", overflow: "hidden" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={IMG.silk} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.4 }} />
+        <Image fill sizes="100vw" src={IMG.silk} alt="" style={{ position: "absolute", inset: 0, objectFit: "cover", opacity: 0.4 }} />
         <div style={{ position: "absolute", inset: 0, background: "var(--gradient-ink-scrim)" }} />
         <Reveal style={{ position: "relative", maxWidth: "var(--page-max)", margin: "0 auto" }}>
           <SectionHeading eyebrow={t.eyebrow} title={t.title} subtitle={t.subtitle} />
@@ -76,6 +77,17 @@ export function RueckgabeView({ lang }: { lang: Locale }) {
             <p>{t.p2}</p>
             <h2>{t.h2}</h2>
             <p><a href="mailto:info@lumorani.com">info@lumorani.com</a></p>
+            {/* Pflichtverweis: Die gesetzliche Widerrufsbelehrung mit
+                Muster-Widerrufsformular muss von hier aus erreichbar sein. */}
+            <h2>{lang === "en" ? "Your statutory right of withdrawal" : "Dein gesetzliches Widerrufsrecht"}</h2>
+            <p>
+              {lang === "en"
+                ? "Beyond our returns process you have a statutory right of withdrawal of 14 days. The full wording, the effects and the model withdrawal form are here: "
+                : "Unabhängig von unserem Rückgabeablauf steht dir ein gesetzliches Widerrufsrecht von 14 Tagen zu. Den vollständigen Wortlaut, die Folgen und das Muster-Widerrufsformular findest du hier: "}
+              <Link href={localePath(lang, "/widerruf")}>
+                {lang === "en" ? "Right of withdrawal" : "Widerrufsbelehrung"}
+              </Link>
+            </p>
           </div>
         </Reveal>
         <div style={{ textAlign: "center", marginTop: "var(--space-12)" }}>

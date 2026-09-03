@@ -276,3 +276,60 @@ html.lenis,
 /* Edelsteine → Schliff-Karten: Pfeil gleitet beim Hover (Karte selbst hebt via Card interactive) */
 .lum-cut-arrow { transition: transform var(--transition-hover, 220ms ease); }
 .lum-cut-card:hover .lum-cut-arrow { transform: translateX(5px); }
+
+/* ── Mitlaufender Kauf-Balken (nur schmale Bildschirme) ────────────────────
+   Der Kauf-Button der Produktseite liegt auf dem Handy weit unter der Falz.
+   Dieser Balken hält ihn dauerhaft erreichbar, ohne das Layout zu stören. */
+.lum-buybar {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .lum-buybar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding: var(--space-4) var(--page-pad);
+    padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+    background: color-mix(in srgb, var(--ink-1000) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border-gold);
+  }
+
+  .lum-buybar__info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .lum-buybar__name {
+    font-size: var(--text-micro);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps-tight);
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .lum-buybar__price {
+    font-family: var(--font-ui);
+    font-size: var(--text-body);
+    color: var(--text-primary);
+  }
+
+  /* Platz schaffen, damit der Balken nichts verdeckt */
+  .lum-product-buybox {
+    padding-bottom: var(--space-20);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lum-buybar { backdrop-filter: none; }
+}

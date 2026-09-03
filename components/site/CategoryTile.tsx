@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export type CollectionTile = { label: string; sub: string; image: string; href: string };
 
@@ -15,8 +16,7 @@ export function CategoryTile({ data }: { data: CollectionTile }) {
       style={{ display: "block", textDecoration: "none", color: "inherit" }}
     >
       <div className="lum-cat-tile" style={{ position: "relative", aspectRatio: "3 / 4", overflow: "hidden" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 25vw"
           src={data.image}
           alt={data.label}
           style={{

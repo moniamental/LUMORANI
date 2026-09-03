@@ -4,6 +4,8 @@ import { altLanguages } from "@/lib/meta";
 
 export const metadata: Metadata = {
   title: "AGB",
+  description:
+    "Allgemeine Geschäftsbedingungen von LUMORANI — Vertragsschluss, Zahlung, Lieferung, Gewährleistung und Widerruf.",
   robots: { index: false },
   alternates: altLanguages("/agb"),
 };

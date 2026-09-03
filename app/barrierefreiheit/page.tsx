@@ -4,6 +4,8 @@ import { altLanguages } from "@/lib/meta";
 
 export const metadata: Metadata = {
   title: "Barrierefreiheit",
+  description:
+    "Erklärung zur Barrierefreiheit von LUMORANI — Stand der Umsetzung und Rückmeldemöglichkeit.",
   alternates: altLanguages("/barrierefreiheit"),
 };
 

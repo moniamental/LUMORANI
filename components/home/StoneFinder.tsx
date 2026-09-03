@@ -6,6 +6,7 @@ import { Button } from "@/components/ds/core/Button.jsx";
 import { PriceTag } from "@/components/ds/commerce/PriceTag.jsx";
 import { PRODUCTS, productName, gemName } from "@/lib/catalog";
 import { type Locale, localePath } from "@/lib/i18n";
+import Image from "next/image";
 
 const SILK = [0.16, 1, 0.3, 1] as const;
 
@@ -155,8 +156,7 @@ export function StoneFinder({ lang }: { lang: Locale }) {
                 style={{ width: "100%", display: "grid", gridTemplateColumns: "minmax(0,160px) 1fr", gap: "var(--space-8)", alignItems: "center", textAlign: "left", maxWidth: 520, margin: "0 auto" }}
               >
                 <div style={{ position: "relative", aspectRatio: "3 / 4", overflow: "hidden" }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={product!.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <Image fill sizes="160px" src={product!.image} alt="" style={{ objectFit: "cover" }} />
                 </div>
                 <div>
                   <div style={{ fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-wide)", color: "var(--gold-200)" }}>{t.resultEyebrow} · {gemName(product!.gem, lang)}</div>

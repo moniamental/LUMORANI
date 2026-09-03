@@ -3,6 +3,7 @@
 import React from "react";
 import { motion, useScroll, useTransform, useReducedMotion, useSpring } from "framer-motion";
 import type { Locale } from "@/lib/i18n";
+import Image from "next/image";
 
 type Stone = { src: string; name: string; note: string };
 
@@ -88,8 +89,7 @@ export function GemstoneMoment({ lang }: { lang: Locale }) {
   if (reduce) {
     return (
       <section style={{ position: "relative", height: "80vh", minHeight: 560, overflow: "hidden", background: "var(--ink-1000)", display: "grid", placeItems: "center" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={t.stones[0].src} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.9 }} />
+        <Image fill sizes="100vw" src={t.stones[0].src} alt="" style={{ position: "absolute", inset: 0, objectFit: "cover", opacity: 0.9 }} />
         <div style={{ position: "absolute", inset: 0, background: "var(--gradient-ink-scrim)" }} />
         <div style={{ position: "relative", textAlign: "center", padding: "0 var(--space-6)" }}>
           <Eyebrow>{t.eyebrow}</Eyebrow>
@@ -106,14 +106,13 @@ export function GemstoneMoment({ lang }: { lang: Locale }) {
         <div style={{ position: "absolute", inset: 0, perspective: 2600, overflow: "hidden" }}>
           <motion.div style={{ position: "absolute", inset: "-8%", rotateY, rotateX, scale, x: panX, y: panY, willChange: "transform" }}>
             {t.stones.map((s, i) => (
-              // eslint-disable-next-line @next/next/no-img-element
               <motion.img
                 key={s.src}
                 src={s.src}
                 alt=""
                 aria-hidden
                 loading="lazy"
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: stoneOps[i], willChange: "opacity" }}
+                style={{ position: "absolute", inset: 0, objectFit: "cover", opacity: stoneOps[i], willChange: "opacity" }}
               />
             ))}
           </motion.div>

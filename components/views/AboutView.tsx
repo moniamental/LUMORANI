@@ -4,6 +4,7 @@ import { LoopVideo } from "@/components/site/LoopVideo";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { IMG } from "@/lib/catalog";
 import { type Locale, localePath } from "@/lib/i18n";
+import Image from "next/image";
 
 type AboutCopy = {
   eyebrow: string;
@@ -176,8 +177,7 @@ export function AboutView({ lang }: { lang: Locale }) {
 
       {/* Samir-Zitat */}
       <section style={{ position: "relative", padding: "var(--section-y) var(--page-pad)", overflow: "hidden" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={IMG.tray} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.5 }} />
+        <Image fill sizes="100vw" src={IMG.tray} alt="" style={{ position: "absolute", inset: 0, objectFit: "cover", opacity: 0.5 }} />
         <div style={{ position: "absolute", inset: 0, background: "var(--gradient-ink-scrim)" }} />
         <Reveal style={{ position: "relative", maxWidth: 860, margin: "0 auto", textAlign: "center" }}>
           <p style={{ fontFamily: "var(--font-display)", fontWeight: "var(--weight-light)", fontSize: "var(--text-display-3)", lineHeight: "var(--leading-display)" }}>

@@ -5,6 +5,7 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { PRODUCTS, IMG } from "@/lib/catalog";
 import { type Locale, localePath } from "@/lib/i18n";
 import { getDict } from "@/lib/dict";
+import Image from "next/image";
 
 const gifts = PRODUCTS.filter((p) => p.occasion === "geschenk");
 
@@ -21,8 +22,7 @@ export function GeschenksetsView({ lang }: { lang: Locale }) {
     <main>
       {/* Hero */}
       <section style={{ position: "relative", padding: "var(--space-32) var(--page-pad)", overflow: "hidden" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={IMG.box} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.5 }} />
+        <Image fill sizes="100vw" src={IMG.box} alt="" style={{ position: "absolute", inset: 0, objectFit: "cover", opacity: 0.5 }} />
         <div style={{ position: "absolute", inset: 0, background: "var(--gradient-ink-scrim)" }} />
         <Reveal style={{ position: "relative", maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
           <span className="lum-eyebrow">{t.eyebrow}</span>

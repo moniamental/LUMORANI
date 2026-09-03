@@ -8,6 +8,7 @@ import { PriceTag } from "@/components/ds/commerce/PriceTag.jsx";
 import { type Product, productName, gemName } from "@/lib/catalog";
 import { localePath } from "@/lib/i18n";
 import { useLocale } from "@/lib/useLocale";
+import Image from "next/image";
 
 export function ProductTile({ product, ratio = "3 / 4" }: { product: Product; ratio?: string }) {
   const cart = useCart();
@@ -35,8 +36,7 @@ export function ProductTile({ product, ratio = "3 / 4" }: { product: Product; ra
         }}
       >
         <Link href={href} aria-label={name} style={{ position: "absolute", inset: 0 }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
             src={product.image}
             alt=""
             loading="lazy"

@@ -37,6 +37,7 @@ export function SiteFooter() {
         { label: t.l_imprint, href: lp("/impressum") },
         { label: t.l_privacy, href: lp("/datenschutz") },
         { label: t.l_terms, href: lp("/agb") },
+        { label: t.l_withdrawal, href: lp("/widerruf") },
         { label: t.l_accessibility, href: lp("/barrierefreiheit") },
       ],
     },

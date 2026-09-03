@@ -10,7 +10,8 @@ import {
   gemName,
   gemLoreFor,
 } from "@/lib/catalog";
-import { altLanguages } from "@/lib/meta";
+import { altLanguages, SITE_URL } from "@/lib/meta";
+import { JsonLd } from "@/components/site/JsonLd";
 
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }));
@@ -35,5 +36,47 @@ export default async function ProductPageEN({ params }: { params: Promise<{ slug
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
-  return <ProductDetail product={product} related={relatedProducts(product, 4)} />;
+  const name = productName(product, "en");
+  const gem = gemName(product.gem, "en");
+  const lore = gemLoreFor(product.gem, "en");
+  const url = `${SITE_URL}/en/produkt/${product.slug}`;
+
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name,
+      description: lore?.bedeutung ?? gem,
+      image: `${SITE_URL}${product.image}`,
+      url,
+      sku: product.id,
+      material: gem,
+      brand: { "@type": "Brand", name: "LUMORANI" },
+      offers: {
+        "@type": "Offer",
+        url,
+        priceCurrency: "EUR",
+        price: product.price.toFixed(2),
+        availability: "https://schema.org/InStock",
+        itemCondition: "https://schema.org/NewCondition",
+        seller: { "@type": "Organization", name: "LUMORANI" },
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+        { "@type": "ListItem", position: 2, name: "Shop", item: `${SITE_URL}/en/shop` },
+        { "@type": "ListItem", position: 3, name, item: url },
+      ],
+    },
+  ];
+
+  return (
+    <>
+      <JsonLd data={jsonLd} />
+      <ProductDetail product={product} related={relatedProducts(product, 4)} />
+    </>
+  );
 }

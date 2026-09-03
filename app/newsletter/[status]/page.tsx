@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Newsletter",
+  description: "Status deiner Newsletter-Anmeldung bei LUMORANI.",
+  robots: { index: false },
+};
+
 import Link from "next/link";
 
 export default async function NewsletterStatusPage({ params }: { params: Promise<{ status: string }> }) {

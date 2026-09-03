@@ -4,6 +4,8 @@ import { altLanguages } from "@/lib/meta";
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung",
+  description:
+    "Datenschutzerklärung von LUMORANI — welche Daten wir verarbeiten, wozu und auf welcher Rechtsgrundlage.",
   robots: { index: false },
   alternates: altLanguages("/datenschutz"),
 };

@@ -7,6 +7,10 @@ import { NavBar } from "@/components/site/NavBar";
 import { CartDrawer } from "@/components/site/CartDrawer";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { HtmlLangSync } from "@/components/site/HtmlLangSync";
+import { JsonLd } from "@/components/site/JsonLd";
+// Cookieloses Reichweitenmessen. Setzt keine Cookies und speichert keine
+// personenbezogenen Daten — deshalb ist dafür kein Einwilligungsbanner nötig.
+import { Analytics } from "@vercel/analytics/next";
 
 // Wortmarke / Lockups
 const cinzel = Cinzel({
@@ -68,6 +72,40 @@ export const metadata: Metadata = {
   },
 };
 
+// Strukturierte Daten für die ganze Seite. Erlaubt Google, LUMORANI als
+// Unternehmen zu verstehen (Wissenspanel, Sitelinks) statt nur als Textseite.
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "LUMORANI",
+      url: SITE_URL,
+      logo: `${SITE_URL}/icon.png`,
+      image: `${SITE_URL}/og.jpg`,
+      email: "info@lumorani.com",
+      description:
+        "Familienmanufaktur für handverlesene Edelsteine — Schmuck und lose Steine, handgefertigte Unikate.",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Bussardstraße 21",
+        postalCode: "68307",
+        addressLocality: "Mannheim",
+        addressCountry: "DE",
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "LUMORANI",
+      inLanguage: "de-DE",
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -78,6 +116,7 @@ export default function RootLayout({
       className={`${cinzel.variable} ${cormorant.variable} ${jost.variable}`}
     >
       <body>
+        <JsonLd data={orgJsonLd} />
         <a className="lum-skip-link" href="#main-content">Zum Hauptinhalt springen</a>
         <CartProvider>
           <SmoothScroll />
@@ -87,6 +126,7 @@ export default function RootLayout({
           <SiteFooter />
           <CartDrawer />
         </CartProvider>
+        <Analytics />
       </body>
     </html>
   );

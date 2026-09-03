@@ -21,6 +21,12 @@ export function ImpressumView({ lang }: { lang: Locale }) {
           Email: <a href="mailto:info@lumorani.com">info@lumorani.com</a>
         </p>
 
+        <h2>VAT</h2>
+        <p>
+          Small business under § 19 of the German VAT Act (UStG). VAT is therefore not shown and no
+          VAT identification number exists.
+        </p>
+
         <h2>Responsible for content</h2>
         <p>Samir Sobhani, address as above.</p>
 
@@ -49,6 +55,12 @@ export function ImpressumView({ lang }: { lang: Locale }) {
       <h2>Kontakt</h2>
       <p>
         E-Mail: <a href="mailto:info@lumorani.com">info@lumorani.com</a>
+      </p>
+
+      <h2>Umsatzsteuer</h2>
+      <p>
+        Kleinunternehmer gemäß § 19 UStG. Es wird daher keine Umsatzsteuer ausgewiesen und es besteht
+        keine Umsatzsteuer-Identifikationsnummer.
       </p>
 
       <h2>Redaktionell verantwortlich</h2>

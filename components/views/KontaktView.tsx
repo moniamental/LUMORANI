@@ -2,6 +2,7 @@ import { ContactForm } from "@/components/site/ContactForm";
 import { Reveal } from "@/components/motion/Reveal";
 import { IMG } from "@/lib/catalog";
 import type { Locale } from "@/lib/i18n";
+import Image from "next/image";
 
 const CONTENT: Record<Locale, {
   eyebrow: string;
@@ -61,8 +62,7 @@ export function KontaktView({ lang }: { lang: Locale }) {
         <Reveal delay={0.1}>
           <div style={{ position: "relative" }}>
             <div style={{ position: "relative", aspectRatio: "16 / 9", overflow: "hidden", marginBottom: "var(--space-10)" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMG.tray} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <Image fill sizes="(max-width: 900px) 100vw, 50vw" src={IMG.tray} alt="" style={{ objectFit: "cover" }} />
               <div style={{ position: "absolute", inset: 0, background: "var(--gradient-ink-veil)", opacity: 0.5 }} />
             </div>
             <ContactForm />

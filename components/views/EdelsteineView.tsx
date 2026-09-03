@@ -6,6 +6,7 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { GEMS, IMG, gemName, gemLoreFor, type Cut } from "@/lib/catalog";
 import { type Locale, localePath } from "@/lib/i18n";
 import { getDict } from "@/lib/dict";
+import Image from "next/image";
 
 export function EdelsteineView({ lang }: { lang: Locale }) {
   const t = getDict(lang).gemstones;
@@ -20,8 +21,7 @@ export function EdelsteineView({ lang }: { lang: Locale }) {
     <main>
       {/* Hero */}
       <section style={{ position: "relative", padding: "var(--space-24) var(--page-pad)", overflow: "hidden" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={IMG.tray} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.45 }} />
+        <Image fill sizes="100vw" src={IMG.tray} alt="" style={{ position: "absolute", inset: 0, objectFit: "cover", opacity: 0.45 }} />
         <div style={{ position: "absolute", inset: 0, background: "var(--gradient-ink-scrim)" }} />
         <Reveal style={{ position: "relative", maxWidth: "var(--page-max)", margin: "0 auto" }}>
           <SectionHeading eyebrow={t.eyebrow} title={t.title} subtitle={t.subtitle} />

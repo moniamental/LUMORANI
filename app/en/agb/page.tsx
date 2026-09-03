@@ -4,6 +4,8 @@ import { altLanguages } from "@/lib/meta";
 
 export const metadata: Metadata = {
   title: "Terms",
+  description:
+    "Terms and conditions of LUMORANI — contract, payment, delivery, warranty and right of withdrawal.",
   robots: { index: false },
   alternates: altLanguages("/agb"),
 };
