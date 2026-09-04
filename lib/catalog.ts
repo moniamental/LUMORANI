@@ -43,7 +43,53 @@ export type Product = {
   cut: Cut;
   badge?: string;
   compareAt?: number;
+  /**
+   * Lose Steine gibt es in allen drei Schliffen. `cut` kann nur einen tragen,
+   * deshalb hier die vollständige Liste. Der Shop-Filter liest `cuts ?? [cut]`,
+   * sodass ein Stein unter jedem seiner Schliffe auftaucht.
+   */
+  cuts?: Cut[];
+  /**
+   * Kein Festpreis, kein Warenkorb — der Kauf läuft über eine Anfrage.
+   *
+   * Bei losen Steinen hängen Größe, Reinheit und Farbe am einzelnen Stück;
+   * ein Festpreis wäre entweder gegriffen oder ein Verlustgeschäft. `price`
+   * bleibt aus Typgründen 0 und darf bei diesen Produkten NIE angezeigt werden
+   * — sonst steht „0,00 €" auf der Seite. Der Checkout überspringt sie
+   * serverseitig, damit auch ein manipulierter Warenkorb nichts erzwingt.
+   */
+  onRequest?: boolean;
 };
+
+/** Die acht losen Steine als Anfrage-Produkte. Bilder: die Firefly-Schatullen-Renders. */
+const LOOSE_STONE_PRODUCTS: Product[] = (
+  [
+    ["achat", "Achat", "statement", "Schichtreich gewachsen, mit einer Bänderung, die kein zweiter Stein wiederholt."],
+    ["calcit", "Calcit", "anfang", "Sanfte Farben, weiche Ausstrahlung — ein stiller Stein für einen leisen Anlass."],
+    ["rubin", "Rubin", "statement", "Tiefes, kraftvolles Rot. Der Stein, den man im Tageslicht gesehen haben muss."],
+    ["aquamarin", "Aquamarin", "alltag", "Klares Blau mit einem Zug ins Türkis, durchscheinend und ruhig."],
+    ["turmalin", "Turmalin", "statement", "Farbstark und vielseitig — manchmal zwei Farben in einem einzigen Kristall."],
+    ["smaragd", "Smaragd", "anfang", "Tiefes Grün mit gewachsener Struktur. Die Einschlüsse sind der Echtheitsbeweis."],
+    ["diamant", "Diamant", "geschenk", "Roh oder geschliffen. Reinheit, Härte und eine Wirkung, die keine Erklärung braucht."],
+    ["quarz", "Quarz", "alltag", "Rein, klar, unkompliziert — der Stein, der zu allem passt."],
+  ] as const
+).map(([slug, name, occasion, teaser]) => ({
+  id: `${slug}-edelstein`,
+  slug: `${slug}-edelstein`,
+  name: `${name} · Loser Edelstein`,
+  gem: name,
+  price: 0,
+  onRequest: true,
+  image: IMGBASE + `gem-${slug}.png`,
+  category: "Edelsteine" as Category,
+  occasion: occasion as OccasionSlug,
+  cut: "ungeschliffen" as Cut,
+  cuts: ["ungeschliffen", "geschliffen", "halfhalf"] as Cut[],
+  description:
+    `${teaser} Diesen Stein führen wir lose — ungeschliffen, geschliffen oder als Half & Half. ` +
+    `Weil Größe, Reinheit und Farbe bei jedem Stück anders ausfallen, gibt es keinen Festpreis: ` +
+    `schreib uns, wonach du suchst, und wir sagen dir, was gerade da ist und was es kostet.`,
+}));
 
 export const PRODUCTS: Product[] = [
   {
@@ -255,6 +301,19 @@ export const PRODUCTS: Product[] = [
     description:
       "Unser Kugel-Armband aus 925er Silber vereint schlichte Eleganz mit zeitloser Raffinesse. Feine Silberkugeln verleihen einen dezenten, luxuriösen Look, der zu jedem Outfit passt. Einzeln getragen oder im Layering-Look – handgefertigt mit Liebe zum Detail.",
   },
+
+  // ————————————————————————————————————————————————
+  // LOSE EDELSTEINE — auf Anfrage.
+  //
+  // Diese acht sind Sortiment, aber keine Lagerware mit Festpreis: jeder Stein
+  // ist ein Einzelstück, Preis und Verfügbarkeit hängen an Größe, Reinheit und
+  // Farbe. Sie stehen im Shop, damit sie über Filter und Suche auffindbar sind
+  // — nur eben ohne Warenkorb.
+  //
+  // `cuts` trägt alle drei Schliffe, weil LUMORANI jeden Stein roh, geschliffen
+  // und als Half & Half führt.
+  // ————————————————————————————————————————————————
+  ...LOOSE_STONE_PRODUCTS,
 ];
 
 // ————————————————————————————————————————————————
@@ -508,18 +567,20 @@ export function isCut(value: string | null | undefined): value is Cut {
   return value === "geschliffen" || value === "halfhalf" || value === "ungeschliffen";
 }
 
-export const STONES: string[] = [
-  "Amazonit",
-  "Lapislazuli",
-  "Malachit",
-  "Hämatit",
-  "Rosenquarz",
-  "Jade",
-  "Tigerauge",
-  "Amethyst",
-  "Aquamarin",
-  "Sterlingsilber",
-];
+/**
+ * Steinfilter im Shop.
+ *
+ * Aus PRODUCTS abgeleitet statt von Hand gepflegt — eine handgeschriebene Liste
+ * läuft sonst irgendwann auseinander, und ein Filtereintrag ohne Produkte oder
+ * ein Produkt ohne Filtereintrag fällt erst der Kundschaft auf. Reihenfolge wie
+ * im Katalog: erst der Schmuck, dann die losen Steine.
+ */
+export const STONES: string[] = [...new Set(PRODUCTS.map((p) => p.gem))];
+
+/** Alle Schliffe eines Produkts — lose Steine tragen mehrere. */
+export function productCuts(p: Product): Cut[] {
+  return p.cuts ?? [p.cut];
+}
 
 export function getProductBySlug(slug: string): Product | undefined {
   return PRODUCTS.find((p) => p.slug === slug);

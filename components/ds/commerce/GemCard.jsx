@@ -8,7 +8,7 @@ const gemColors = {
   diamant: "var(--gem-diamond)", quarz: "var(--gem-quartz)"
 };
 
-export function GemCard({ name, description, image, imageAlt, cuts = [], onClick, style }) {
+export function GemCard({ name, description, image, imageAlt, cuts = [], note, onClick, style }) {
   const [hover, setHover] = React.useState(false);
   const key = String(name || "").toLowerCase();
   const hue = gemColors[key] || "var(--gold-400)";
@@ -49,6 +49,9 @@ export function GemCard({ name, description, image, imageAlt, cuts = [], onClick
               return <span key={c} style={{ fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-tight)", color: "var(--text-muted)", border: "1px solid var(--border-hairline)", borderRadius: "var(--radius-pill)", padding: "5px 10px" }}>{c}</span>;
             })}
           </div>
+        ) : null}
+        {note ? (
+          <div style={{ marginTop: "var(--space-5)", fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-tight)", color: "var(--text-gold)" }}>{note}</div>
         ) : null}
       </div>
     </div>

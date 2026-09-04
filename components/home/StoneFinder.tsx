@@ -4,6 +4,7 @@ import React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ds/core/Button.jsx";
 import { PriceTag } from "@/components/ds/commerce/PriceTag.jsx";
+import { getDict } from "@/lib/dict";
 import { PRODUCTS, productName, gemName } from "@/lib/catalog";
 import { type Locale, localePath } from "@/lib/i18n";
 import Image from "next/image";
@@ -162,7 +163,12 @@ export function StoneFinder({ lang }: { lang: Locale }) {
                   <div style={{ fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-wide)", color: "var(--gold-200)" }}>{t.resultEyebrow} · {gemName(product!.gem, lang)}</div>
                   <p style={{ margin: "var(--space-3) 0 0", fontSize: "var(--text-body-sm)", color: "var(--text-secondary)" }}>{t.resultLead}</p>
                   <div style={{ marginTop: "var(--space-3)", fontFamily: "var(--font-display)", fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-light)" }}>{productName(product!, lang)}</div>
-                  <div style={{ marginTop: "var(--space-3)" }}><PriceTag value={product!.price} size="sm" locale={lang} /></div>
+                  <div style={{ marginTop: "var(--space-3)" }}>
+                    {/* Lose Steine haben keinen Festpreis — sonst stünde hier 0,00 €. */}
+                    {product!.onRequest
+                      ? <span style={{ fontSize: "var(--text-body-sm)", color: "var(--text-gold)" }}>{getDict(lang).shop.priceOnRequest}</span>
+                      : <PriceTag value={product!.price} size="sm" locale={lang} />}
+                  </div>
                   <div style={{ marginTop: "var(--space-6)", display: "flex", gap: "var(--space-4)", flexWrap: "wrap" }}>
                     <Button href={localePath(lang, `/produkt/${product!.slug}`)} size="sm">{t.cta}</Button>
                     <button type="button" onClick={restart} style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps)" }}>{t.restart}</button>

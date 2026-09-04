@@ -45,6 +45,11 @@ export async function POST(req: Request) {
   for (const it of items) {
     const product = PRODUCTS.find((p) => p.id === it.id);
     if (!product) continue;
+    // Anfrage-Produkte haben keinen Preis. Die Oberfläche bietet für sie gar
+    // keinen Warenkorb an — aber der Client bestimmt hier nichts: käme so eine
+    // Position doch an, würde sie mit 0,00 € durchlaufen und den Stein
+    // verschenken. Deshalb serverseitig verworfen.
+    if (product.onRequest) continue;
     const qty = Math.max(1, Math.min(10, Math.floor(Number(it.qty) || 1)));
     lineItems.push({
       quantity: qty,

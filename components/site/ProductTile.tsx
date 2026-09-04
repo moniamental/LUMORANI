@@ -8,6 +8,7 @@ import { PriceTag } from "@/components/ds/commerce/PriceTag.jsx";
 import { type Product, productName, gemName } from "@/lib/catalog";
 import { localePath } from "@/lib/i18n";
 import { useLocale } from "@/lib/useLocale";
+import { getDict } from "@/lib/dict";
 import Image from "next/image";
 
 export function ProductTile({ product, ratio = "3 / 4" }: { product: Product; ratio?: string }) {
@@ -112,7 +113,14 @@ export function ProductTile({ product, ratio = "3 / 4" }: { product: Product; ra
         >
           {name}
         </Link>
-        <PriceTag value={product.price} compareAt={product.compareAt} size="sm" locale={locale} />
+        {/* Lose Steine haben keinen Festpreis — hier darf kein „0,00 €" stehen. */}
+        {product.onRequest ? (
+          <span style={{ fontSize: "var(--text-body-sm)", fontWeight: "var(--weight-light)", color: "var(--text-gold)" }}>
+            {getDict(locale).shop.priceOnRequest}
+          </span>
+        ) : (
+          <PriceTag value={product.price} compareAt={product.compareAt} size="sm" locale={locale} />
+        )}
       </div>
     </article>
   );

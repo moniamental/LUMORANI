@@ -41,6 +41,7 @@ export function ProductDetail({
   const gem = gemName(product.gem, locale);
   const lore = gemLoreFor(product.gem, locale);
   const note = priceNote(locale);
+  const shopT = getDict(locale).shop;
   // Nur das echte Produktbild — keine generischen Box-/Collage-Bilder mehr,
   // die auf jedem Produkt gleich (und damit „falsch") wirkten.
   const shots = [product.image];
@@ -101,14 +102,24 @@ export function ProductDetail({
             {name}
           </h1>
           <div style={{ marginTop: "var(--space-5)" }}>
-            <PriceTag value={product.price} compareAt={product.compareAt} size="lg" locale={locale} />
-            {/* Pflichtangabe nach § 6 PAngV — Text zentral in lib/tax.ts umschaltbar. */}
-            <p style={{ margin: "var(--space-3) 0 0", fontSize: "var(--text-micro)", color: "var(--text-muted)", lineHeight: 1.5 }}>
-              {note.text}{" "}
-              <Link href={localePath(locale, "/versand")} style={{ color: "var(--text-muted)", textDecoration: "underline" }}>
-                {note.linkLabel}
-              </Link>
-            </p>
+            {/* Ohne Festpreis greift § 6 PAngV nicht — die Angabe wäre hier sogar
+                irreführend, weil sie einen Preis suggeriert, den es nicht gibt. */}
+            {product.onRequest ? (
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-light)", color: "var(--text-gold)" }}>
+                {shopT.priceOnRequest}
+              </div>
+            ) : (
+              <>
+                <PriceTag value={product.price} compareAt={product.compareAt} size="lg" locale={locale} />
+                {/* Pflichtangabe nach § 6 PAngV — Text zentral in lib/tax.ts umschaltbar. */}
+                <p style={{ margin: "var(--space-3) 0 0", fontSize: "var(--text-micro)", color: "var(--text-muted)", lineHeight: 1.5 }}>
+                  {note.text}{" "}
+                  <Link href={localePath(locale, "/versand")} style={{ color: "var(--text-muted)", textDecoration: "underline" }}>
+                    {note.linkLabel}
+                  </Link>
+                </p>
+              </>
+            )}
           </div>
           <p style={{ marginTop: "var(--space-6)", fontSize: "var(--text-body)", fontWeight: "var(--weight-light)", lineHeight: "var(--leading-body)", color: "var(--text-secondary)" }}>
             {productDescription(product, locale)}
@@ -121,12 +132,28 @@ export function ProductDetail({
             {t.unique}
           </p>
 
-          <div style={{ marginTop: "var(--space-8)", display: "flex", gap: "var(--space-4)", alignItems: "center" }}>
-            <QuantityStepper value={qty} onChange={setQty} max={5} />
-            <Button size="lg" fullWidth onClick={() => cart.add(product, qty)}>
-              {t.add}
-            </Button>
-          </div>
+          {product.onRequest ? (
+            <div style={{ marginTop: "var(--space-8)" }}>
+              <p style={{ margin: "0 0 var(--space-5)", fontSize: "var(--text-body-sm)", fontWeight: "var(--weight-light)", lineHeight: "var(--leading-body)", color: "var(--text-secondary)" }}>
+                {shopT.requestHint}
+              </p>
+              {/* Der Stein hängt als Parameter dran, damit das Kontaktformular
+                  ihn vorbelegen kann — sonst muss die Kundschaft ihn abtippen. */}
+              <Link
+                href={localePath(locale, `/kontakt?stein=${encodeURIComponent(product.gem)}`)}
+                style={{ textDecoration: "none" }}
+              >
+                <Button size="lg" fullWidth>{shopT.requestCta}</Button>
+              </Link>
+            </div>
+          ) : (
+            <div style={{ marginTop: "var(--space-8)", display: "flex", gap: "var(--space-4)", alignItems: "center" }}>
+              <QuantityStepper value={qty} onChange={setQty} max={5} />
+              <Button size="lg" fullWidth onClick={() => cart.add(product, qty)}>
+                {t.add}
+              </Button>
+            </div>
+          )}
 
           {/* Vertrauens-Signale */}
           <div style={{ marginTop: "var(--space-6)", display: "flex", flexWrap: "wrap", gap: "var(--space-5)", fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-tight)", color: "var(--text-muted)" }}>
@@ -215,9 +242,19 @@ export function ProductDetail({
       <div className="lum-buybar" aria-hidden={false}>
         <div className="lum-buybar__info">
           <span className="lum-buybar__name">{name}</span>
-          <span className="lum-buybar__price">{new Intl.NumberFormat(locale === "en" ? "en-DE" : "de-DE", { style: "currency", currency: "EUR" }).format(product.price)}</span>
+          <span className="lum-buybar__price">
+            {product.onRequest
+              ? shopT.priceOnRequest
+              : new Intl.NumberFormat(locale === "en" ? "en-DE" : "de-DE", { style: "currency", currency: "EUR" }).format(product.price)}
+          </span>
         </div>
-        <Button size="md" onClick={() => cart.add(product, qty)}>{t.add}</Button>
+        {product.onRequest ? (
+          <Link href={localePath(locale, `/kontakt?stein=${encodeURIComponent(product.gem)}`)} style={{ textDecoration: "none" }}>
+            <Button size="md">{shopT.requestCta}</Button>
+          </Link>
+        ) : (
+          <Button size="md" onClick={() => cart.add(product, qty)}>{t.add}</Button>
+        )}
       </div>
     </main>
   );

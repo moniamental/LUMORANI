@@ -3,7 +3,7 @@ import { SectionHeading } from "@/components/ds/core/SectionHeading.jsx";
 import { Card } from "@/components/ds/core/Card.jsx";
 import { GemCard } from "@/components/ds/commerce/GemCard.jsx";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
-import { LOOSE_GEMS, JEWELLERY_GEMS, IMG, gemName, gemLoreFor, type Cut } from "@/lib/catalog";
+import { LOOSE_GEMS, JEWELLERY_GEMS, PRODUCTS, productCuts, IMG, gemName, gemLoreFor, type Cut } from "@/lib/catalog";
 import { type Locale, localePath } from "@/lib/i18n";
 import { getDict } from "@/lib/dict";
 import Image from "next/image";
@@ -49,11 +49,27 @@ function looseGemAlt(name: string, lang: Locale): string {
 export function EdelsteineView({ lang }: { lang: Locale }) {
   const t = getDict(lang).gemstones;
   const cutLabels = [t.cutRawT, t.cutFacetedT, t.cutHalfT];
+
+  /**
+   * Die Schliff-Karten führen in den gefilterten Shop — aber nur, wenn es dort
+   * auch etwas zu sehen gibt.
+   *
+   * Vorher lief „Ungeschliffen" auf eine leere Trefferliste: kein Schmuckstück
+   * ist roh. Seit die losen Steine im Katalog stehen (sie tragen alle drei
+   * Schliffe), greift der Filter. Die Prüfung bleibt trotzdem drin — sie leitet
+   * sich aus PRODUCTS ab, nicht aus einer Annahme, und fängt den Fall wieder
+   * ab, falls ein Schliff einmal ohne Produkte dasteht.
+   */
   const cuts: { title: string; body: string; cut: Cut }[] = [
     { title: t.cutRawT, body: t.cutRawB, cut: "ungeschliffen" },
     { title: t.cutFacetedT, body: t.cutFacetedB, cut: "geschliffen" },
     { title: t.cutHalfT, body: t.cutHalfB, cut: "halfhalf" },
   ];
+  const cutHasProducts = (cut: Cut) => PRODUCTS.some((p) => productCuts(p).includes(cut));
+
+  /** Produktseite zum losen Stein — dort steht die Anfrage. */
+  const looseHref = (gem: string) =>
+    PRODUCTS.find((p) => p.onRequest && p.gem === gem)?.slug;
 
   return (
     <main>
@@ -69,10 +85,12 @@ export function EdelsteineView({ lang }: { lang: Locale }) {
       {/* Drei Schliffe */}
       <section style={{ padding: "0 var(--page-pad) var(--section-y-tight)", maxWidth: "var(--page-max)", margin: "0 auto" }}>
         <RevealGroup className="lum-grid-3" style={{ marginTop: "calc(var(--space-16) * -1)", position: "relative" }}>
-          {cuts.map((c) => (
+          {cuts.map((c) => {
+            const imShop = cutHasProducts(c.cut);
+            return (
             <RevealItem key={c.title}>
               <Link
-                href={localePath(lang, `/shop?schliff=${c.cut}`)}
+                href={localePath(lang, imShop ? `/shop?schliff=${c.cut}` : "/kontakt")}
                 className="lum-cut-card"
                 style={{ display: "block", height: "100%", textDecoration: "none", color: "inherit" }}
               >
@@ -83,12 +101,13 @@ export function EdelsteineView({ lang }: { lang: Locale }) {
                   </div>
                   <p style={{ margin: "var(--space-3) 0 0", fontSize: "var(--text-body-sm)", fontWeight: "var(--weight-light)", lineHeight: "var(--leading-body)", color: "var(--text-secondary)" }}>{c.body}</p>
                   <span style={{ display: "inline-block", marginTop: "var(--space-5)", fontSize: "var(--text-micro)", textTransform: "uppercase", letterSpacing: "var(--tracking-caps-tight)", color: "var(--text-muted)" }}>
-                    {t.cutFilterCta}
+                    {imShop ? t.cutFilterCta : t.looseCta}
                   </span>
                 </Card>
               </Link>
             </RevealItem>
-          ))}
+            );
+          })}
         </RevealGroup>
 
         {/* ——— Lose Edelsteine ——— */}
@@ -99,14 +118,15 @@ export function EdelsteineView({ lang }: { lang: Locale }) {
         <RevealGroup className="lum-grid-4" style={{ marginTop: "var(--space-10)", gridAutoRows: "1fr" }} stagger={0.06}>
           {LOOSE_GEMS.map((g) => (
             <RevealItem key={g.name} style={{ height: "100%" }}>
-              {/* Diese Steine stehen nicht im Shop — der Weg führt zur Anfrage. */}
-              <Link href={localePath(lang, "/kontakt")} style={{ display: "block", height: "100%", textDecoration: "none", color: "inherit" }}>
+              {/* Zur Produktseite — dort Beschreibung, Schliffe und Anfrage. */}
+              <Link href={localePath(lang, `/produkt/${looseHref(g.name) ?? ""}`)} style={{ display: "block", height: "100%", textDecoration: "none", color: "inherit" }}>
                 <GemCard
                   name={gemName(g.name, lang)}
                   description={gemLoreFor(g.name, lang)?.bedeutung ?? g.description}
                   image={g.image}
                   imageAlt={looseGemAlt(gemName(g.name, lang), lang)}
-                  cuts={[...cutLabels, t.looseCta]}
+                  cuts={cutLabels}
+                  note={t.looseCta}
                   style={{ height: "100%" }}
                 />
               </Link>

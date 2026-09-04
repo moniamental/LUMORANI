@@ -4,6 +4,7 @@ import React from "react";
 import { Button } from "@/components/ds/core/Button.jsx";
 import { Input } from "@/components/ds/core/Input.jsx";
 import { useLocale } from "@/lib/useLocale";
+import { useSearchParams } from "next/navigation";
 
 const COPY = {
   de: {
@@ -13,6 +14,8 @@ const COPY = {
     emailPh: "name@mail.de",
     msgLabel: "Nachricht*",
     msgPh: "Wonach suchst du? Erzähl uns von deinem Stein, Anlass oder Wunsch.",
+    stonePrefill: (stein: string) =>
+      `Ich interessiere mich für einen losen ${stein}. Mich würde interessieren, welche Schliffe und Größen gerade verfügbar sind und was sie kosten.`,
     honeypot: "Firma",
     errGeneric: "Nachricht konnte nicht gesendet werden.",
     errNetwork: "Netzwerkfehler. Bitte versuch es noch einmal.",
@@ -29,6 +32,8 @@ const COPY = {
     emailPh: "name@mail.com",
     msgLabel: "Message*",
     msgPh: "What are you looking for? Tell us about your stone, occasion or wish.",
+    stonePrefill: (stein: string) =>
+      `I am interested in a loose ${stein}. Could you tell me which cuts and sizes are currently available, and what they cost?`,
     honeypot: "Company",
     errGeneric: "Your message could not be sent.",
     errNetwork: "Network error. Please try again.",
@@ -42,9 +47,19 @@ const COPY = {
 
 export function ContactForm() {
   const t = COPY[useLocale()];
+  const params = useSearchParams();
+  /**
+   * Von einer Produktseite kommt der Stein als `?stein=Rubin` mit und füllt die
+   * Nachricht vor. Ohne das müsste die Kundschaft abtippen, worauf sie gerade
+   * geklickt hat — und der häufigste Grund, eine Anfrage abzubrechen, ist ein
+   * leeres Textfeld.
+   *
+   * Bewusst nur der Startwert: sobald jemand tippt, gehört das Feld ihm.
+   */
+  const stein = (params.get("stein") ?? "").slice(0, 40);
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = React.useState(stein ? t.stonePrefill(stein) : "");
   const [company, setCompany] = React.useState(""); // Honeypot
   const [sent, setSent] = React.useState(false);
   const [loading, setLoading] = React.useState(false);

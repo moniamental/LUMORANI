@@ -52,15 +52,23 @@ export default async function ProductPageEN({ params }: { params: Promise<{ slug
       sku: product.id,
       material: gem,
       brand: { "@type": "Brand", name: "LUMORANI" },
-      offers: {
-        "@type": "Offer",
-        url,
-        priceCurrency: "EUR",
-        price: product.price.toFixed(2),
-        availability: "https://schema.org/InStock",
-        itemCondition: "https://schema.org/NewCondition",
-        seller: { "@type": "Organization", name: "LUMORANI" },
-      },
+      // Ein Offer ohne Preis ist nach schema.org kein gültiges Angebot, und
+      // "0.00" wäre schlicht falsch — Google zeigte dann einen Gratis-Stein in
+      // den Suchergebnissen. Anfrage-Produkte bekommen deshalb gar kein Offer,
+      // sondern nur die Produktbeschreibung.
+      ...(product.onRequest
+        ? {}
+        : {
+            offers: {
+              "@type": "Offer",
+              url,
+              priceCurrency: "EUR",
+              price: product.price.toFixed(2),
+              availability: "https://schema.org/InStock",
+              itemCondition: "https://schema.org/NewCondition",
+              seller: { "@type": "Organization", name: "LUMORANI" },
+            },
+          }),
     },
     {
       "@context": "https://schema.org",

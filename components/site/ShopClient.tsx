@@ -12,6 +12,7 @@ import {
   CATEGORIES,
   CUTS,
   STONES,
+  productCuts,
   getOccasion,
   productName,
   categoryLabel,
@@ -77,13 +78,21 @@ export function ShopClient() {
     (p) =>
       (!category || p.category === category) &&
       (!gem || p.gem === gem) &&
-      (!cut || p.cut === cut) &&
+      (!cut || productCuts(p).includes(cut)) &&
       (!occasion || p.occasion === occasion) &&
       (!query || `${productName(p, locale)} ${p.name} ${p.gem} ${categoryLabel(p.category, locale)} ${p.description}`.toLocaleLowerCase(locale).includes(query.toLocaleLowerCase(locale).trim())) &&
-      inBracket(p.price, price),
+      // Anfrage-Produkte haben keinen Preis und dürfen deshalb nicht aus einer
+      // Preisspanne herausfallen — sonst verschwinden sie, sobald jemand den
+      // Regler anfasst, und niemand versteht warum.
+      (p.onRequest || inBracket(p.price, price)),
   );
-  if (sort === "Preis aufsteigend") list = list.slice().sort((a, b) => a.price - b.price);
-  if (sort === "Preis absteigend") list = list.slice().sort((a, b) => b.price - a.price);
+  // Anfrage-Produkte haben price 0 und würden beim Sortieren nach Preis sonst
+  // als vermeintlich günstigste nach ganz vorn rutschen. Sie gehören ans Ende,
+  // in beiden Richtungen.
+  const byPrice = (dir: 1 | -1) => (a: typeof list[number], b: typeof list[number]) =>
+    a.onRequest === b.onRequest ? (a.price - b.price) * dir : a.onRequest ? 1 : -1;
+  if (sort === "Preis aufsteigend") list = list.slice().sort(byPrice(1));
+  if (sort === "Preis absteigend") list = list.slice().sort(byPrice(-1));
 
   const resetOccasion = () => setOccasion(null);
 

@@ -4,6 +4,15 @@
 
 /** Produktname EN, nach slug. */
 export const PRODUCT_NAME_EN: Record<string, string> = {
+  // Lose Edelsteine — auf Anfrage
+  "achat-edelstein": "Agate · Loose Gemstone",
+  "calcit-edelstein": "Calcite · Loose Gemstone",
+  "rubin-edelstein": "Ruby · Loose Gemstone",
+  "aquamarin-edelstein": "Aquamarine · Loose Gemstone",
+  "turmalin-edelstein": "Tourmaline · Loose Gemstone",
+  "smaragd-edelstein": "Emerald · Loose Gemstone",
+  "diamant-edelstein": "Diamond · Loose Gemstone",
+  "quarz-edelstein": "Quartz · Loose Gemstone",
   "amazonit-armband": "Amazonite Bracelet",
   "lapislazuli-kette": "Lapis Lazuli Necklace",
   "lapislazuli-anhaenger": "Lapis Lazuli · Faceted Pendant",
@@ -24,6 +33,23 @@ export const PRODUCT_NAME_EN: Record<string, string> = {
 
 /** Produktbeschreibung EN, nach slug. */
 export const PRODUCT_DESC_EN: Record<string, string> = {
+  // Lose Edelsteine — auf Anfrage
+  "achat-edelstein":
+    "Grown in layers, with banding no second stone repeats. We carry this stone loose — uncut, faceted or as Half & Half. Because size, clarity and colour differ with every piece, there is no fixed price: tell us what you are looking for and we will let you know what is in stock and what it costs.",
+  "calcit-edelstein":
+    "Soft colours, a gentle presence — a quiet stone for a quiet occasion. We carry this stone loose — uncut, faceted or as Half & Half. Because size, clarity and colour differ with every piece, there is no fixed price: tell us what you are looking for and we will let you know what is in stock and what it costs.",
+  "rubin-edelstein":
+    "Deep, powerful red. The stone you have to see once in daylight. We carry this stone loose — uncut, faceted or as Half & Half. Because size, clarity and colour differ with every piece, there is no fixed price: tell us what you are looking for and we will let you know what is in stock and what it costs.",
+  "aquamarin-edelstein":
+    "Clear blue with a pull towards turquoise, translucent and calm. We carry this stone loose — uncut, faceted or as Half & Half. Because size, clarity and colour differ with every piece, there is no fixed price: tell us what you are looking for and we will let you know what is in stock and what it costs.",
+  "turmalin-edelstein":
+    "Colour-rich and versatile — sometimes two colours in a single crystal. We carry this stone loose — uncut, faceted or as Half & Half. Because size, clarity and colour differ with every piece, there is no fixed price: tell us what you are looking for and we will let you know what is in stock and what it costs.",
+  "smaragd-edelstein":
+    "Deep green with grown structure. The inclusions are the proof it is real. We carry this stone loose — uncut, faceted or as Half & Half. Because size, clarity and colour differ with every piece, there is no fixed price: tell us what you are looking for and we will let you know what is in stock and what it costs.",
+  "diamant-edelstein":
+    "Raw or cut. Purity, hardness and an effect that needs no explanation. We carry this stone loose — uncut, faceted or as Half & Half. Because size, clarity and colour differ with every piece, there is no fixed price: tell us what you are looking for and we will let you know what is in stock and what it costs.",
+  "quarz-edelstein":
+    "Pure, clear, uncomplicated — the stone that goes with everything. We carry this stone loose — uncut, faceted or as Half & Half. Because size, clarity and colour differ with every piece, there is no fixed price: tell us what you are looking for and we will let you know what is in stock and what it costs.",
   "amazonit-armband":
     "Our amazonite bracelet brings polished and unpolished gemstones together into one expressive look. Some stones are left in their natural state and radiate a raw, earthy beauty; others are polished to a high shine. Handcrafted with care for detail — the beauty of nature for your everyday.",
   "lapislazuli-kette":

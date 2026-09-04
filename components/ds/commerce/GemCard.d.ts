@@ -13,6 +13,13 @@ export interface GemCardProps {
   imageAlt?: string;
   /** Available cuts, e.g. ["Ungeschliffen", "Geschliffen", "Half & Half"]. */
   cuts?: string[];
+  /**
+   * Hinweis unter den Schliff-Chips, z. B. „Auf Anfrage".
+   * Bewusst getrennt von `cuts`: die Chips beschreiben eine Eigenschaft des
+   * Steins, der Hinweis den Weg zum Kauf. In derselben Reihe gelesen wirkt
+   * „Auf Anfrage" wie ein vierter Schliff.
+   */
+  note?: string;
   onClick?: () => void;
   style?: React.CSSProperties;
 }

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { ContactForm } from "@/components/site/ContactForm";
 import { Reveal } from "@/components/motion/Reveal";
 import { IMG } from "@/lib/catalog";
@@ -65,7 +66,11 @@ export function KontaktView({ lang }: { lang: Locale }) {
               <Image fill sizes="(max-width: 900px) 100vw, 50vw" src={IMG.tray} alt="" style={{ objectFit: "cover" }} />
               <div style={{ position: "absolute", inset: 0, background: "var(--gradient-ink-veil)", opacity: 0.5 }} />
             </div>
-            <ContactForm />
+            {/* Das Formular liest ?stein= aus der URL. useSearchParams braucht
+                dafür eine Suspense-Grenze, sonst bricht der statische Build. */}
+            <Suspense fallback={<div style={{ minHeight: 420 }} />}>
+              <ContactForm />
+            </Suspense>
           </div>
         </Reveal>
       </div>
