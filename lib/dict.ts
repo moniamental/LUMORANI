@@ -179,6 +179,13 @@ const de = {
     cutHalfT: "Half & Half",
     cutHalfB: "Halb roh, halb geschliffen — der Kontrast für moderne, ausdrucksstarke Designs.",
     cutFilterCta: "Im Shop ansehen",
+    looseT: "Lose Edelsteine",
+    looseB:
+      "Diese Steine führen wir als Stein — ungeschliffen, geschliffen oder Half & Half. Nicht im Shop gelistet, sondern auf Anfrage: Verfügbarkeit, Größe und Preis hängen davon ab, was gerade da ist.",
+    looseCta: "Auf Anfrage",
+    jewelT: "Steine in unserem Schmuck",
+    jewelB:
+      "Aus diesen Steinen sind unsere Armbänder, Ketten und Ringe gefertigt. Jeder führt zu den passenden Stücken im Shop.",
     closing:
       "Diese Vielfalt macht unsere Steine ideal für Sammler, Schmuckliebhaber, Gestalter und alle, die besondere Materialien schätzen.",
   },
@@ -393,6 +400,13 @@ const en: typeof de = {
     cutHalfT: "Half & Half",
     cutHalfB: "Half raw, half faceted — the contrast for modern, expressive designs.",
     cutFilterCta: "View in shop",
+    looseT: "Loose gemstones",
+    looseB:
+      "We carry these as stones — uncut, faceted or Half & Half. Not listed in the shop but available on request: availability, size and price depend on what is in stock.",
+    looseCta: "On request",
+    jewelT: "Stones in our jewellery",
+    jewelB:
+      "Our bracelets, necklaces and rings are made from these stones. Each one leads to the matching pieces in the shop.",
     closing:
       "This variety makes our stones ideal for collectors, jewellery lovers, designers and anyone who values special materials.",
   },

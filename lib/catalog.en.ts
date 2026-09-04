@@ -70,6 +70,14 @@ export const GEM_NAME_EN: Record<string, string> = {
   Amethyst: "Amethyst",
   Aquamarin: "Aquamarine",
   Sterlingsilber: "Sterling Silver",
+  // Lose Edelsteine
+  Achat: "Agate",
+  Calcit: "Calcite",
+  Rubin: "Ruby",
+  Turmalin: "Tourmaline",
+  Smaragd: "Emerald",
+  Diamant: "Diamond",
+  Quarz: "Quartz",
 };
 
 /** Kategorielabel EN. */
@@ -143,6 +151,50 @@ export const GEM_LORE_EN: Record<string, GemLoreEN> = {
     bedeutung: "Timeless, minimalist elegance. 925 silver that goes with everything.",
     herkunft: "925 sterling silver, handcrafted.",
     pflege: "Polish with a silver cloth, store dry.",
+  },
+
+  // Loose gemstones — the second product line alongside the jewellery.
+  Achat: {
+    samir: "Agate is patient. Every band is a deposit that took millennia — which is why no two stones are alike.",
+    bedeutung: "A layered, grounding stone with a natural pattern.",
+    herkunft: "Natural agate with grown banding, raw or polished.",
+    pflege: "Lukewarm water, soft cloth. No ultrasonic cleaning.",
+  },
+  Calcit: {
+    samir: "Calcite has a calm you only notice on second look. Soft colours, nothing loud — for people who like it quiet.",
+    bedeutung: "Soft colours and a gentle, natural presence.",
+    herkunft: "Natural calcite, raw or faceted.",
+    pflege: "Soft and delicate. Store dry, wipe dry only.",
+  },
+  Rubin: {
+    samir: "With ruby it is all about colour. You have to see this deep red in daylight once — then you understand why it has always been the stone of kings.",
+    bedeutung: "Energy, courage and passion. Intensely red and powerful.",
+    herkunft: "Natural ruby, raw or cut.",
+    pflege: "Very hard and everyday-proof. Lukewarm water, soft cloth.",
+  },
+  Turmalin: {
+    samir: "Tourmaline is the most versatile stone I carry. It comes in almost every colour, sometimes two in a single crystal.",
+    bedeutung: "Colour-rich, versatile and full of life.",
+    herkunft: "Natural tourmaline in various colours, raw or cut.",
+    pflege: "Lukewarm water, soft cloth. Protect from strong heat.",
+  },
+  Smaragd: {
+    samir: "An emerald without inclusions would be suspicious. That “jardin” inside is not a flaw — it is the proof that it is real.",
+    bedeutung: "Deep green, grown structure, unmistakable character.",
+    herkunft: "Natural emerald, raw or cut. Inclusions are natural.",
+    pflege: "More delicate than it looks. Dry or soft cloth only.",
+  },
+  Diamant: {
+    samir: "The diamond needs no explanation. But raw it is almost more exciting than cut — that is when you see what nature delivered.",
+    bedeutung: "A symbol of purity, strength and timeless elegance.",
+    herkunft: "Natural diamond, raw or cut.",
+    pflege: "The hardest natural material. Lukewarm water, soft brush.",
+  },
+  Quarz: {
+    samir: "Clear quartz is my entry stone. Pure, honest, no frills — and it goes with everything.",
+    bedeutung: "Pure, clear and versatile.",
+    herkunft: "Natural quartz, raw or faceted.",
+    pflege: "Lukewarm water, soft cloth. Robust in everyday wear.",
   },
 };
 

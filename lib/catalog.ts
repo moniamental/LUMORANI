@@ -379,20 +379,101 @@ export const GEM_LORE: Record<string, GemLore> = {
     herkunft: "925er Sterlingsilber, handgefertigt.",
     pflege: "Mit Silbertuch polieren, trocken lagern.",
   },
+
+  // ————————————————————————————————————————————————
+  // Lose Edelsteine — die zweite Produktlinie neben dem Schmuck.
+  // Diese Steine führt LUMORANI als Rohstein, geschliffen oder Half & Half;
+  // sie sind nicht in den Armbändern verarbeitet. Übernommen von der
+  // Edelsteine-Seite auf lumorani.com (gelesen 04.09.2026).
+  // ————————————————————————————————————————————————
+  Achat: {
+    samir: "Achat ist geduldig. Jede Schicht ist eine Ablagerung, die Jahrtausende gebraucht hat — deshalb gleicht kein Stein dem anderen.",
+    bedeutung: "Ein schichtreicher, erdender Stein mit natürlichem Muster.",
+    herkunft: "Naturachat mit gewachsener Bänderung, roh oder poliert.",
+    pflege: "Lauwarmes Wasser, weiches Tuch. Keine Ultraschallreinigung.",
+  },
+  Calcit: {
+    samir: "Calcit hat eine Ruhe, die man erst auf den zweiten Blick sieht. Sanfte Farben, nichts Lautes — für Leute, die es leise mögen.",
+    bedeutung: "Sanfte Farben und eine weiche, natürliche Ausstrahlung.",
+    herkunft: "Naturcalcit, roh oder facettiert geschliffen.",
+    pflege: "Weich und empfindlich. Trocken lagern, nur trocken abwischen.",
+  },
+  Rubin: {
+    samir: "Beim Rubin geht es um Farbe. Dieses tiefe Rot musst du einmal im Tageslicht gesehen haben, dann verstehst du, warum er seit jeher der Stein der Könige ist.",
+    bedeutung: "Energie, Mut und Leidenschaft. Intensiv rot und kraftvoll.",
+    herkunft: "Naturrubin, roh oder geschliffen.",
+    pflege: "Sehr hart und alltagstauglich. Lauwarmes Wasser, weiches Tuch.",
+  },
+  Turmalin: {
+    samir: "Turmalin ist der vielseitigste Stein im Sortiment. Es gibt ihn in fast jeder Farbe, manchmal sogar zwei in einem Kristall.",
+    bedeutung: "Farbstark, vielseitig und voller Leben.",
+    herkunft: "Naturturmalin in verschiedenen Farbvarianten, roh oder geschliffen.",
+    pflege: "Lauwarmes Wasser, weiches Tuch. Vor starker Hitze schützen.",
+  },
+  Smaragd: {
+    samir: "Ein Smaragd ohne Einschlüsse wäre verdächtig. Dieser „Jardin“ im Inneren ist kein Makel, sondern der Beweis, dass er echt ist.",
+    bedeutung: "Tiefes Grün, gewachsene Struktur, unverwechselbarer Charakter.",
+    herkunft: "Natursmaragd, roh oder geschliffen. Einschlüsse sind natürlich.",
+    pflege: "Empfindlicher als er aussieht. Nur trocken oder mit weichem Tuch.",
+  },
+  Diamant: {
+    samir: "Der Diamant braucht keine Erklärung. Aber roh ist er fast noch spannender als geschliffen — dann sieht man, was die Natur abgeliefert hat.",
+    bedeutung: "Symbol für Reinheit, Stärke und zeitlose Eleganz.",
+    herkunft: "Naturdiamant, roh oder geschliffen.",
+    pflege: "Härtester Naturstoff. Lauwarmes Wasser, weiche Bürste.",
+  },
+  Quarz: {
+    samir: "Klarer Quarz ist mein Einstiegsstein. Rein, ehrlich, ohne Firlefanz — und er passt zu allem.",
+    bedeutung: "Rein, klar und vielseitig.",
+    herkunft: "Naturquarz, roh oder facettiert geschliffen.",
+    pflege: "Lauwarmes Wasser, weiches Tuch. Unempfindlich im Alltag.",
+  },
 };
 
-/** Steine für die Edelsteine-Seite (ohne Sterlingsilber = Material). */
-export const GEMS: Gem[] = [
-  { name: "Amazonit", description: GEM_LORE.Amazonit.bedeutung, image: P + "amazonit-armband.jpg" },
+/**
+ * LOSE EDELSTEINE — die eigenständige Produktlinie.
+ *
+ * Diese acht führt LUMORANI als Stein: ungeschliffen, geschliffen oder
+ * Half & Half. Sie stehen so auf lumorani.com/edelsteine und es sind exakt
+ * die acht, für die Firefly-Renders existieren — die Bilder wurden für
+ * diese Seite gemacht.
+ *
+ * Wichtig: Diese Steine sind NICHT im Schmuck verarbeitet. Sie tauchen
+ * deshalb nicht im Shop-Filter auf, sondern führen zur Anfrage.
+ */
+export const LOOSE_GEMS: Gem[] = [
+  { name: "Achat", description: GEM_LORE.Achat.bedeutung, image: IMGBASE + "gem-achat.png" },
+  { name: "Calcit", description: GEM_LORE.Calcit.bedeutung, image: IMGBASE + "gem-calcit.png" },
+  { name: "Rubin", description: GEM_LORE.Rubin.bedeutung, image: IMGBASE + "gem-rubin.png" },
+  { name: "Aquamarin", description: GEM_LORE.Aquamarin.bedeutung, image: IMGBASE + "gem-aquamarin.png" },
+  { name: "Turmalin", description: GEM_LORE.Turmalin.bedeutung, image: IMGBASE + "gem-turmalin.png" },
+  { name: "Smaragd", description: GEM_LORE.Smaragd.bedeutung, image: IMGBASE + "gem-smaragd.png" },
+  { name: "Diamant", description: GEM_LORE.Diamant.bedeutung, image: IMGBASE + "gem-diamant.png" },
+  { name: "Quarz", description: GEM_LORE.Quarz.bedeutung, image: IMGBASE + "gem-quarz.png" },
+];
+
+/**
+ * STEINE IM SCHMUCK — die neun, aus denen die 16 Produkte bestehen.
+ *
+ * Diese führen in den gefilterten Shop, weil es zu jedem Produkte gibt.
+ * Wo kein Bild des losen Steins vorliegt, steht ein Makro-Ausschnitt aus dem
+ * Produktbild (`-nahaufnahme`): gleiche Bildsprache, aber der Stein füllt das
+ * Bild statt des ganzen Armbands. Der Alt-Text benennt das.
+ */
+export const JEWELLERY_GEMS: Gem[] = [
+  { name: "Amazonit", description: GEM_LORE.Amazonit.bedeutung, image: P + "amazonit-nahaufnahme.jpg" },
   { name: "Lapislazuli", description: GEM_LORE.Lapislazuli.bedeutung, image: P + "lapislazuli-edelstein.jpg" },
   { name: "Malachit", description: GEM_LORE.Malachit.bedeutung, image: P + "malachit-edelstein.jpg" },
-  { name: "Hämatit", description: GEM_LORE.Hämatit.bedeutung, image: P + "haematit-armband.jpg" },
+  { name: "Hämatit", description: GEM_LORE.Hämatit.bedeutung, image: P + "haematit-nahaufnahme.jpg" },
   { name: "Rosenquarz", description: GEM_LORE.Rosenquarz.bedeutung, image: P + "rosenquarz-edelstein.jpg" },
-  { name: "Jade", description: GEM_LORE.Jade.bedeutung, image: P + "jade-armband.jpg" },
-  { name: "Tigerauge", description: GEM_LORE.Tigerauge.bedeutung, image: P + "tigerauge-armband.jpg" },
-  { name: "Amethyst", description: GEM_LORE.Amethyst.bedeutung, image: P + "amethyst-armband.jpg" },
-  { name: "Aquamarin", description: GEM_LORE.Aquamarin.bedeutung, image: P + "aquamarin-armband.jpg" },
+  { name: "Jade", description: GEM_LORE.Jade.bedeutung, image: P + "jade-nahaufnahme.jpg" },
+  { name: "Tigerauge", description: GEM_LORE.Tigerauge.bedeutung, image: P + "tigerauge-nahaufnahme.jpg" },
+  { name: "Amethyst", description: GEM_LORE.Amethyst.bedeutung, image: P + "amethyst-nahaufnahme.jpg" },
+  { name: "Aquamarin", description: GEM_LORE.Aquamarin.bedeutung, image: P + "aquamarin-nahaufnahme.jpg" },
 ];
+
+/** @deprecated Alias auf {@link JEWELLERY_GEMS} — bestehende Importe brechen nicht. */
+export const GEMS: Gem[] = JEWELLERY_GEMS;
 
 export type Voice = { name: string; quote: string };
 

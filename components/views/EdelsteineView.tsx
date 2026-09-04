@@ -3,7 +3,7 @@ import { SectionHeading } from "@/components/ds/core/SectionHeading.jsx";
 import { Card } from "@/components/ds/core/Card.jsx";
 import { GemCard } from "@/components/ds/commerce/GemCard.jsx";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
-import { GEMS, IMG, gemName, gemLoreFor, type Cut } from "@/lib/catalog";
+import { LOOSE_GEMS, JEWELLERY_GEMS, IMG, gemName, gemLoreFor, type Cut } from "@/lib/catalog";
 import { type Locale, localePath } from "@/lib/i18n";
 import { getDict } from "@/lib/dict";
 import Image from "next/image";
@@ -11,24 +11,39 @@ import Image from "next/image";
 /**
  * Ehrlicher Alt-Text für die Steinkarten.
  *
- * Für sechs der neun Steine liegt bislang kein Foto des losen Steins vor —
- * dort zeigt die Karte den Stein, wie er in einem Armband verarbeitet ist.
- * Der Alt-Text darf das nicht verschweigen: „Amazonit" als Beschreibung eines
- * Armbandfotos wäre für Screenreader schlicht falsch.
+ * Drei Bildzustände, und der Alt-Text muss jeden korrekt benennen:
  *
- * Sobald echte Fotos der losen Steine vorliegen, greift automatisch der
- * „lose"-Zweig — es ist dann nur der Dateiname im Katalog zu tauschen.
+ *   -nahaufnahme  Makro auf die Perlen eines Armbands. Zeigt Farbe und
+ *                 Oberfläche des Steins, ist aber kein loser Stein — das
+ *                 gehört in den Alt-Text, sonst beschreibt er etwas anderes,
+ *                 als zu sehen ist.
+ *   -armband      ganzes Schmuckstück im Bild.
+ *   sonst         loser Stein (Lapislazuli, Malachit, Rosenquarz).
+ *
+ * Sobald für einen Stein ein eigener Render des losen Steins vorliegt, greift
+ * der dritte Zweig automatisch — es ist nur der Dateiname im Katalog zu
+ * tauschen, hier ist nichts zu ändern.
  */
 function gemImageAlt(image: string, name: string, lang: Locale): string {
+  const nah = /-nahaufnahme/.test(image);
   const armband = /-armband/.test(image);
   if (lang === "en") {
+    if (nah) return `Close-up of ${name} beads from a LUMORANI bracelet`;
     return armband
       ? `${name} worked into a LUMORANI bracelet`
       : `Loose ${name} gemstone from LUMORANI`;
   }
+  if (nah) return `${name} in Nahaufnahme — Perlen eines LUMORANI-Armbands`;
   return armband
     ? `${name}, verarbeitet in einem Armband von LUMORANI`
     : `Loser ${name} von LUMORANI`;
+}
+
+/** Alt-Text für die losen Steine — alle liegen in der LUMORANI-Schatulle. */
+function looseGemAlt(name: string, lang: Locale): string {
+  return lang === "en"
+    ? `Loose ${name} gemstone in a LUMORANI presentation box`
+    : `Loser ${name} in der LUMORANI-Schatulle`;
 }
 
 export function EdelsteineView({ lang }: { lang: Locale }) {
@@ -76,9 +91,36 @@ export function EdelsteineView({ lang }: { lang: Locale }) {
           ))}
         </RevealGroup>
 
-        {/* Steine */}
-        <RevealGroup className="lum-grid-4" style={{ marginTop: "var(--section-y-tight)", gridAutoRows: "1fr" }} stagger={0.06}>
-          {GEMS.map((g) => (
+        {/* ——— Lose Edelsteine ——— */}
+        <Reveal style={{ marginTop: "var(--section-y)" }}>
+          <SectionHeading title={t.looseT} subtitle={t.looseB} />
+        </Reveal>
+
+        <RevealGroup className="lum-grid-4" style={{ marginTop: "var(--space-10)", gridAutoRows: "1fr" }} stagger={0.06}>
+          {LOOSE_GEMS.map((g) => (
+            <RevealItem key={g.name} style={{ height: "100%" }}>
+              {/* Diese Steine stehen nicht im Shop — der Weg führt zur Anfrage. */}
+              <Link href={localePath(lang, "/kontakt")} style={{ display: "block", height: "100%", textDecoration: "none", color: "inherit" }}>
+                <GemCard
+                  name={gemName(g.name, lang)}
+                  description={gemLoreFor(g.name, lang)?.bedeutung ?? g.description}
+                  image={g.image}
+                  imageAlt={looseGemAlt(gemName(g.name, lang), lang)}
+                  cuts={[...cutLabels, t.looseCta]}
+                  style={{ height: "100%" }}
+                />
+              </Link>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+
+        {/* ——— Steine im Schmuck ——— */}
+        <Reveal style={{ marginTop: "var(--section-y)" }}>
+          <SectionHeading title={t.jewelT} subtitle={t.jewelB} />
+        </Reveal>
+
+        <RevealGroup className="lum-grid-4" style={{ marginTop: "var(--space-10)", gridAutoRows: "1fr" }} stagger={0.06}>
+          {JEWELLERY_GEMS.map((g) => (
             <RevealItem key={g.name} style={{ height: "100%" }}>
               <Link href={localePath(lang, `/shop?stein=${encodeURIComponent(g.name)}`)} style={{ display: "block", height: "100%", textDecoration: "none", color: "inherit" }}>
                 <GemCard
@@ -86,7 +128,6 @@ export function EdelsteineView({ lang }: { lang: Locale }) {
                   description={gemLoreFor(g.name, lang)?.bedeutung ?? g.description}
                   image={g.image}
                   imageAlt={gemImageAlt(g.image, gemName(g.name, lang), lang)}
-                  cuts={cutLabels}
                   style={{ height: "100%" }}
                 />
               </Link>
